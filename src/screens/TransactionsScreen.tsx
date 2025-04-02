@@ -29,7 +29,6 @@ const TransactionsScreen: React.FC<Props> = ({ route }) => {
       const shouldUpdate = forceRefresh ||
         (localLastId && await api.checkForUpdates(accountId, localLastId));
       console.log('Calling get all transactions');
-      // const all = await database.getAllTransactions(); 
   
       // // 2. Obtener datos
       let txData: Transaction[];
