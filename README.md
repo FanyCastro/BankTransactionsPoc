@@ -20,6 +20,11 @@ yarn start
 
 ## Step 2: Build and run your app
 
+```sh 
+    node mock-api/db-generator.js > mock-api/db.json
+    npx json-server --watch mock-api/db.json --port 3004
+```
+
 With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
 
 ### Android
