@@ -22,6 +22,35 @@ DerivedData
 *.xcuserstate
 **/.xcode.env.local
 
+# React Native
+android/.gradle/
+android/app/build/
+android/build/
+ios/build/
+ios/Pods/
+ios/*.xcworkspace
+ios/*.xcodeproj/xcuserdata/
+ios/*.xcodeproj/project.xcworkspace/
+ios/*.xcuserdatad/
+
+# Entornos/Builds
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+/build/
+/dist/
+*.apk
+*.aab
+*.ipa
+*.keystore
+*.jks
+*.key
+*.p12
+*.mobileprovision
+*.pem
+
 # Android/IntelliJ
 #
 build/
@@ -41,17 +70,19 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/screenshots
-**/fastlane/test_output
+# JavaScript/TypeScript
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig
+.history/
 
 # Bundle artifact
 *.jsbundle
