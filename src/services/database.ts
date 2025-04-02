@@ -43,9 +43,9 @@ interface Database {
 
 const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
   try {
-    db = await SQLite.openDatabase({ 
-      name: DB_NAME, 
-      location: 'default'
+    db = await SQLite.openDatabase({
+      name: DB_NAME,
+      location: 'default',
     });
 
     await new Promise<void>((resolve, reject) => {
@@ -94,7 +94,7 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
             return false;
           }
         );
-      }, 
+      },
       (error) => {
         console.error('Error en transacción:', error);
         reject(error);
@@ -142,6 +142,22 @@ const getTransactionsByAccountId = async (accountId: string): Promise<Transactio
 };
 
 const getLastTransactionId = async (accountId: string): Promise<string | null> => {
+  return new Promise<string>((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT transactionId FROM transactions WHERE accountId = ? LIMIT 1;',
+        [accountId],
+        (_, results) => {
+          const transactions = results.rows.raw();
+          resolve(transactions[0]?.transactionId ?? null);
+        },
+        (_, error) => {
+          reject(new Error(`Error en consulta SQL: ${error.message}`));
+          return false;
+        }
+      );
+    });
+  });
 
 };
 

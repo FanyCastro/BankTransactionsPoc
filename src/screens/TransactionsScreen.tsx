@@ -24,9 +24,10 @@ const TransactionsScreen: React.FC<Props> = ({ route }) => {
       setLoading(true);
 
       // 1. Verificar actualizaciones
-      // const localLastId = await database.getLastTransactionId(accountId);
-      // const shouldUpdate = forceRefresh ||
-      //   (localLastId && await api.checkForUpdates(accountId, localLastId));
+      const localLastId = await database.getLastTransactionId(accountId);
+      console.log('last id ' + localLastId);
+      const shouldUpdate = forceRefresh ||
+        (localLastId && await api.checkForUpdates(accountId, localLastId));
       console.log('Calling get all transactions');
       // const all = await database.getAllTransactions(); 
   
