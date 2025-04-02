@@ -30,19 +30,20 @@ const TransactionsScreen: React.FC<Props> = ({ route }) => {
         (localLastId && await api.checkForUpdates(accountId, localLastId));
       console.log('Calling get all transactions');
   
-      // // 2. Obtener datos
+      // 2. Obtener datos
       let txData: Transaction[];
-      // if (shouldUpdate || !localLastId) {
-        // Desde API
+      console.log('Should we update transactions? ' + shouldUpdate);
+      if (shouldUpdate || !localLastId) {
+        console.log('Getting all transactions from API');
         const apiResponse = await api.fetchTransactions(accountId);
         txData = apiResponse.data;
-        console.log('Save transaction');
+        console.log('Save transaction in local storage');
         await database.saveTransactions(txData);
         setLastTxId(apiResponse.data[0]?.transactionId || null);
-      // } else {
-      //   // Desde memoria (ya cargados)
-      //   return;
-      // }
+      } else {
+        // Desde memoria (ya cargados)
+        return;
+      }
 
       // 3. Actualizar estado
       setTransactions(txData);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Account, ApiResponse, Transaction } from '../types/types';
 
-const API_BASE_URL = 'http://localhost:3004';
+const API_BASE_URL = 'http://192.168.1.52:3004';
 
 interface ApiService {
   fetchAccounts: () => Promise<Account[]>;

@@ -15,31 +15,6 @@ interface Database {
   getAllTransactions: () => Promise<Transaction[] | null>;
 }
 
-// const deleteDatabase = async (): Promise<void> => {
-//   try {
-//     if (db) {
-//       try {
-//         await db.close();
-//       } catch (closeError) {
-//         console.warn('Error cerrando la conexión:', closeError);
-//       }
-//     }
-
-//     await SQLite.deleteDatabase({
-//       name: DB_NAME,
-//       location: 'default',
-//     });
-//     console.log('Base de datos eliminada exitosamente');
-
-//   } catch (error) {
-//     console.error('Error eliminando la base de datos:', {
-//       message: error instanceof Error ? error.message : 'Error desconocido',
-//       stack: error instanceof Error ? error.stack : undefined,
-//     });
-//     throw new Error('No se pudo eliminar la base de datos');
-//   }
-// };
-
 
 const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
   try {
@@ -131,8 +106,52 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
   }
 };
 
-export const saveTransactions = async (transactions: Transaction[]): Promise<void> => {
+const saveTransactions = async (transactions: Transaction[]): Promise<void> => {
+  try {
+    if (!db) {
+      throw new Error('Database not initialized');
+    }
 
+    await new Promise<void>((resolve, reject) => {
+      db.transaction(tx => {
+        transactions.forEach(transaction => {
+          tx.executeSql(
+            `INSERT OR IGNORE INTO transactions (
+              transactionId, 
+              accountId, 
+              description, 
+              amount, 
+              currency, 
+              category, 
+              date
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+              transaction.transactionId,
+              transaction.accountId,
+              transaction.description,
+              transaction.amount,
+              transaction.currency,
+              transaction.category || null,
+              transaction.date,
+            ],
+            (_, result) => {
+              console.log(`Transacción guardada con éxito. Row ${result.rowsAffected}`);
+              resolve();
+            },
+            (_, error) => {
+              console.error('Error guardando transacción:', error);
+              reject(error);
+              return false;
+            }
+          );
+        });
+      });
+    });
+
+  } catch (error) {
+    console.error('Error en saveTransaction:', error);
+    throw error;
+  }
 };
 
 
