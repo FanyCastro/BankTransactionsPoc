@@ -1,0 +1,2291 @@
+{
+  "accounts": [
+    {
+      "accountId": "acct_1",
+      "name": "Checking Account Account",
+      "balance": "515.23",
+      "currency": "GBP"
+    },
+    {
+      "accountId": "acct_2",
+      "name": "Money Market Account Account",
+      "balance": "195.00",
+      "currency": "GBP"
+    },
+    {
+      "accountId": "acct_3",
+      "name": "Credit Card Account Account",
+      "balance": "485.57",
+      "currency": "GBP"
+    },
+    {
+      "accountId": "acct_4",
+      "name": "Credit Card Account Account",
+      "balance": "486.97",
+      "currency": "GBP"
+    },
+    {
+      "accountId": "acct_5",
+      "name": "Checking Account Account",
+      "balance": "808.65",
+      "currency": "GBP"
+    }
+  ],
+  "transactions": {
+    "data": [
+      {
+        "transactionId": "33939ecd-60f5-4183-a990-260625f05c70",
+        "accountId": "acct_1",
+        "description": "withdrawal of KGS 717.05 at Stokes Inc charged to account ending in 9763 using card ending in ****9515.",
+        "amount": "988.16",
+        "date": "2025-04-01T16:51:09.432Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "63ad0e61-0c66-43f0-ab7a-16b1dbcf57b5",
+        "accountId": "acct_1",
+        "description": "A withdrawal of COP 684.75 occurred at Schroeder, Daugherty and Smith using a card ending in ****1930 for account ***9576.",
+        "amount": "812.47",
+        "date": "2025-04-02T05:26:54.326Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c52becc2-dcb6-4831-9ce9-df07b8465677",
+        "accountId": "acct_1",
+        "description": "payment processed at Hermiston Group for BYN 688.99, using card ending ****3063. Account: ***7322.",
+        "amount": "856.83",
+        "date": "2025-04-01T16:19:57.017Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "90079f6e-e850-4f87-9310-6f4a3b53d24e",
+        "accountId": "acct_1",
+        "description": "You made a deposit of BDT 2.20 at Bayer - Franey using card ending in ****3160 from account ***2452.",
+        "amount": "251.74",
+        "date": "2025-04-01T21:25:02.117Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "0ec9b2ec-4a29-46ce-89a8-9fea11622f8c",
+        "accountId": "acct_1",
+        "description": "withdrawal at Schuppe - Turner with a card ending in ****4941 for BOB 164.77 from account ***0461.",
+        "amount": "624.24",
+        "date": "2025-04-01T11:31:17.377Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5bc44903-17d6-4284-944f-252c324a7911",
+        "accountId": "acct_1",
+        "description": "Transaction alert: withdrawal at O'Kon, Raynor and Marquardt using card ending ****8435 for an amount of SAR 773.32 on account ***8950.",
+        "amount": "971.86",
+        "date": "2025-04-02T03:33:08.117Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f2aeb4a6-dbb4-45e6-bcb1-910c7f5f78c2",
+        "accountId": "acct_1",
+        "description": "withdrawal of KRW 584.21 at Lockman, Schamberger and Krajcik charged to account ending in 3938 using card ending in ****4986.",
+        "amount": "154.01",
+        "date": "2025-04-01T13:19:11.796Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5a604c82-9616-4aff-ae27-739b963edb4b",
+        "accountId": "acct_1",
+        "description": "payment processed at Reinger Group for KPW 999.43, using card ending ****1391. Account: ***0342.",
+        "amount": "322.98",
+        "date": "2025-04-02T03:27:48.806Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c5d82bd5-3202-4111-b0b0-d4ecc4fc030d",
+        "accountId": "acct_1",
+        "description": "A payment for PKR 724.58 was made at Streich and Sons via card ending ****8799 on account ***4230.",
+        "amount": "285.27",
+        "date": "2025-04-01T09:13:11.951Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5bf2ff6d-491f-428b-9bfc-056ce0e885cc",
+        "accountId": "acct_1",
+        "description": "withdrawal confirmed at Kilback - Barrows for BZD 659.34, card ending in ****1026 associated with account ***4758.",
+        "amount": "331.31",
+        "date": "2025-04-01T08:38:10.024Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f5a3ade1-a96c-4c90-9fd4-99f39dff4950",
+        "accountId": "acct_1",
+        "description": "invoice of KWD 250.99 at Williamson - Tromp charged to account ending in 1592 using card ending in ****8425.",
+        "amount": "284.67",
+        "date": "2025-04-01T16:41:50.258Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "dc137d69-4e80-4691-981c-0ae16f2531d5",
+        "accountId": "acct_1",
+        "description": "A deposit for MVR 440.92 was made at Deckow Group via card ending ****5902 on account ***9618.",
+        "amount": "848.93",
+        "date": "2025-04-01T09:01:37.263Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "58553417-7d9f-48cf-93ea-6742c7001279",
+        "accountId": "acct_1",
+        "description": "withdrawal confirmed at Reinger, Stark and Abbott for VES 160.33, card ending in ****2076 associated with account ***6192.",
+        "amount": "466.86",
+        "date": "2025-04-01T22:16:09.785Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7f45475e-c06c-4ad4-82db-242c4170229d",
+        "accountId": "acct_1",
+        "description": "A withdrawal of MYR 853.79 occurred at Botsford, Dibbert and Runte using a card ending in ****7205 for account ***5903.",
+        "amount": "917.42",
+        "date": "2025-04-01T20:16:20.118Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d5ecc8fd-5522-4f30-8c24-f4ac928ef9b4",
+        "accountId": "acct_1",
+        "description": "withdrawal at Berge, Schroeder and Hilpert with a card ending in ****0363 for BTN 238.59 from account ***9976.",
+        "amount": "940.77",
+        "date": "2025-04-02T05:57:16.573Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "37273de6-d37a-49f4-a1ab-2171437c53a8",
+        "accountId": "acct_1",
+        "description": "A payment for VND 493.40 was made at Gutmann LLC via card ending ****0078 on account ***8709.",
+        "amount": "781.57",
+        "date": "2025-04-02T07:09:56.298Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "89a3cce3-626a-4b8d-a3d0-6e4ab5478252",
+        "accountId": "acct_1",
+        "description": "A withdrawal for VUV 348.65 was made at Lubowitz, Zieme and Walker via card ending ****4705 on account ***3026.",
+        "amount": "987.50",
+        "date": "2025-04-02T05:37:31.802Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e26a19d5-e7ee-4a27-b581-ff8c0a26cc9d",
+        "accountId": "acct_1",
+        "description": "withdrawal of MOP 620.18 at Kling - Johnston charged to account ending in 4178 using card ending in ****8449.",
+        "amount": "530.19",
+        "date": "2025-04-02T03:34:44.931Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "b971b865-ca99-4134-abb4-f152cb052ad4",
+        "accountId": "acct_1",
+        "description": "withdrawal at Cummings, Kling and Schiller with a card ending in ****8402 for MGA 284.79 from account ***8442.",
+        "amount": "561.57",
+        "date": "2025-04-02T06:49:02.522Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "fb83df98-175a-4c5f-a24c-9597a3b8c813",
+        "accountId": "acct_1",
+        "description": "A withdrawal for NZD 76.19 was made at Leffler - Mayer via card ending ****1232 on account ***3073.",
+        "amount": "688.18",
+        "date": "2025-04-01T19:46:26.343Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "464dab0b-60ec-4a5c-82a7-4f37705d0658",
+        "accountId": "acct_1",
+        "description": "payment processed at Nienow, Walsh and Hessel for UGX 796.31, using card ending ****4514. Account: ***9220.",
+        "amount": "371.47",
+        "date": "2025-04-02T06:40:48.020Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6f9d8fad-7232-47fb-9862-eeb2f7fd6b36",
+        "accountId": "acct_1",
+        "description": "deposit processed at Stiedemann - Stiedemann for VES 938.05, using card ending ****7281. Account: ***4310.",
+        "amount": "578.61",
+        "date": "2025-04-01T17:24:18.119Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "98748524-9c5d-4ef7-aa7c-67a0c18d1923",
+        "accountId": "acct_1",
+        "description": "withdrawal transaction at Dach LLC using card ending with ****8043 for EUR 258.10 in account ***7281.",
+        "amount": "159.31",
+        "date": "2025-04-02T07:24:51.121Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f9514330-6084-42c9-98e4-38231297101b",
+        "accountId": "acct_1",
+        "description": "invoice of XCD 798.36 at Osinski, Kuphal and Goodwin charged to account ending in 6534 using card ending in ****8941.",
+        "amount": "753.62",
+        "date": "2025-04-01T09:02:41.404Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7ce15b78-85c3-4090-b98c-a3748cd2532c",
+        "accountId": "acct_1",
+        "description": "withdrawal of SLE 568.29 at Fahey - Roob charged to account ending in 0625 using card ending in ****3700.",
+        "amount": "569.66",
+        "date": "2025-04-01T08:56:52.352Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "257d6947-eed8-4fc0-8180-e8d0131828c8",
+        "accountId": "acct_1",
+        "description": "Payment of IDR 88.07 for payment at Little LLC, processed with card ending ****5503 linked to account ***6102.",
+        "amount": "582.15",
+        "date": "2025-04-01T10:05:55.301Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6cd692df-b1c2-47ca-bd5c-d173c15c8f02",
+        "accountId": "acct_1",
+        "description": "You made a deposit of CVE 360.64 at O'Connell, Stehr and Kemmer using card ending in ****0884 from account ***2499.",
+        "amount": "839.41",
+        "date": "2025-04-01T12:46:01.705Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "3b6d1b43-f676-409c-9edf-10fcec1abc36",
+        "accountId": "acct_1",
+        "description": "You made a deposit of FJD 394.25 at Lind - Ruecker using card ending in ****0665 from account ***1493.",
+        "amount": "725.60",
+        "date": "2025-04-01T16:09:33.692Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "346a281a-70bd-4449-ac6c-70f4d316bf3d",
+        "accountId": "acct_1",
+        "description": "You made a payment of GMD 502.80 at Zemlak, Rempel and Jast using card ending in ****7836 from account ***6591.",
+        "amount": "732.59",
+        "date": "2025-04-01T20:04:57.381Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e46211ef-090f-47a9-bbfc-188f08b5488c",
+        "accountId": "acct_1",
+        "description": "Payment of TJS 882.72 for payment at Stroman and Sons, processed with card ending ****2578 linked to account ***3661.",
+        "amount": "225.66",
+        "date": "2025-04-02T01:43:13.642Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1ddeddf9-47b3-46b1-b1da-61a61a7ebf12",
+        "accountId": "acct_1",
+        "description": "payment confirmed at Collier and Sons for AMD 622.47, card ending in ****7220 associated with account ***1418.",
+        "amount": "943.83",
+        "date": "2025-04-02T02:51:35.026Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "4a5fc29f-29f2-429e-9d29-b24faf424273",
+        "accountId": "acct_1",
+        "description": "Your deposit of LBP 466.29 at King, Williamson and Flatley was successful. Charged via card ****5427 to account ***3326.",
+        "amount": "929.04",
+        "date": "2025-04-02T00:57:41.893Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "8af9c21e-e34e-4209-9a7f-4df73c5964d0",
+        "accountId": "acct_1",
+        "description": "invoice of PGK 764.29 at Casper Group charged to account ending in 6816 using card ending in ****5438.",
+        "amount": "496.70",
+        "date": "2025-04-01T23:16:25.500Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "174b3de0-7613-4d10-8dfd-2c29f28fe130",
+        "accountId": "acct_1",
+        "description": "A withdrawal for DJF 359.73 was made at Carter, Dach and Schmeler via card ending ****3316 on account ***6721.",
+        "amount": "102.26",
+        "date": "2025-04-02T04:26:37.716Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d867316d-5975-41ab-abbd-bd04315ac0a3",
+        "accountId": "acct_1",
+        "description": "A invoice for KGS 586.42 was made at Sawayn Group via card ending ****3011 on account ***5231.",
+        "amount": "989.39",
+        "date": "2025-04-02T00:12:31.993Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a4eb1ba9-0a9a-48ed-bfb5-6d8dcc4aa6c8",
+        "accountId": "acct_1",
+        "description": "deposit transaction at Howell Group using card ending with ****9668 for MXN 264.82 in account ***3201.",
+        "amount": "623.04",
+        "date": "2025-04-02T04:01:43.793Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "924288cd-2f95-4cec-86f1-ceed3c948dfb",
+        "accountId": "acct_1",
+        "description": "invoice processed at Lakin LLC for XCD 592.27, using card ending ****0575. Account: ***2319.",
+        "amount": "314.63",
+        "date": "2025-04-01T21:04:38.702Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "4156916e-93fb-43a1-b2ad-e5039f40a08e",
+        "accountId": "acct_1",
+        "description": "Transaction alert: withdrawal at Lesch - Dicki using card ending ****7781 for an amount of ARS 999.91 on account ***6265.",
+        "amount": "308.42",
+        "date": "2025-04-02T00:36:18.571Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5c874208-eaa4-4142-a422-1056b8580e75",
+        "accountId": "acct_1",
+        "description": "Your deposit of DJF 284.38 at Stehr Inc was successful. Charged via card ****8184 to account ***5114.",
+        "amount": "713.14",
+        "date": "2025-04-01T09:51:58.863Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "15d719db-b357-469a-baf3-417114dbd43d",
+        "accountId": "acct_1",
+        "description": "deposit of JOD 929.16 at Tremblay, Koch and Batz charged to account ending in 1539 using card ending in ****8522.",
+        "amount": "862.46",
+        "date": "2025-04-01T14:49:34.690Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "25abcf9c-587b-4088-9d2f-4c8c469171a3",
+        "accountId": "acct_1",
+        "description": "Your payment of SAR 102.02 at D'Amore, Gleichner and Halvorson was successful. Charged via card ****4537 to account ***3617.",
+        "amount": "481.23",
+        "date": "2025-04-02T00:09:24.202Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "529c14ce-a0e6-4629-b122-687c408cc7a8",
+        "accountId": "acct_1",
+        "description": "withdrawal of BHD 983.36 at Wintheiser - Wolf charged to account ending in 1849 using card ending in ****0136.",
+        "amount": "925.33",
+        "date": "2025-04-01T08:43:23.899Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "011624d0-7401-4b43-ab12-4e6afeb30921",
+        "accountId": "acct_1",
+        "description": "deposit transaction at Stroman - Gutmann using card ending with ****0424 for BAM 464.61 in account ***9939.",
+        "amount": "705.79",
+        "date": "2025-04-01T18:52:21.974Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "95e6c27d-f58c-4092-951c-1846453c3421",
+        "accountId": "acct_1",
+        "description": "You made a payment of YER 651.13 at Leffler, Nikolaus and Heaney using card ending in ****0808 from account ***5820.",
+        "amount": "165.74",
+        "date": "2025-04-01T15:15:37.755Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "3ce55a57-5e20-4243-a83c-bd9777d9aa7a",
+        "accountId": "acct_1",
+        "description": "payment confirmed at Streich - Breitenberg for CLP 752.09, card ending in ****9495 associated with account ***6848.",
+        "amount": "398.89",
+        "date": "2025-04-01T22:20:19.116Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "0fd95201-6caf-4c99-8f8f-cc3105b0069a",
+        "accountId": "acct_1",
+        "description": "You made a withdrawal of MYR 295.41 at McKenzie, Dooley and Crooks using card ending in ****1392 from account ***7002.",
+        "amount": "50.99",
+        "date": "2025-04-02T00:32:08.129Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6efd3b52-9557-4af8-9302-ff23eaf1f080",
+        "accountId": "acct_1",
+        "description": "You made a payment of KYD 857.52 at Roberts LLC using card ending in ****7870 from account ***8173.",
+        "amount": "798.92",
+        "date": "2025-04-01T10:44:24.085Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1359410f-e387-4251-88c1-7b7ce8bc1e13",
+        "accountId": "acct_1",
+        "description": "A deposit of MAD 72.51 occurred at Klocko, Reichel and Friesen using a card ending in ****4054 for account ***3732.",
+        "amount": "995.67",
+        "date": "2025-04-01T23:39:27.860Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "34a56002-c149-4e50-9338-028d1e9ab77a",
+        "accountId": "acct_1",
+        "description": "Transaction alert: withdrawal at Casper, Gulgowski and Murphy using card ending ****0071 for an amount of VUV 555.37 on account ***0731.",
+        "amount": "852.70",
+        "date": "2025-04-02T07:34:23.578Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "aa8b7a77-6865-4978-a88c-69b317a1b971",
+        "accountId": "acct_1",
+        "description": "deposit processed at Kunze, Gerhold and Strosin for CVE 615.58, using card ending ****9332. Account: ***6543.",
+        "amount": "863.33",
+        "date": "2025-04-01T13:41:13.356Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "06944234-75ff-4db3-ad05-17d137530d91",
+        "accountId": "acct_2",
+        "description": "invoice of SOS 862.28 at Balistreri - Rohan charged to account ending in 9087 using card ending in ****3036.",
+        "amount": "311.79",
+        "date": "2025-04-02T06:39:47.504Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e013bb3e-c371-463f-804f-06d5876600d7",
+        "accountId": "acct_2",
+        "description": "Payment of UGX 593.77 for payment at Emmerich Inc, processed with card ending ****1578 linked to account ***3335.",
+        "amount": "470.59",
+        "date": "2025-04-01T23:32:15.214Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "cabc46b9-0352-4902-a7e6-9fdc254be43c",
+        "accountId": "acct_2",
+        "description": "invoice at Waters, Gusikowski and Block with a card ending in ****9474 for BGN 193.29 from account ***2085.",
+        "amount": "513.55",
+        "date": "2025-04-01T19:34:18.602Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6a6a0fbc-ebe7-4e76-943c-4dafea2cd63d",
+        "accountId": "acct_2",
+        "description": "A deposit for AZN 692.94 was made at Kuphal and Sons via card ending ****1530 on account ***4627.",
+        "amount": "490.60",
+        "date": "2025-04-01T19:33:53.903Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "ae4a12ad-576e-48d2-8827-41ecdd238cd1",
+        "accountId": "acct_2",
+        "description": "withdrawal confirmed at Bosco, Rempel and Roob for WST 703.76, card ending in ****1581 associated with account ***5313.",
+        "amount": "827.60",
+        "date": "2025-04-01T19:57:00.538Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "ceffc0e8-40ce-4af9-b9da-99d0762d806c",
+        "accountId": "acct_2",
+        "description": "Your invoice of UYU 557.35 at Doyle, Luettgen and Murphy was successful. Charged via card ****0510 to account ***7686.",
+        "amount": "402.22",
+        "date": "2025-04-01T17:51:45.442Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "88131fb8-d489-4e29-922e-95aa2ade9d34",
+        "accountId": "acct_2",
+        "description": "Payment of WST 387.10 for deposit at Marquardt and Sons, processed with card ending ****6186 linked to account ***3357.",
+        "amount": "576.19",
+        "date": "2025-04-01T08:49:01.924Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "bc073395-d067-47db-bf04-a1b3054eaacb",
+        "accountId": "acct_2",
+        "description": "withdrawal of RSD 227.17 at Grimes and Sons charged to account ending in 7537 using card ending in ****2026.",
+        "amount": "870.25",
+        "date": "2025-04-01T18:27:53.300Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c10f5a26-8946-428c-b860-37d888d12b31",
+        "accountId": "acct_2",
+        "description": "Transaction alert: deposit at Blanda LLC using card ending ****5967 for an amount of MOP 148.93 on account ***6549.",
+        "amount": "215.75",
+        "date": "2025-04-02T03:18:58.204Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "eb9f42c9-4348-4779-ac62-b3247ee7d7fc",
+        "accountId": "acct_2",
+        "description": "A invoice for MOP 639.48 was made at Schumm - Raynor via card ending ****1473 on account ***0265.",
+        "amount": "199.77",
+        "date": "2025-04-02T05:34:31.900Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d89e5c37-b966-4e53-8c1d-18aaadad204a",
+        "accountId": "acct_2",
+        "description": "Transaction alert: payment at Rodriguez and Sons using card ending ****4808 for an amount of LSL 91.06 on account ***2181.",
+        "amount": "574.63",
+        "date": "2025-04-02T06:05:53.162Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a18b61ee-1a48-4821-ad35-4a8f57543d59",
+        "accountId": "acct_2",
+        "description": "payment transaction at Greenfelder and Sons using card ending with ****0904 for TOP 572.65 in account ***2424.",
+        "amount": "591.15",
+        "date": "2025-04-02T04:39:56.395Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "bad52fa9-5ee0-4608-b3dc-3d2169ef79ed",
+        "accountId": "acct_2",
+        "description": "withdrawal processed at Lebsack - Parisian for LSL 938.68, using card ending ****1115. Account: ***5600.",
+        "amount": "823.41",
+        "date": "2025-04-02T05:04:51.207Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "b585be3a-3158-4b1f-9cbe-1baaa167c476",
+        "accountId": "acct_2",
+        "description": "deposit processed at Kreiger LLC for GBP 158.50, using card ending ****8452. Account: ***6422.",
+        "amount": "431.55",
+        "date": "2025-04-02T02:25:37.709Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d63fc3f1-354d-451d-b97c-f32875e52352",
+        "accountId": "acct_2",
+        "description": "A deposit of STN 856.91 occurred at Willms, Stoltenberg and Auer using a card ending in ****9842 for account ***0643.",
+        "amount": "193.34",
+        "date": "2025-04-01T18:12:43.626Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "2d4fc5f5-e2d3-482a-8cf4-399281bfadd9",
+        "accountId": "acct_2",
+        "description": "Your withdrawal of XPF 272.97 at Hahn, Nicolas and Reichert was successful. Charged via card ****3734 to account ***9182.",
+        "amount": "45.29",
+        "date": "2025-04-01T08:45:38.058Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "adc83ded-fa9f-4393-b8da-62a25733862e",
+        "accountId": "acct_2",
+        "description": "payment confirmed at Miller - Crona for BDT 431.71, card ending in ****8187 associated with account ***2933.",
+        "amount": "422.49",
+        "date": "2025-04-01T14:13:30.775Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c326d1e4-6796-4d6a-8e52-0ad879e6d9a9",
+        "accountId": "acct_2",
+        "description": "Transaction alert: invoice at Murphy, Thompson and Schaden using card ending ****8083 for an amount of BSD 970.81 on account ***4878.",
+        "amount": "479.92",
+        "date": "2025-04-01T09:44:17.628Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9e2eb687-1ede-4bb6-bb7f-35200433b3ec",
+        "accountId": "acct_2",
+        "description": "Your withdrawal of ILS 768.05 at Bogisich - Hettinger was successful. Charged via card ****2342 to account ***6853.",
+        "amount": "133.31",
+        "date": "2025-04-02T00:12:05.017Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d8a08c1b-6596-4136-91e9-d75af7c4ba7f",
+        "accountId": "acct_2",
+        "description": "Payment of JPY 663.27 for withdrawal at Boyle Inc, processed with card ending ****9568 linked to account ***6928.",
+        "amount": "233.90",
+        "date": "2025-04-02T05:13:32.071Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c0fea78b-144d-4f2e-aba1-d02118e72dc2",
+        "accountId": "acct_2",
+        "description": "payment at Johnson - Harber with a card ending in ****8167 for IRR 959.89 from account ***1392.",
+        "amount": "657.06",
+        "date": "2025-04-01T11:42:25.901Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a5768a71-2065-49ea-8e50-de3bebded003",
+        "accountId": "acct_2",
+        "description": "Transaction alert: withdrawal at Cremin Group using card ending ****2956 for an amount of ETB 378.14 on account ***6915.",
+        "amount": "639.98",
+        "date": "2025-04-01T16:46:49.738Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "69d06458-84f7-476b-906a-76e4750011da",
+        "accountId": "acct_2",
+        "description": "Transaction alert: invoice at Daniel Group using card ending ****3117 for an amount of CVE 442.08 on account ***0765.",
+        "amount": "938.51",
+        "date": "2025-04-01T10:06:09.358Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "eff71cb4-6052-4d47-9864-282d01d0ed5c",
+        "accountId": "acct_2",
+        "description": "deposit transaction at Stark LLC using card ending with ****3218 for ZWL 635.27 in account ***0252.",
+        "amount": "920.82",
+        "date": "2025-04-01T21:17:22.390Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "0e1d844a-d1f3-47b4-89e4-b5be96666b0c",
+        "accountId": "acct_2",
+        "description": "Transaction alert: withdrawal at Walsh, Bartell and Yundt using card ending ****3360 for an amount of PLN 859.77 on account ***7106.",
+        "amount": "38.12",
+        "date": "2025-04-01T08:22:00.820Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "59280d0a-b17f-472d-a295-4d4a9052b78b",
+        "accountId": "acct_2",
+        "description": "A deposit for ANG 630.04 was made at Weimann and Sons via card ending ****1795 on account ***5596.",
+        "amount": "76.54",
+        "date": "2025-04-01T18:50:10.500Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "25e8b81d-7347-49ce-b0af-37e8b803b683",
+        "accountId": "acct_2",
+        "description": "deposit processed at Lemke - Blanda for MUR 739.75, using card ending ****9353. Account: ***5608.",
+        "amount": "724.47",
+        "date": "2025-04-01T10:37:36.756Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "583e2c12-2c43-4048-974f-9accf31ffc83",
+        "accountId": "acct_2",
+        "description": "withdrawal at Doyle - Kulas with a card ending in ****7277 for RON 293.42 from account ***7052.",
+        "amount": "310.13",
+        "date": "2025-04-01T10:03:08.048Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "ae78ecf1-27dd-4e39-860a-69fbfa9f9c5d",
+        "accountId": "acct_2",
+        "description": "Payment of BBD 599.52 for deposit at Bins, Feest and Donnelly, processed with card ending ****3627 linked to account ***1277.",
+        "amount": "637.78",
+        "date": "2025-04-01T07:52:05.216Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e4b6e6c7-bdbc-4c77-9727-773b1d3bb3d9",
+        "accountId": "acct_2",
+        "description": "withdrawal transaction at Lindgren - Zieme using card ending with ****0340 for SYP 627.06 in account ***4269.",
+        "amount": "946.16",
+        "date": "2025-04-01T09:58:22.636Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "2151552c-5a6f-40c6-b07b-2cc055fe96f0",
+        "accountId": "acct_2",
+        "description": "A deposit for MXN 368.66 was made at Gottlieb LLC via card ending ****3129 on account ***0344.",
+        "amount": "609.00",
+        "date": "2025-04-01T13:24:31.736Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9e8b07f9-8a60-4dc3-95f5-c988e499dbf9",
+        "accountId": "acct_2",
+        "description": "Transaction alert: payment at Witting - Nikolaus using card ending ****1496 for an amount of GBP 388.46 on account ***0726.",
+        "amount": "91.96",
+        "date": "2025-04-01T12:16:41.745Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "abdfc981-02e0-4062-b2ac-2df6bfb58247",
+        "accountId": "acct_2",
+        "description": "invoice of ILS 143.11 at Mitchell, Kub and Powlowski charged to account ending in 1553 using card ending in ****5644.",
+        "amount": "637.19",
+        "date": "2025-04-01T10:26:20.864Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "42c0430f-4ef2-4a95-94ff-a0f81eba208d",
+        "accountId": "acct_2",
+        "description": "A withdrawal for MZN 942.58 was made at Hansen and Sons via card ending ****0611 on account ***6038.",
+        "amount": "614.19",
+        "date": "2025-04-01T15:39:42.376Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "47989637-4109-488e-a8b6-39a351ed85af",
+        "accountId": "acct_2",
+        "description": "Transaction alert: payment at Bogisich and Sons using card ending ****8441 for an amount of GTQ 931.29 on account ***6532.",
+        "amount": "153.07",
+        "date": "2025-04-01T19:36:38.040Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "faf73d87-357f-4469-a7df-01a3635d6559",
+        "accountId": "acct_2",
+        "description": "deposit transaction at Mraz, Nolan and Medhurst using card ending with ****0215 for CLP 254.01 in account ***4038.",
+        "amount": "461.91",
+        "date": "2025-04-01T22:23:22.765Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "90bd6956-42b7-4356-852d-a5c8271fae04",
+        "accountId": "acct_2",
+        "description": "deposit processed at Larson Group for AZN 587.38, using card ending ****6579. Account: ***6368.",
+        "amount": "840.89",
+        "date": "2025-04-01T14:44:25.440Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "ac074048-bba0-4e53-af61-ec8c215a4850",
+        "accountId": "acct_2",
+        "description": "A deposit of HKD 831.24 occurred at Botsford - Herman using a card ending in ****4372 for account ***1370.",
+        "amount": "433.45",
+        "date": "2025-04-01T10:33:06.869Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6498f9a5-ba59-4402-89ae-5022bfb6a69b",
+        "accountId": "acct_2",
+        "description": "A invoice for BMD 238.19 was made at Windler - Bailey via card ending ****6532 on account ***1743.",
+        "amount": "553.33",
+        "date": "2025-04-01T10:40:52.590Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "fab18eee-8ceb-4a19-8195-40f1fa8cd8ce",
+        "accountId": "acct_2",
+        "description": "Transaction alert: withdrawal at Beier, Torphy and Friesen using card ending ****8394 for an amount of BRL 669.26 on account ***4752.",
+        "amount": "282.11",
+        "date": "2025-04-01T18:25:24.359Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "46153c21-9849-4391-b493-b4ae3b775ef8",
+        "accountId": "acct_2",
+        "description": "You made a deposit of DKK 614.82 at Pfeffer - Luettgen using card ending in ****1533 from account ***2963.",
+        "amount": "807.97",
+        "date": "2025-04-01T08:57:15.258Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e91314a2-71ff-4650-8d02-959e5f109ebb",
+        "accountId": "acct_2",
+        "description": "A payment for AMD 924.82 was made at Gutkowski - Jacobson via card ending ****6042 on account ***3710.",
+        "amount": "177.96",
+        "date": "2025-04-01T18:49:03.305Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a2ca6618-a551-4b35-931c-2f1a154452a5",
+        "accountId": "acct_2",
+        "description": "payment processed at Little, Zboncak and Kiehn for LKR 348.20, using card ending ****7661. Account: ***2180.",
+        "amount": "607.45",
+        "date": "2025-04-01T13:02:58.624Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "3e929e32-d091-4ce3-b571-cc45be5d82ba",
+        "accountId": "acct_2",
+        "description": "A deposit of LYD 138.44 occurred at Stamm LLC using a card ending in ****4213 for account ***7727.",
+        "amount": "601.06",
+        "date": "2025-04-01T14:09:16.773Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6607fd0e-6f82-46b8-8896-f16a78ff5264",
+        "accountId": "acct_2",
+        "description": "Payment of XCD 842.04 for invoice at Cummerata and Sons, processed with card ending ****5485 linked to account ***2373.",
+        "amount": "784.17",
+        "date": "2025-04-01T21:34:17.065Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "42782017-ed81-4831-b59b-6928f715e178",
+        "accountId": "acct_2",
+        "description": "deposit of ARS 23.75 at Franey, Fadel and Stamm charged to account ending in 8690 using card ending in ****8791.",
+        "amount": "546.11",
+        "date": "2025-04-02T00:07:29.445Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "8ca51d2c-e203-4e78-b0f0-dec1dd98277f",
+        "accountId": "acct_2",
+        "description": "Transaction alert: payment at Leffler, Berge and Bednar using card ending ****4320 for an amount of MWK 948.97 on account ***9843.",
+        "amount": "196.39",
+        "date": "2025-04-01T11:50:04.292Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f92adad7-1789-4769-884c-119c0c868f11",
+        "accountId": "acct_2",
+        "description": "deposit at Kuvalis, Barrows and Stehr with a card ending in ****9470 for KES 806.02 from account ***9327.",
+        "amount": "353.65",
+        "date": "2025-04-01T11:50:55.612Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7aa45d9f-7862-46bf-9f44-531fea19bb0b",
+        "accountId": "acct_2",
+        "description": "withdrawal at Bailey, Deckow and Rowe with a card ending in ****1651 for GNF 58.58 from account ***6377.",
+        "amount": "610.75",
+        "date": "2025-04-01T18:01:58.904Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "4f45aac8-fd7b-4b0b-adf2-4e0a13d9c27b",
+        "accountId": "acct_2",
+        "description": "invoice processed at Frami, Rath and Kohler for ARS 496.52, using card ending ****3323. Account: ***3793.",
+        "amount": "916.47",
+        "date": "2025-04-02T03:39:32.114Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "09e64f61-7ea6-482c-bf7c-418aa57f5e43",
+        "accountId": "acct_3",
+        "description": "Payment of SSP 556.21 for withdrawal at Moen, Bartoletti and Wilderman, processed with card ending ****3085 linked to account ***8681.",
+        "amount": "376.09",
+        "date": "2025-04-02T00:06:21.535Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "15b160dd-20bc-4f9d-9074-6317fb67dcf2",
+        "accountId": "acct_3",
+        "description": "deposit processed at Jenkins, Paucek and Langworth for BOB 334.95, using card ending ****4225. Account: ***2117.",
+        "amount": "321.13",
+        "date": "2025-04-01T19:12:49.379Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "0c989721-563a-4a64-a083-ce9a177a2ab0",
+        "accountId": "acct_3",
+        "description": "Transaction alert: withdrawal at Schinner, Parisian and Greenholt using card ending ****2685 for an amount of AWG 36.48 on account ***7780.",
+        "amount": "53.34",
+        "date": "2025-04-01T13:23:06.242Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "4eb4be4a-643f-4726-a47b-529dcb23bd6a",
+        "accountId": "acct_3",
+        "description": "Payment of RON 497.59 for payment at Schmeler - Hauck, processed with card ending ****9819 linked to account ***9729.",
+        "amount": "202.56",
+        "date": "2025-04-01T09:09:17.859Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d1b3b24a-e431-4a51-8971-f1f83d0289cc",
+        "accountId": "acct_3",
+        "description": "Transaction alert: deposit at Ratke Group using card ending ****8690 for an amount of NPR 548.82 on account ***2770.",
+        "amount": "210.11",
+        "date": "2025-04-01T17:03:56.598Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "cd6bb434-9e57-422e-8970-fb0c4a9e6b53",
+        "accountId": "acct_3",
+        "description": "invoice transaction at Bogisich, Champlin and Kuphal using card ending with ****6739 for FKP 233.54 in account ***5744.",
+        "amount": "334.63",
+        "date": "2025-04-01T11:25:30.788Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6cdbdea1-40cf-46f2-b199-ddc0169b3df5",
+        "accountId": "acct_3",
+        "description": "Payment of TWD 296.55 for payment at Spinka, Treutel and Torphy, processed with card ending ****0898 linked to account ***4841.",
+        "amount": "591.38",
+        "date": "2025-04-01T15:02:44.982Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d296b546-3bbd-4eb2-b9cd-f87658841716",
+        "accountId": "acct_3",
+        "description": "You made a withdrawal of SDG 645.08 at Wisoky - Hilll using card ending in ****7662 from account ***6660.",
+        "amount": "263.97",
+        "date": "2025-04-02T04:36:44.347Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6f71b4c9-f680-4046-88aa-f410da9c520c",
+        "accountId": "acct_3",
+        "description": "A invoice of TTD 502.16 occurred at Stracke - Gutkowski using a card ending in ****9860 for account ***0808.",
+        "amount": "988.44",
+        "date": "2025-04-01T22:32:23.643Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a982c986-9863-4294-8791-e96f59414bb6",
+        "accountId": "acct_3",
+        "description": "deposit at Friesen - Connelly with a card ending in ****5294 for BMD 180.59 from account ***1258.",
+        "amount": "442.60",
+        "date": "2025-04-01T14:45:28.127Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "10155717-05dd-40ea-8822-8fe2262609a5",
+        "accountId": "acct_3",
+        "description": "payment transaction at Erdman, Doyle and Botsford using card ending with ****0619 for MMK 608.06 in account ***4142.",
+        "amount": "724.33",
+        "date": "2025-04-01T14:48:36.578Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "92c3aa7c-33dd-4611-8313-d644fb90503c",
+        "accountId": "acct_3",
+        "description": "withdrawal processed at Dicki - Maggio for NGN 985.81, using card ending ****1189. Account: ***4727.",
+        "amount": "514.15",
+        "date": "2025-04-01T14:32:12.151Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1907559a-1b6f-4d29-91a3-96f7c5801b80",
+        "accountId": "acct_3",
+        "description": "Transaction alert: deposit at Padberg, Steuber and Dickinson using card ending ****2829 for an amount of SAR 688.82 on account ***3831.",
+        "amount": "92.88",
+        "date": "2025-04-01T10:37:40.612Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1a4c71f1-4d67-497e-8c47-7d725a89f3e0",
+        "accountId": "acct_3",
+        "description": "deposit of USD 482.42 at Mertz - Beier charged to account ending in 6359 using card ending in ****2064.",
+        "amount": "574.15",
+        "date": "2025-04-01T08:29:48.273Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d12858e5-f955-481f-9cf3-35cf091d813b",
+        "accountId": "acct_3",
+        "description": "A withdrawal for FKP 749.08 was made at McGlynn, Casper and Glover via card ending ****9525 on account ***8800.",
+        "amount": "85.62",
+        "date": "2025-04-02T04:36:02.390Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d3fc9a7f-6493-4466-a9ea-bdcef6f1a0f6",
+        "accountId": "acct_3",
+        "description": "Transaction alert: deposit at Doyle and Sons using card ending ****4111 for an amount of AED 285.69 on account ***8001.",
+        "amount": "6.17",
+        "date": "2025-04-01T16:35:09.034Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "75b39644-97d5-4681-8e7a-8486bbf23d11",
+        "accountId": "acct_3",
+        "description": "A payment for TMT 11.93 was made at Williamson Group via card ending ****2206 on account ***1782.",
+        "amount": "381.95",
+        "date": "2025-04-01T14:53:31.329Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d0722f3b-ff19-429a-ae16-d5e0c639d12d",
+        "accountId": "acct_3",
+        "description": "You made a withdrawal of MVR 921.53 at Hyatt, Leffler and Goodwin using card ending in ****8227 from account ***5861.",
+        "amount": "377.53",
+        "date": "2025-04-02T00:30:59.271Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "775e60d7-8630-4467-985a-28d597e5ca72",
+        "accountId": "acct_3",
+        "description": "deposit transaction at Lebsack, Turner and Corkery using card ending with ****4802 for CAD 155.79 in account ***7205.",
+        "amount": "936.59",
+        "date": "2025-04-01T21:46:48.614Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7d6e2bdf-467d-425d-ac8d-ff219ea05d0c",
+        "accountId": "acct_3",
+        "description": "Transaction alert: payment at Tillman Group using card ending ****8415 for an amount of TRY 313.88 on account ***7847.",
+        "amount": "401.71",
+        "date": "2025-04-02T00:54:16.712Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d44612d9-e3ac-4e93-a923-853a236a5e95",
+        "accountId": "acct_3",
+        "description": "Payment of LYD 443.31 for deposit at Ratke, Cartwright and Champlin, processed with card ending ****7858 linked to account ***6311.",
+        "amount": "95.65",
+        "date": "2025-04-01T23:22:22.087Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "4e6f3bf0-7ea9-4487-8c23-a13cfa720579",
+        "accountId": "acct_3",
+        "description": "You made a invoice of CAD 85.61 at Pagac and Sons using card ending in ****2545 from account ***9350.",
+        "amount": "897.66",
+        "date": "2025-04-02T03:32:20.216Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "21aa3ff7-81a5-4bae-8522-599822e88981",
+        "accountId": "acct_3",
+        "description": "payment transaction at Heller Inc using card ending with ****4262 for TOP 480.53 in account ***1436.",
+        "amount": "615.43",
+        "date": "2025-04-02T00:07:49.760Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "3098ac72-4eb6-4701-bc03-196fd6dab5a1",
+        "accountId": "acct_3",
+        "description": "Payment of VES 582.85 for payment at Lakin, Nolan and Ortiz, processed with card ending ****5887 linked to account ***4412.",
+        "amount": "188.25",
+        "date": "2025-04-01T09:05:00.688Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e8c5eae8-4432-4874-875a-9087700d5f7c",
+        "accountId": "acct_3",
+        "description": "A payment of UAH 763.41 occurred at Daniel, Leannon and Shanahan using a card ending in ****0409 for account ***1552.",
+        "amount": "893.13",
+        "date": "2025-04-01T19:43:25.102Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9009343f-e4e0-4b7e-9826-a1d5ace66d8b",
+        "accountId": "acct_3",
+        "description": "invoice transaction at Johns, Jast and Murphy using card ending with ****0596 for SZL 582.30 in account ***7864.",
+        "amount": "629.43",
+        "date": "2025-04-01T19:31:58.489Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1af07362-48cd-49ab-8e09-06898fbad065",
+        "accountId": "acct_3",
+        "description": "A deposit for MAD 912.41 was made at Hackett - Luettgen via card ending ****1369 on account ***3413.",
+        "amount": "443.97",
+        "date": "2025-04-01T17:10:11.551Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5a84810e-a451-4b83-b6c1-967bd149354a",
+        "accountId": "acct_3",
+        "description": "Transaction alert: payment at O'Hara, Satterfield and Orn using card ending ****2040 for an amount of MDL 992.31 on account ***6170.",
+        "amount": "467.78",
+        "date": "2025-04-01T15:53:53.705Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c80a5e72-aa6a-4254-9118-53aa1ddf4f18",
+        "accountId": "acct_3",
+        "description": "invoice of DJF 880.36 at Littel LLC charged to account ending in 4100 using card ending in ****6012.",
+        "amount": "435.88",
+        "date": "2025-04-02T04:16:00.204Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f5ea0810-0a96-41b3-98aa-22fd9b0c5767",
+        "accountId": "acct_3",
+        "description": "Transaction alert: payment at Farrell and Sons using card ending ****8229 for an amount of COP 354.84 on account ***9324.",
+        "amount": "617.37",
+        "date": "2025-04-02T03:24:29.458Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d6842495-982a-42b3-b55f-6b924381dff8",
+        "accountId": "acct_3",
+        "description": "A payment of MNT 500.86 occurred at Kemmer, Schmitt and Langworth using a card ending in ****1784 for account ***1929.",
+        "amount": "946.24",
+        "date": "2025-04-02T05:47:17.071Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "3c458c0d-c45e-4e60-9b6e-b2d2410f3fa9",
+        "accountId": "acct_3",
+        "description": "withdrawal of ERN 122.81 at Padberg, VonRueden and Nienow charged to account ending in 9370 using card ending in ****6371.",
+        "amount": "184.38",
+        "date": "2025-04-02T02:13:09.195Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "2cf9d85c-9977-4f34-84b3-a12c096ba5cf",
+        "accountId": "acct_3",
+        "description": "A deposit for GBP 770.82 was made at Padberg, King and Kuhn via card ending ****1414 on account ***6438.",
+        "amount": "177.88",
+        "date": "2025-04-01T08:12:57.694Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1e13ad17-2f99-45f0-ab73-6ce6e95966c5",
+        "accountId": "acct_3",
+        "description": "deposit of GIP 926.98 at Balistreri - Kiehn charged to account ending in 6500 using card ending in ****8739.",
+        "amount": "188.36",
+        "date": "2025-04-01T18:11:26.287Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6da1d077-4469-43b3-a250-2250c74271cb",
+        "accountId": "acct_3",
+        "description": "Your invoice of MGA 875.40 at Hirthe, Breitenberg and King was successful. Charged via card ****4030 to account ***7254.",
+        "amount": "831.12",
+        "date": "2025-04-01T23:38:27.130Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5831f22a-d92e-4081-8de6-04b55194b7ee",
+        "accountId": "acct_3",
+        "description": "Your deposit of BWP 442.25 at Strosin LLC was successful. Charged via card ****8707 to account ***5326.",
+        "amount": "80.62",
+        "date": "2025-04-01T12:07:56.726Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6c58d006-4107-4ed3-9cc9-ae498f02cd66",
+        "accountId": "acct_3",
+        "description": "Transaction alert: payment at Spencer, Hudson and Windler using card ending ****0653 for an amount of XOF 564.53 on account ***4496.",
+        "amount": "831.50",
+        "date": "2025-04-01T18:50:32.652Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c3529d5c-85d5-43f5-b790-a827fa3f8d65",
+        "accountId": "acct_3",
+        "description": "You made a payment of NZD 850.89 at Mann, Mills and Zemlak using card ending in ****9234 from account ***5870.",
+        "amount": "453.81",
+        "date": "2025-04-02T01:35:26.559Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "289c956f-85f6-4236-ab17-be4a0e4f8f17",
+        "accountId": "acct_3",
+        "description": "You made a deposit of HUF 757.01 at Thompson Inc using card ending in ****0451 from account ***0940.",
+        "amount": "68.84",
+        "date": "2025-04-02T07:00:59.490Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "8f30b394-86e1-4454-b63b-c24f2ec3df7f",
+        "accountId": "acct_3",
+        "description": "Payment of TWD 186.65 for withdrawal at O'Reilly, Moore and Sipes, processed with card ending ****8652 linked to account ***3348.",
+        "amount": "935.04",
+        "date": "2025-04-01T08:35:05.149Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6b6f235f-a86a-41a7-ae64-ee564a212342",
+        "accountId": "acct_3",
+        "description": "deposit processed at Boyle - Schuster for TOP 241.28, using card ending ****1818. Account: ***6312.",
+        "amount": "595.09",
+        "date": "2025-04-02T04:13:51.395Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e2003d9c-e15c-4ac9-82a5-860b9b9cda43",
+        "accountId": "acct_3",
+        "description": "Transaction alert: withdrawal at Christiansen LLC using card ending ****7043 for an amount of BHD 233.31 on account ***6607.",
+        "amount": "699.79",
+        "date": "2025-04-02T06:15:06.605Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "941f2906-dbc1-4662-9367-ee935c5981b1",
+        "accountId": "acct_3",
+        "description": "A deposit for KPW 258.22 was made at Anderson Group via card ending ****3104 on account ***5275.",
+        "amount": "262.00",
+        "date": "2025-04-01T16:49:16.969Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "cb2037bd-6122-4896-974b-456f05cbc6bc",
+        "accountId": "acct_3",
+        "description": "A withdrawal for AZN 991.91 was made at Zboncak Group via card ending ****0326 on account ***8346.",
+        "amount": "784.68",
+        "date": "2025-04-01T20:50:16.441Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e731d54c-867f-446a-80fc-46b95e5714e3",
+        "accountId": "acct_3",
+        "description": "You made a deposit of SCR 224.52 at Harvey - Lowe using card ending in ****9501 from account ***2454.",
+        "amount": "299.59",
+        "date": "2025-04-01T14:16:51.355Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "670fd935-5153-4e78-a3a4-46044829eaca",
+        "accountId": "acct_3",
+        "description": "Payment of AOA 973.61 for payment at Rosenbaum, Wolf and Lueilwitz, processed with card ending ****9734 linked to account ***4053.",
+        "amount": "219.60",
+        "date": "2025-04-01T21:31:57.752Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "8e57fc29-d30d-4d5e-850e-bf5b602dd832",
+        "accountId": "acct_3",
+        "description": "You made a deposit of UYU 511.46 at Sipes, Collier and Hagenes using card ending in ****8464 from account ***1403.",
+        "amount": "675.48",
+        "date": "2025-04-01T16:56:21.539Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "89a1194a-499d-488e-aa1e-e5ae05b6f478",
+        "accountId": "acct_3",
+        "description": "deposit processed at Corwin Inc for VND 335.97, using card ending ****7345. Account: ***1329.",
+        "amount": "181.81",
+        "date": "2025-04-02T06:33:10.188Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "b6e46685-d951-4481-980b-a43b4d8f954d",
+        "accountId": "acct_3",
+        "description": "withdrawal of SDG 886.20 at Daugherty LLC charged to account ending in 5379 using card ending in ****9434.",
+        "amount": "660.44",
+        "date": "2025-04-02T01:54:07.508Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "cc92c199-270c-4e7d-800f-242d251acf12",
+        "accountId": "acct_3",
+        "description": "deposit processed at Schmeler, Nikolaus and Crona for FJD 713.59, using card ending ****6016. Account: ***3177.",
+        "amount": "598.68",
+        "date": "2025-04-01T17:57:07.086Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "44f6aa6b-7436-4626-9279-04b65c8500b2",
+        "accountId": "acct_4",
+        "description": "You made a withdrawal of DJF 655.67 at Mraz and Sons using card ending in ****7297 from account ***4171.",
+        "amount": "76.84",
+        "date": "2025-04-01T20:26:10.957Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "483f2faa-6935-4970-a214-2c5f7edccc6c",
+        "accountId": "acct_4",
+        "description": "You made a withdrawal of AWG 877.58 at Mitchell - Goyette using card ending in ****9566 from account ***2043.",
+        "amount": "473.88",
+        "date": "2025-04-02T05:35:49.982Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "eb636e62-d696-4aab-9bd2-5097892ca7e9",
+        "accountId": "acct_4",
+        "description": "invoice of KPW 620.59 at Wolff, Dietrich and Schulist charged to account ending in 8341 using card ending in ****5194.",
+        "amount": "337.50",
+        "date": "2025-04-01T10:27:13.150Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f35445d6-0eb6-4898-84a9-7d53482a718d",
+        "accountId": "acct_4",
+        "description": "withdrawal transaction at Roob, Parisian and Wolf using card ending with ****6208 for RSD 122.53 in account ***3398.",
+        "amount": "434.60",
+        "date": "2025-04-01T16:04:38.606Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "893155fc-5a1a-4505-9bab-7933f4d02a30",
+        "accountId": "acct_4",
+        "description": "You made a payment of NPR 967.41 at Wunsch, Gutmann and Bradtke using card ending in ****5864 from account ***9561.",
+        "amount": "455.21",
+        "date": "2025-04-01T21:56:38.838Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e5e7b6b8-f770-400d-b60a-84e023633c33",
+        "accountId": "acct_4",
+        "description": "withdrawal transaction at Orn - Heller using card ending with ****8160 for SEK 849.97 in account ***9535.",
+        "amount": "852.12",
+        "date": "2025-04-01T22:59:13.519Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9ee2e003-da13-4e6b-989c-4f3a909ae81f",
+        "accountId": "acct_4",
+        "description": "invoice transaction at Denesik - Bergnaum using card ending with ****9287 for OMR 616.61 in account ***4964.",
+        "amount": "851.10",
+        "date": "2025-04-01T19:27:51.022Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "62bfb8ca-acd2-40c6-97ad-c6d65a35bc69",
+        "accountId": "acct_4",
+        "description": "You made a deposit of BWP 97.52 at King - Feil using card ending in ****2718 from account ***6951.",
+        "amount": "507.12",
+        "date": "2025-04-01T11:37:56.681Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6ed46d4d-2d9d-4346-8ba2-55c4005fbfe5",
+        "accountId": "acct_4",
+        "description": "A payment of PGK 413.98 occurred at Hansen - Spencer using a card ending in ****3417 for account ***8580.",
+        "amount": "744.58",
+        "date": "2025-04-02T06:36:45.415Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f997f610-6abc-4fb9-aebf-2284fde110de",
+        "accountId": "acct_4",
+        "description": "Transaction alert: payment at Paucek, Turner and Mohr using card ending ****9117 for an amount of DZD 907.02 on account ***0529.",
+        "amount": "152.29",
+        "date": "2025-04-02T02:20:56.959Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "77e9f674-ec70-4b00-81d7-8f0ad68551fc",
+        "accountId": "acct_4",
+        "description": "payment confirmed at Mayert, Tremblay and Cummerata for SYP 922.02, card ending in ****6624 associated with account ***5319.",
+        "amount": "342.79",
+        "date": "2025-04-01T23:37:39.041Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "54fd11bf-5a10-4c77-b5fb-6dd7926fbf02",
+        "accountId": "acct_4",
+        "description": "deposit confirmed at Tillman LLC for PAB 241.48, card ending in ****4089 associated with account ***3165.",
+        "amount": "98.75",
+        "date": "2025-04-01T08:31:33.442Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "b037634d-5c1b-463d-82fd-3a90e1955f63",
+        "accountId": "acct_4",
+        "description": "payment processed at Rosenbaum and Sons for MKD 919.46, using card ending ****1927. Account: ***8118.",
+        "amount": "866.17",
+        "date": "2025-04-01T21:23:32.532Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "dc0a6cb6-544e-4734-a254-b2d0ac9aedae",
+        "accountId": "acct_4",
+        "description": "You made a payment of BND 700.93 at Carter - Weimann using card ending in ****9455 from account ***5905.",
+        "amount": "956.52",
+        "date": "2025-04-01T09:24:17.924Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "48f92f60-949c-4b3d-98a4-8efd91f50163",
+        "accountId": "acct_4",
+        "description": "Your withdrawal of DJF 313.56 at Hodkiewicz, Kilback and Heathcote was successful. Charged via card ****2907 to account ***0195.",
+        "amount": "364.47",
+        "date": "2025-04-02T02:30:31.212Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "08a788a9-7185-4474-b3cd-c78f81dac963",
+        "accountId": "acct_4",
+        "description": "A deposit for XOF 647.07 was made at McCullough Inc via card ending ****8068 on account ***3113.",
+        "amount": "284.10",
+        "date": "2025-04-01T17:02:39.087Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "11e0c65e-3221-4ab6-9f3a-66cf875a82c7",
+        "accountId": "acct_4",
+        "description": "payment processed at Borer Group for BMD 583.22, using card ending ****7893. Account: ***5648.",
+        "amount": "440.12",
+        "date": "2025-04-01T20:58:46.849Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "82806ab0-f2ed-451a-906f-9275be9ceb9d",
+        "accountId": "acct_4",
+        "description": "withdrawal of FJD 776.43 at Nienow LLC charged to account ending in 4206 using card ending in ****8920.",
+        "amount": "538.57",
+        "date": "2025-04-01T18:17:10.428Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1d3c604b-4a8c-41db-9d33-d82376d0bfff",
+        "accountId": "acct_4",
+        "description": "deposit confirmed at Renner, Waters and Volkman for IDR 958.83, card ending in ****6097 associated with account ***7298.",
+        "amount": "529.03",
+        "date": "2025-04-01T13:50:40.102Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "3898d336-cd35-4360-bd31-cdada23b6f38",
+        "accountId": "acct_4",
+        "description": "A invoice of CZK 555.32 occurred at Walker, Nikolaus and Marvin using a card ending in ****5506 for account ***6133.",
+        "amount": "964.69",
+        "date": "2025-04-01T13:31:03.475Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "267a45d6-d623-4c05-b19c-211f21e7488b",
+        "accountId": "acct_4",
+        "description": "A withdrawal of CRC 785.25 occurred at Shields, Ondricka and Dickens using a card ending in ****8402 for account ***8644.",
+        "amount": "139.84",
+        "date": "2025-04-02T03:06:03.059Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f24be2f2-3b1c-4a5b-8984-fd0e6aa75f0d",
+        "accountId": "acct_4",
+        "description": "A invoice of BSD 584.87 occurred at Bogan, Jacobson and Hahn using a card ending in ****6366 for account ***3797.",
+        "amount": "449.94",
+        "date": "2025-04-01T23:38:51.666Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "524c0c64-e926-4623-8cad-31e2a1ea21a3",
+        "accountId": "acct_4",
+        "description": "payment transaction at Stokes and Sons using card ending with ****2666 for MRU 973.76 in account ***0429.",
+        "amount": "367.82",
+        "date": "2025-04-02T00:56:50.545Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d55f5391-3e24-4bb5-977c-9ad2d0c6d032",
+        "accountId": "acct_4",
+        "description": "A payment for HNL 511.39 was made at McGlynn, Hackett and Klein via card ending ****8559 on account ***7440.",
+        "amount": "491.71",
+        "date": "2025-04-01T22:40:42.082Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "3d7bba19-bc32-4553-a709-c3de0a011a4d",
+        "accountId": "acct_4",
+        "description": "You made a invoice of PKR 500.86 at Parisian - McCullough using card ending in ****4529 from account ***9439.",
+        "amount": "467.11",
+        "date": "2025-04-01T09:46:05.541Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d7f63415-b7ad-4643-92f1-2081d13d11d2",
+        "accountId": "acct_4",
+        "description": "Your invoice of MRU 276.10 at O'Hara LLC was successful. Charged via card ****8940 to account ***4728.",
+        "amount": "984.97",
+        "date": "2025-04-02T03:14:53.729Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "789ab076-cca0-4775-b077-f913ffca74a0",
+        "accountId": "acct_4",
+        "description": "You made a deposit of PEN 179.20 at Brekke Inc using card ending in ****1919 from account ***7786.",
+        "amount": "147.62",
+        "date": "2025-04-01T10:43:15.980Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d465bb7f-25f3-4bde-af2b-deee229550a1",
+        "accountId": "acct_4",
+        "description": "invoice transaction at Dickens - Mayert using card ending with ****9279 for CLP 927.96 in account ***1844.",
+        "amount": "121.01",
+        "date": "2025-04-02T07:17:14.495Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "373968b1-cff4-4fef-a636-67bb02ccbd60",
+        "accountId": "acct_4",
+        "description": "A payment for COP 378.87 was made at Greenholt - Collins via card ending ****8925 on account ***7099.",
+        "amount": "391.50",
+        "date": "2025-04-01T20:14:12.453Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "d2dd3ee4-4c34-4b58-9342-213f73e2bff2",
+        "accountId": "acct_4",
+        "description": "A payment of AFN 161.19 occurred at Nienow - Cronin using a card ending in ****0484 for account ***8833.",
+        "amount": "849.05",
+        "date": "2025-04-01T13:51:03.685Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9f681b05-ae5a-4ffd-818d-bd037aaad99f",
+        "accountId": "acct_4",
+        "description": "deposit confirmed at Thompson - Waters for FJD 497.61, card ending in ****1063 associated with account ***1763.",
+        "amount": "24.93",
+        "date": "2025-04-01T18:47:44.976Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a2b7e78c-08a1-44c6-8362-fdcbc3dcff71",
+        "accountId": "acct_4",
+        "description": "A payment of BIF 635.21 occurred at Weimann LLC using a card ending in ****5293 for account ***6719.",
+        "amount": "948.21",
+        "date": "2025-04-02T02:30:30.293Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "29f17b7c-9d0c-486b-b407-18141ef3e349",
+        "accountId": "acct_4",
+        "description": "deposit at Sipes Group with a card ending in ****2630 for BAM 92.05 from account ***5030.",
+        "amount": "650.78",
+        "date": "2025-04-01T22:01:52.415Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "475c693f-d63d-4787-b148-54b0fd6f8e14",
+        "accountId": "acct_4",
+        "description": "withdrawal of TWD 592.45 at Raynor, Schmeler and Marquardt charged to account ending in 4277 using card ending in ****5881.",
+        "amount": "444.14",
+        "date": "2025-04-02T01:35:08.394Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "b4c13503-3d8e-4ccc-ab7c-708c9001e9fe",
+        "accountId": "acct_4",
+        "description": "Payment of KYD 887.16 for deposit at Renner - Armstrong, processed with card ending ****4942 linked to account ***6322.",
+        "amount": "679.30",
+        "date": "2025-04-01T15:21:19.298Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "2c08b4e5-d691-43e6-bda2-52e4b3690fbb",
+        "accountId": "acct_4",
+        "description": "deposit transaction at Stiedemann Inc using card ending with ****6018 for IDR 897.89 in account ***9290.",
+        "amount": "403.17",
+        "date": "2025-04-02T01:18:21.788Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f49cae2a-faea-473f-8e51-2a3764f1dc75",
+        "accountId": "acct_4",
+        "description": "A invoice for AWG 184.09 was made at Orn - Turner via card ending ****0513 on account ***3421.",
+        "amount": "951.47",
+        "date": "2025-04-02T03:38:07.552Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f6e0627b-ea0c-480f-bc8b-d302b7f87d7d",
+        "accountId": "acct_4",
+        "description": "A withdrawal of MMK 364.22 occurred at Wisoky, Frami and Olson using a card ending in ****5564 for account ***8437.",
+        "amount": "308.16",
+        "date": "2025-04-01T13:13:43.948Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "ecd51f3c-2d69-4497-b986-ea0ea78408b4",
+        "accountId": "acct_4",
+        "description": "A invoice of THB 868.46 occurred at Pfannerstill - Gleichner using a card ending in ****7998 for account ***5062.",
+        "amount": "833.14",
+        "date": "2025-04-01T13:57:05.958Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9b6d01f0-eac7-4995-b44c-1f0ee692ee37",
+        "accountId": "acct_4",
+        "description": "Transaction alert: payment at Jacobson Inc using card ending ****0864 for an amount of NAD 355.55 on account ***1927.",
+        "amount": "982.30",
+        "date": "2025-04-02T06:49:19.915Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9d28cf98-382e-49b3-92fa-59a5db587d7c",
+        "accountId": "acct_4",
+        "description": "deposit processed at Lindgren Inc for HNL 593.41, using card ending ****4541. Account: ***0016.",
+        "amount": "10.88",
+        "date": "2025-04-02T03:12:00.269Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5ffc5b38-cd66-4173-9bf3-284d9e12e5a0",
+        "accountId": "acct_4",
+        "description": "A deposit for SRD 412.62 was made at Jast and Sons via card ending ****9273 on account ***3794.",
+        "amount": "796.22",
+        "date": "2025-04-02T02:20:08.339Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a1398870-253e-433a-bcd1-b90bd80d1804",
+        "accountId": "acct_4",
+        "description": "A invoice of KHR 667.35 occurred at Gerlach - Harris using a card ending in ****4617 for account ***1675.",
+        "amount": "333.36",
+        "date": "2025-04-01T15:33:23.998Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "85f8b2f8-7d27-4587-a3fa-7d6703a1c85c",
+        "accountId": "acct_4",
+        "description": "You made a withdrawal of BDT 683.95 at Renner - Balistreri using card ending in ****8909 from account ***7730.",
+        "amount": "931.89",
+        "date": "2025-04-02T02:35:09.146Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "13f453dd-4bff-4b6b-9aa0-641d7c46b8cc",
+        "accountId": "acct_4",
+        "description": "invoice confirmed at VonRueden - Mertz for ZWL 289.78, card ending in ****4873 associated with account ***8463.",
+        "amount": "778.30",
+        "date": "2025-04-01T10:44:25.950Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f1622397-7529-4d11-82af-9ee016b5917d",
+        "accountId": "acct_4",
+        "description": "You made a withdrawal of ILS 645.64 at Abshire - Hermiston using card ending in ****8027 from account ***1594.",
+        "amount": "289.24",
+        "date": "2025-04-01T18:47:18.723Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "600b96c3-b6fc-4280-aca5-7911ec07be5d",
+        "accountId": "acct_4",
+        "description": "A deposit of AOA 807.95 occurred at Hermann, Heaney and McCullough using a card ending in ****1715 for account ***7654.",
+        "amount": "986.64",
+        "date": "2025-04-01T08:37:04.864Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "41c0da08-be49-405b-8e99-6a51eae12c70",
+        "accountId": "acct_4",
+        "description": "Transaction alert: deposit at Murazik, Rath and Parker using card ending ****8205 for an amount of CDF 79.81 on account ***8308.",
+        "amount": "57.27",
+        "date": "2025-04-01T10:41:08.404Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a4ae6c8e-c86d-4795-848b-facd4741c7fd",
+        "accountId": "acct_4",
+        "description": "deposit processed at Macejkovic and Sons for BND 198.10, using card ending ****8646. Account: ***6956.",
+        "amount": "598.88",
+        "date": "2025-04-01T13:59:02.726Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7371c961-a5e9-43cf-9345-597afacddc6c",
+        "accountId": "acct_4",
+        "description": "A invoice of SBD 573.39 occurred at Prosacco Inc using a card ending in ****4618 for account ***0333.",
+        "amount": "22.30",
+        "date": "2025-04-02T02:44:38.685Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7b0986ef-a108-416a-81bf-2b702251c99a",
+        "accountId": "acct_5",
+        "description": "A invoice of KPW 214.62 occurred at Fritsch, White and Casper using a card ending in ****1892 for account ***9472.",
+        "amount": "507.11",
+        "date": "2025-04-02T00:17:59.916Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "4a2f2894-8ca0-48e6-aa92-a62ea26c9dc0",
+        "accountId": "acct_5",
+        "description": "payment at Schuppe, DuBuque and Kshlerin with a card ending in ****7145 for SLE 439.97 from account ***7251.",
+        "amount": "65.40",
+        "date": "2025-04-01T07:41:27.713Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "8ff8b226-5d21-42b7-8dd4-68038b92afb0",
+        "accountId": "acct_5",
+        "description": "payment transaction at Powlowski, Homenick and Yundt using card ending with ****0420 for AED 888.93 in account ***5308.",
+        "amount": "229.48",
+        "date": "2025-04-01T13:36:23.420Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "60cdf3a7-7e38-4799-a0f6-dd1db516f81c",
+        "accountId": "acct_5",
+        "description": "invoice at Little LLC with a card ending in ****8658 for BIF 435.42 from account ***0414.",
+        "amount": "424.97",
+        "date": "2025-04-01T17:44:41.592Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f11c22af-abd3-433a-9629-8ba584d5ecb8",
+        "accountId": "acct_5",
+        "description": "withdrawal processed at Lueilwitz Group for UGX 264.82, using card ending ****8886. Account: ***6057.",
+        "amount": "608.57",
+        "date": "2025-04-01T08:13:37.871Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7b15d684-c898-400e-9cce-a7a5926aa685",
+        "accountId": "acct_5",
+        "description": "withdrawal confirmed at Armstrong Inc for KHR 852.77, card ending in ****7776 associated with account ***5389.",
+        "amount": "816.93",
+        "date": "2025-04-01T11:36:12.785Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "eddb826b-4501-4b53-8e9f-e3977602843a",
+        "accountId": "acct_5",
+        "description": "withdrawal of TWD 226.00 at Schulist, Mills and Bashirian charged to account ending in 8596 using card ending in ****3029.",
+        "amount": "62.73",
+        "date": "2025-04-01T14:00:18.544Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e9f1ec6a-2ff1-41ea-ae11-2257387566ec",
+        "accountId": "acct_5",
+        "description": "invoice at Windler, Stroman and Gusikowski with a card ending in ****4092 for BHD 567.16 from account ***7764.",
+        "amount": "590.19",
+        "date": "2025-04-01T12:33:01.108Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c0e60488-c547-4979-8bc1-e3a5052c47f1",
+        "accountId": "acct_5",
+        "description": "deposit at Satterfield, Zemlak and Becker with a card ending in ****5099 for AED 136.34 from account ***7724.",
+        "amount": "543.77",
+        "date": "2025-04-02T02:41:49.363Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1234b123-8a16-4b5b-a3c6-69994e4147d9",
+        "accountId": "acct_5",
+        "description": "deposit confirmed at Jones, Kub and Tremblay for MDL 215.49, card ending in ****0535 associated with account ***6076.",
+        "amount": "927.96",
+        "date": "2025-04-01T17:39:09.976Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "584f17c3-a46e-4c5a-8185-e140cf4fddd4",
+        "accountId": "acct_5",
+        "description": "withdrawal transaction at Schamberger, Cronin and Jacobi using card ending with ****4247 for BIF 155.98 in account ***8560.",
+        "amount": "85.63",
+        "date": "2025-04-01T12:11:36.466Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f6e37495-1953-48ca-a85c-c4f33a242a53",
+        "accountId": "acct_5",
+        "description": "Payment of BDT 138.84 for payment at O'Reilly - Rohan, processed with card ending ****8055 linked to account ***5956.",
+        "amount": "286.94",
+        "date": "2025-04-01T22:26:48.415Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "0961bd3f-41ca-40c5-a2b6-24f359c08eb6",
+        "accountId": "acct_5",
+        "description": "payment transaction at Langworth - Beahan using card ending with ****6923 for PYG 828.50 in account ***8637.",
+        "amount": "922.79",
+        "date": "2025-04-01T13:19:16.837Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c2f77bb8-cd54-4894-8024-6cfcced606a0",
+        "accountId": "acct_5",
+        "description": "withdrawal of NAD 206.20 at Kautzer Inc charged to account ending in 4215 using card ending in ****6581.",
+        "amount": "374.15",
+        "date": "2025-04-02T02:57:50.710Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "491dc808-5205-462b-88d8-e86b14e18d3a",
+        "accountId": "acct_5",
+        "description": "payment transaction at Schowalter Group using card ending with ****1116 for AMD 915.74 in account ***6657.",
+        "amount": "923.06",
+        "date": "2025-04-01T20:40:40.688Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "6f1e4582-f32d-42f0-bf59-531e8a7890b2",
+        "accountId": "acct_5",
+        "description": "Transaction alert: invoice at Halvorson - Schamberger using card ending ****9341 for an amount of PHP 167.07 on account ***3310.",
+        "amount": "189.42",
+        "date": "2025-04-02T02:39:16.639Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "2e3515ba-1c95-4c46-81c5-880b2d967a94",
+        "accountId": "acct_5",
+        "description": "invoice at Spencer, McDermott and Wilderman with a card ending in ****8545 for NOK 494.23 from account ***6653.",
+        "amount": "863.76",
+        "date": "2025-04-02T06:18:55.615Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "2a089c51-ca9e-40fb-93bb-37961e14cecc",
+        "accountId": "acct_5",
+        "description": "withdrawal of MUR 317.11 at Yost - Heaney charged to account ending in 1684 using card ending in ****6584.",
+        "amount": "974.53",
+        "date": "2025-04-01T20:18:26.643Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "554ecd30-7f09-4ff5-8352-7a1eeebcfb8a",
+        "accountId": "acct_5",
+        "description": "invoice confirmed at Moore, Lemke and Thiel for UYU 780.81, card ending in ****7458 associated with account ***4289.",
+        "amount": "244.22",
+        "date": "2025-04-01T22:47:21.203Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f116733e-ee34-45c5-ab57-85bde1fb506c",
+        "accountId": "acct_5",
+        "description": "invoice confirmed at Rolfson - Considine for BGN 530.19, card ending in ****9224 associated with account ***3616.",
+        "amount": "243.07",
+        "date": "2025-04-01T21:42:42.662Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "75c9a26e-368d-4f25-81b6-cbf6488c7e65",
+        "accountId": "acct_5",
+        "description": "withdrawal transaction at Mayert, Dickens and Cummings using card ending with ****0566 for LBP 580.78 in account ***4536.",
+        "amount": "810.42",
+        "date": "2025-04-01T07:57:15.412Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9efafe5d-3373-4820-a9e2-580e436441d1",
+        "accountId": "acct_5",
+        "description": "Your deposit of RSD 624.84 at Volkman, Sporer and Parisian was successful. Charged via card ****2138 to account ***2211.",
+        "amount": "138.75",
+        "date": "2025-04-01T17:24:05.327Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a5267558-de6f-4d35-bff3-507dace7c098",
+        "accountId": "acct_5",
+        "description": "payment confirmed at Kovacek - Pacocha for DKK 826.07, card ending in ****7527 associated with account ***7205.",
+        "amount": "412.95",
+        "date": "2025-04-02T07:25:53.147Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "c42f6b84-0a84-48bc-84f9-799dfc0edb9e",
+        "accountId": "acct_5",
+        "description": "Payment of XPF 441.32 for withdrawal at Huel Inc, processed with card ending ****7676 linked to account ***2007.",
+        "amount": "784.90",
+        "date": "2025-04-01T18:11:54.904Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "ec7d7010-4e54-498c-8a16-38b4021150db",
+        "accountId": "acct_5",
+        "description": "invoice of MVR 555.09 at Okuneva - Herman charged to account ending in 9085 using card ending in ****3647.",
+        "amount": "109.92",
+        "date": "2025-04-01T23:40:25.668Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1fba4cc2-af9f-4d03-9e4d-4b2881151735",
+        "accountId": "acct_5",
+        "description": "A payment of BHD 25.37 occurred at Cassin Group using a card ending in ****1822 for account ***6055.",
+        "amount": "118.87",
+        "date": "2025-04-02T00:44:05.252Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e122004e-da43-482a-8ee5-e3a1ed1e74fe",
+        "accountId": "acct_5",
+        "description": "A invoice of TJS 143.44 occurred at Toy and Sons using a card ending in ****7210 for account ***0295.",
+        "amount": "234.14",
+        "date": "2025-04-02T02:02:49.578Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "9c22ac3b-c09a-4100-825f-8b501b59ecbd",
+        "accountId": "acct_5",
+        "description": "invoice of BYN 923.55 at Volkman Inc charged to account ending in 5499 using card ending in ****5183.",
+        "amount": "232.50",
+        "date": "2025-04-02T00:14:26.830Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "8ef81a5b-ef72-4665-980b-84c380f89a7f",
+        "accountId": "acct_5",
+        "description": "A withdrawal of NPR 602.07 occurred at MacGyver Inc using a card ending in ****5988 for account ***9980.",
+        "amount": "738.92",
+        "date": "2025-04-01T18:15:06.361Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "98a06be9-137e-4b42-adb5-a5aef64d9e30",
+        "accountId": "acct_5",
+        "description": "payment of YER 483.17 at O'Reilly - Gorczany charged to account ending in 8324 using card ending in ****9882.",
+        "amount": "880.03",
+        "date": "2025-04-01T11:40:35.961Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "e2959808-b4de-4c87-b38d-0a50f5ff07ab",
+        "accountId": "acct_5",
+        "description": "payment transaction at Schamberger - Gutmann using card ending with ****0253 for DZD 606.47 in account ***1289.",
+        "amount": "362.84",
+        "date": "2025-04-01T18:17:23.203Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "06485c5a-3504-460d-9a6b-a67b59371b28",
+        "accountId": "acct_5",
+        "description": "A payment for NZD 250.50 was made at VonRueden, Kessler and Tromp via card ending ****0112 on account ***7329.",
+        "amount": "383.01",
+        "date": "2025-04-02T06:38:29.580Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "fb0202f6-b993-4fb1-8e55-0404a2feee51",
+        "accountId": "acct_5",
+        "description": "invoice of EGP 635.62 at Daniel - Gleason charged to account ending in 3286 using card ending in ****0314.",
+        "amount": "285.31",
+        "date": "2025-04-02T07:04:30.754Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "bbd37477-3cea-40f2-b12e-44469f315bc5",
+        "accountId": "acct_5",
+        "description": "A invoice of MAD 264.92 occurred at O'Kon Group using a card ending in ****7885 for account ***7628.",
+        "amount": "191.23",
+        "date": "2025-04-02T04:32:17.410Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "eec01446-cc3f-4a0d-a508-9b46b737dffe",
+        "accountId": "acct_5",
+        "description": "A deposit for TRY 934.17 was made at Bode Inc via card ending ****5043 on account ***4251.",
+        "amount": "632.27",
+        "date": "2025-04-02T01:24:04.463Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "aae3bd8f-662c-43de-bd2f-327e4363af22",
+        "accountId": "acct_5",
+        "description": "payment processed at Pacocha, Wolf and O'Conner for DZD 915.26, using card ending ****3167. Account: ***8143.",
+        "amount": "188.96",
+        "date": "2025-04-02T05:06:56.162Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7ebfb85d-e6c2-4188-9528-ef1f4a99183a",
+        "accountId": "acct_5",
+        "description": "Your invoice of ZAR 630.45 at McDermott, Thiel and Oberbrunner was successful. Charged via card ****0295 to account ***4734.",
+        "amount": "683.33",
+        "date": "2025-04-01T09:49:23.345Z",
+        "category": "income",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "dea97412-5d4e-4217-bd94-64983aac1f9f",
+        "accountId": "acct_5",
+        "description": "deposit confirmed at Fahey - Crooks for TJS 479.18, card ending in ****8220 associated with account ***4874.",
+        "amount": "830.76",
+        "date": "2025-04-01T12:57:14.854Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "5f0be0e3-b9c8-4626-80a9-1a826e6bb3bf",
+        "accountId": "acct_5",
+        "description": "A invoice for TMT 541.39 was made at Rodriguez, Dare and Rippin via card ending ****4484 on account ***5746.",
+        "amount": "670.61",
+        "date": "2025-04-01T08:02:48.799Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "572cecb5-7de7-45de-b57b-a76747766c06",
+        "accountId": "acct_5",
+        "description": "withdrawal at Emard Inc with a card ending in ****9601 for MKD 931.02 from account ***4892.",
+        "amount": "609.98",
+        "date": "2025-04-01T22:45:52.553Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "da1701b7-f9d6-4266-8a25-67b90364d525",
+        "accountId": "acct_5",
+        "description": "Your payment of USD 223.48 at McLaughlin LLC was successful. Charged via card ****7924 to account ***5296.",
+        "amount": "912.98",
+        "date": "2025-04-02T00:01:06.690Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a79b0602-5cf6-4e27-bc57-aa7b66e68e1b",
+        "accountId": "acct_5",
+        "description": "Your deposit of ZMW 18.84 at Morissette Inc was successful. Charged via card ****9595 to account ***2189.",
+        "amount": "308.28",
+        "date": "2025-04-01T17:00:41.350Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "1acd390f-26a3-4b4e-b303-5baabb0f0eed",
+        "accountId": "acct_5",
+        "description": "invoice at Turcotte, Connelly and Runte with a card ending in ****2503 for UGX 54.49 from account ***0559.",
+        "amount": "879.03",
+        "date": "2025-04-02T06:44:09.632Z",
+        "category": "food",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "336b01ee-7561-4903-a037-531051cb4d78",
+        "accountId": "acct_5",
+        "description": "You made a payment of SOS 231.89 at Hessel Group using card ending in ****9935 from account ***1391.",
+        "amount": "542.13",
+        "date": "2025-04-01T21:07:07.611Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "a308c87a-9d11-4d4c-84d5-fff33f78883c",
+        "accountId": "acct_5",
+        "description": "Your withdrawal of PHP 234.77 at Goyette and Sons was successful. Charged via card ****4043 to account ***4202.",
+        "amount": "656.63",
+        "date": "2025-04-01T14:22:47.588Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "cb486603-4a04-4d76-86c2-91a7877f1993",
+        "accountId": "acct_5",
+        "description": "You made a invoice of BOB 291.48 at Emmerich - Renner using card ending in ****4640 from account ***3864.",
+        "amount": "483.06",
+        "date": "2025-04-01T22:38:24.707Z",
+        "category": "shopping",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "7890ec8e-2209-417a-b19c-d2693a0ac3dd",
+        "accountId": "acct_5",
+        "description": "payment of ERN 198.93 at Lehner Inc charged to account ending in 9803 using card ending in ****9084.",
+        "amount": "110.67",
+        "date": "2025-04-01T15:03:16.565Z",
+        "category": "transport",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "2b802a46-69dc-46b9-83d9-e6899a88dc9b",
+        "accountId": "acct_5",
+        "description": "A payment of EUR 915.89 occurred at Fisher, Nienow and Ruecker using a card ending in ****5338 for account ***8593.",
+        "amount": "85.96",
+        "date": "2025-04-02T00:17:04.764Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "f627c2ba-1653-4b73-b1b4-eebbe9410ee9",
+        "accountId": "acct_5",
+        "description": "You made a withdrawal of THB 948.79 at Lemke - Thiel using card ending in ****2909 from account ***5586.",
+        "amount": "942.47",
+        "date": "2025-04-01T18:52:14.279Z",
+        "category": "transfer",
+        "currency": "GBP"
+      },
+      {
+        "transactionId": "189c3349-814e-46bd-8ad8-742d47a976fe",
+        "accountId": "acct_5",
+        "description": "A invoice of SRD 227.46 occurred at Kemmer - Mosciski using a card ending in ****8478 for account ***6011.",
+        "amount": "807.26",
+        "date": "2025-04-01T15:00:51.497Z",
+        "category": "food",
+        "currency": "GBP"
+      }
+    ],
+    "total": 250,
+    "page": 1,
+    "size": 4
+  }
+}

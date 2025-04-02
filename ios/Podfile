@@ -14,6 +14,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+
 target 'BankTransactionsPoc' do
   config = use_native_modules!
 
@@ -23,6 +24,7 @@ target 'BankTransactionsPoc' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
@@ -31,5 +33,9 @@ target 'BankTransactionsPoc' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+    
+    pod 'React', :path => '../node_modules/react-native'
+    pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
   end
+
 end
