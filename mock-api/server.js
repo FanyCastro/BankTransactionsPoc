@@ -25,7 +25,7 @@ function generateFakeData() {
 
     for (let i = 0; i < accountCount; i++) {
         const accountId = faker.string.uuid();
-        const transactionCount = faker.number.int({ min: 500, max: 1000 });
+        const transactionCount = faker.number.int({ min: 10000, max: 15000 });
         const transactions = [];
 
         for (let j = 0; j < transactionCount; j++) {
@@ -59,12 +59,14 @@ function loadData() {
     return JSON.parse(rawData);
 }
 
-// Save data to file
-function saveData(data) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
-}
 
 // Routes
+
+function artificialDelay(delayMs) {
+    return (req, res, next) => {
+        setTimeout(next, delayMs);
+    };
+}
 
 // GET all accounts
 app.get('/accounts', (req, res) => {
@@ -94,7 +96,7 @@ app.get('/accounts', (req, res) => {
 });
 
 // GET a specific account
-app.get('/accounts/:accountId', (req, res) => {
+app.get('/accounts/:accountId', artificialDelay(2000), (req, res) => {
     const data = loadData();
     const account = data.accounts.find(acc => acc.id === req.params.accountId);
 
@@ -107,7 +109,7 @@ app.get('/accounts/:accountId', (req, res) => {
 });
 
 // GET all transactions for an account
-app.get('/accounts/:accountId/transactions', (req, res) => {
+app.get('/accounts/:accountId/transactions', artificialDelay(3000), (req, res) => {
     const data = loadData();
     const account = data.accounts.find(acc => acc.id === req.params.accountId);
 
@@ -144,7 +146,7 @@ app.get('/accounts/:accountId/transactions', (req, res) => {
 });
 
 // GET a specific transaction for an account
-app.get('/accounts/:accountId/transactions/:transactionId', (req, res) => {
+app.get('/accounts/:accountId/transactions/:transactionId', artificialDelay(2000), (req, res) => {
     const data = loadData();
     const account = data.accounts.find(acc => acc.id === req.params.accountId);
 

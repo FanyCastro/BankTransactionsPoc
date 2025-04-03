@@ -5,8 +5,6 @@ import database from '../services/database';
 import { debounce } from '../utils/debounce';
 
 class TransactionStore {
-    private lastSyncTimestamp = 0;
-
     inMemoryTransactions: Transaction[] = [];
     filteredTransactions: Transaction[] = [];
     currentAccountId = '';
@@ -35,95 +33,104 @@ class TransactionStore {
       setInterval(() => this.cleanOldTransactions(), 604800000);
     }
 
-   async syncNewTransactions() {
-        try {
-          const response = await api.fetchTransactionsByAccount(
-            this.currentAccountId,
-            1,
-            this.pageSize,
-            // this.lastSyncTimestamp
-          );
+  async syncNewTransactions() {
+    console.log('***** Sync new transactions method');
+    if (this.isLoading || this.allDataLoaded) {return;}
 
-          if (response.data.length > 0) {
-            await database.persistTransactions(response.data, this.currentAccountId);
-            this.lastSyncTimestamp = Date.now();
+    this.isLoading = true;
 
-            // Actualizar solo transacciones nuevas/modificadas en memoria
-            runInAction(() => {
-              response.data.forEach(newTrans => {
-                const existingIndex = this.inMemoryTransactions.findIndex(
-                  t => t.id === newTrans.id
-                );
+    try {
+      const apiResponse = await api.fetchTransactionsByAccount(
+        this.currentAccountId,
+        1, // Siempre comenzar desde la página 1
+        this.pageSize
+      );
+      console.log('***** API response fetch transactions by account:');
+      console.info(apiResponse.data);
 
-                if (existingIndex >= 0) {
-                  this.inMemoryTransactions[existingIndex] = newTrans;
-                } else {
-                  this.inMemoryTransactions.unshift(newTrans);
-                }
-              });
-
-              this.applyFilters(this.searchQuery);
-            });
-          }
-        } catch (error) {
-          console.error('Sync failed', error);
-        }
+      if (apiResponse.data.length === 0) {
+        runInAction(() => {
+          console.log('***** No transactions from API.');
+          this.allDataLoaded = true;
+        });
+        return;
       }
+
+      const firstApiTransaction = apiResponse.data[0];
+      const existsLocally = await database.getTransactionById(firstApiTransaction.id);
+      console.log(`***** firstApiTransaction ${firstApiTransaction.id}, existsLocally ${existsLocally}`);
+
+      // all transactions are already sincronized
+      if (existsLocally) {
+        console.log('***** All data loaded as the last transactions exists in local storage');
+        runInAction(async () => {
+          this.allDataLoaded = true;
+          this.isLoading = false;
+          await this.hydrateMemory();
+        });
+        return;
+      }
+
+      // we have transactions to syncronized
+      // let hasNewTransactions = false;
+      let currentPage = 1;
+
+      do {
+        const pageResponse = await api.fetchTransactionsByAccount(
+          this.currentAccountId,
+          currentPage,
+          this.pageSize
+        );
+
+        await database.persistTransactions(pageResponse.data, this.currentAccountId);
+        await this.hydrateMemory(pageResponse.data);
+
+        currentPage++;
+      } while (currentPage <= Math.ceil(apiResponse.total / this.pageSize) && !this.allDataLoaded);
+
+      runInAction(() => {
+        this.allDataLoaded = true;
+        if (this.searchQuery) {this.applyFilters(this.searchQuery);}
+      });
+
+    } catch (error) {
+      console.error('Sync failed', error);
+    }
+
+    finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
 
     private applyFilters(query: string) {
         if (!query) {
             this.filteredTransactions = [...this.inMemoryTransactions];
-            return;
-        }
-
-        const queryLower = query.toLowerCase();
-        this.filteredTransactions = this.inMemoryTransactions.filter(
-            transaction =>
-            transaction.description.toLowerCase().includes(queryLower) ||
-            transaction.amount.toString().includes(query) ||
-            transaction.type.toLowerCase().includes(queryLower)
-        );
-    }
-
-    async loadMoreTransactions() {
-        if (this.isLoading || this.allDataLoaded) {return;}
-
-        this.isLoading = true;
-
-        try {
-          const newTransactions = await api.fetchTransactionsByAccount(
-            this.currentAccountId,
-            this.page,
-            this.pageSize
+        } else {
+          const queryLower = query.toLowerCase();
+          this.filteredTransactions = this.inMemoryTransactions.filter(
+              transaction =>
+              transaction.description.toLowerCase().includes(queryLower) ||
+              transaction.amount.toString().includes(query) ||
+              transaction.type.toLowerCase().includes(queryLower)
           );
-
-          await database.persistTransactions(newTransactions.data, this.currentAccountId);
-
-          runInAction(() => {
-            this.page++;
-            this.allDataLoaded = newTransactions.data.length < this.pageSize;
-          });
-
-          // Hidratar memoria si es la primera carga
-          if (this.page === 2) {
-            await this.hydrateMemory();
-          }
-
-        } finally {
-          runInAction(() => {
-            this.isLoading = false;
-          });
         }
     }
 
-    async hydrateMemory() {
+    async hydrateMemory(transactions?: Transaction[]) {
         if (this.isHydrating) {return;}
         this.isHydrating = true;
 
         try {
-          const transactions = await database.getTransactionsByAccountId(this.currentAccountId);
+          const aux = transactions || await database.getTransactionsByAccountId(this.currentAccountId);
           runInAction(() => {
-            this.inMemoryTransactions = transactions;
+            for (const transaction of aux) {
+              if (!this.inMemoryTransactions.includes(transaction)){
+                this.inMemoryTransactions.push(transaction);
+              }
+            }
+            // this.inMemoryTransactions = aux;
             this.applyFilters(this.searchQuery);
           });
 
@@ -146,7 +153,7 @@ class TransactionStore {
             this.searchQuery = '';
         });
 
-        await this.loadMoreTransactions();
+        await this.syncNewTransactions();
     }
 
     setSearchQuery(query: string) {

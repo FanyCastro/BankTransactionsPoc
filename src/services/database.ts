@@ -1,7 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
 import { Transaction } from '../types/types';
 
-SQLite.DEBUG(false);
+SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 
 const DB_NAME = 'bank_transactions.db';
@@ -12,6 +12,7 @@ interface Database {
   persistTransactions: (transactions: Transaction[], accountId: string) => Promise<void>;
   getTransactionsByAccountId: (accountId: string, searchTerm?: string) => Promise<Transaction[]>;
   getLastTransactionId: (accountId: string) => Promise<string | null>;
+  getTransactionById: (transactionId: string) => Promise<Transaction | null>
   cleanOldTransactions: () => Promise<void>;
 }
 
@@ -178,8 +179,30 @@ const getTransactionsByAccountId = async (accountId: string): Promise<Transactio
   });
 };
 
+const getTransactionById = async (transactionId: string): Promise<Transaction | null> => {
+  console.log('***** Get transaction by id from local storage');
+  return new Promise<Transaction>((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT id FROM transactions WHERE id = ?;',
+        [transactionId],
+        (_, {rows}) => {
+          console.log('***** Get transaction by id from local storage response');
+          console.log(rows.item(0)?.id ?? null);
+          resolve(rows.item(0)?.id ?? null);
+        },
+        (_, error) => {
+          console.error(`***** Error getting last transaction ID: ${error.message}`);
+          reject(new Error(`Error en consulta SQL: ${error.message}`));
+          return false;
+        }
+      );
+    });
+  });
+};
+
 const getLastTransactionId = async (accountId: string): Promise<string | null> => {
-  console.log('***** Get last transaction id from API');
+  console.log('***** Get last transaction id from local Storage');
   return new Promise<string>((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -221,18 +244,19 @@ const cleanOldTransactions = async (): Promise<void> => {
   });
 };
 
-const getDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
-  if (!db) {
-    return await initDatabase();
-  }
-  return db;
-};
+// const getDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
+//   if (!db) {
+//     return await initDatabase();
+//   }
+//   return db;
+// };
 
 const database: Database = {
   initDatabase,
   persistTransactions,
   getTransactionsByAccountId,
   getLastTransactionId,
+  getTransactionById,
   cleanOldTransactions,
 };
 

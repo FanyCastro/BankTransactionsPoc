@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Transactions'>;
 
 const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
   const { accountId } = route.params;
-  const [searchInput, setSearchInput] = useState('');
+  const [localQuery, setLocalQuery] = useState('');
 
   useEffect(() => {
     const init = async () => {
@@ -22,22 +22,22 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
   }, [accountId]);
 
   useEffect(() => {
-    transactionStore.setSearchQuery(searchInput);
-  }, [searchInput]);
+    transactionStore.setSearchQuery(localQuery);
+  }, [localQuery]);
 
-  const handleEndReached = () => {
-    if (!transactionStore.isLoading) {
-      transactionStore.loadMoreTransactions();
-    }
-  };
+  // const handleEndReached = () => {
+  //   if (!transactionStore.isLoading) {
+  //     transactionStore.loadMoreTransactions();
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.searchInput}
         placeholder="Buscar transacciones..."
-        value={searchInput}
-        onChangeText={setSearchInput}
+        value={localQuery}
+        onChangeText={setLocalQuery}
         autoCorrect={false}
       />
 
@@ -48,8 +48,8 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
           data={transactionStore.filteredTransactions}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <TransactionItem transaction={item} />}
-          onEndReached={handleEndReached}
-          onEndReachedThreshold={0.5}
+          // onEndReached={handleEndReached}
+          // onEndReachedThreshold={0.5}
           ListFooterComponent={
             transactionStore.isLoading && !transactionStore.isHydrating ? (
               <ActivityIndicator size="small" />

@@ -6,7 +6,7 @@ interface TransactionItemProps {
   transaction: Transaction;
 }
 
-const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
+const TransactionItem: React.FC<TransactionItemProps> = React.memo(({ transaction }) => {
   const isIncome = transaction.amount >= 0;
   const amountColor = isIncome ? styles.income : styles.expense;
 
@@ -26,7 +26,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

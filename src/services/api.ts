@@ -45,7 +45,7 @@ const fetchTransactionsByAccount = async (
 const checkForUpdates = async (accountId: string, lastTransactionId: string | null): Promise<boolean> => {
   try {
     console.log('***** Fetch transactions from API');
-    const response: ApiResponse<Transaction> = await fetchTransactions(accountId, 1);
+    const response: ApiResponse<Transaction> = await fetchTransactionsByAccount(accountId, 1);
     console.log(`***** CheckForUpdates ${response.data[0].id} == ${lastTransactionId}`);
     return response.data.length > 0 && response.data[0].id !== lastTransactionId;
 
