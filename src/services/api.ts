@@ -25,7 +25,6 @@ const fetchTransactionsByAccount = async (
     page: number = 1,
     size: number = 100): Promise<ApiResponse<Transaction>> => {
   try {
-    console.log('***** Fetch all transactions from A API');
     const params = { accountId, ...(page && { page }), ...(size && { size }) };
     const url = `${API_BASE_URL}/accounts/${accountId}/transactions`; 
     const response = await axios.get<ApiResponse<Transaction>>(url, { params });
@@ -44,7 +43,6 @@ const fetchTransactionsByAccount = async (
 
 const checkForUpdates = async (accountId: string, lastTransactionId: string | null): Promise<boolean> => {
   try {
-    console.log('***** Fetch transactions from API');
     const response: ApiResponse<Transaction> = await fetchTransactionsByAccount(accountId, 1);
     console.log(`***** CheckForUpdates ${response.data[0].id} == ${lastTransactionId}`);
     return response.data.length > 0 && response.data[0].id !== lastTransactionId;

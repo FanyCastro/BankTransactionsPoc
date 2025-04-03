@@ -12,7 +12,7 @@ class TransactionStore {
     isHydrating = false;
     allDataLoaded = false;
     page = 1;
-    pageSize = 50;
+    pageSize = 200;
 
     searchQuery = '';
     private debouncedApplyFilters: (query: string) => void;
@@ -25,9 +25,9 @@ class TransactionStore {
           );
 
         // Sincronización periódica cada 1 minuto
-        setInterval(() => {
-        if (this.currentAccountId) {this.syncNewTransactions();}
-      }, 60000);
+      // setInterval(() => {
+      //   if (this.currentAccountId) {this.syncNewTransactions();}
+      // }, 60000);
 
       // Limpieza semanal
       setInterval(() => this.cleanOldTransactions(), 604800000);
@@ -35,125 +35,125 @@ class TransactionStore {
 
   async syncNewTransactions() {
     console.log('***** Sync new transactions method');
-    if (this.isLoading || this.allDataLoaded) {return;}
+    if (this.isLoading || this.allDataLoaded) {
+      console.warn('***** Already loading data');
+      return;
+    }
 
     this.isLoading = true;
 
     try {
-      const apiResponse = await api.fetchTransactionsByAccount(
+      const firstPageResponse = await api.fetchTransactionsByAccount(
         this.currentAccountId,
-        1, // Siempre comenzar desde la página 1
+        1, // we always start with page = 1
         this.pageSize
       );
       console.log('***** API response fetch transactions by account:');
-      console.info(apiResponse.data);
+      console.info(firstPageResponse.data);
 
-      if (apiResponse.data.length === 0) {
-        runInAction(() => {
-          console.log('***** No transactions from API.');
-          this.allDataLoaded = true;
-        });
-        return;
+      if (firstPageResponse.data.length > 0) {
+        const existsLocally = await database.getTransactionById(firstPageResponse.data[0].id) != null;
+        console.info(`***** Current page 1, existsLocally ${existsLocally}`);
+        if (!existsLocally) {
+          await database.persistTransactions(firstPageResponse.data, this.currentAccountId);
+          await this.hydrateMemory(firstPageResponse.data);
+        }
       }
 
-      // TODO - this logic is not good, as it can be the use move away from transactions before beeing completed
-      const firstApiTransaction = apiResponse.data[0];
-      const existsLocally = await database.getTransactionById(firstApiTransaction.id);
-      console.log(`***** firstApiTransaction ${firstApiTransaction.id}, existsLocally ${existsLocally}`);
-
-      // all transactions are already sincronized
-      if (existsLocally) {
-        console.log('***** All data loaded as the last transactions exists in local storage');
-        runInAction(async () => {
-          this.allDataLoaded = true;
-          this.isLoading = false;
-          await this.hydrateMemory();
-        });
-        return;
-      }
-
-      // we have transactions to syncronized
-      // let hasNewTransactions = false;
-      let currentPage = 1;
-
-      do {
-        const pageResponse = await api.fetchTransactionsByAccount(
-          this.currentAccountId,
-          currentPage,
-          this.pageSize
+      // We set up all the requests for the remaining pages
+      const totalPages = firstPageResponse.totalPages;
+      const pagePromises = [];
+      for (let currentPage = 2; currentPage <= totalPages; currentPage++) {
+        pagePromises.push(
+          api.fetchTransactionsByAccount(
+            this.currentAccountId,
+            currentPage,
+            this.pageSize
+          )
         );
+      }
 
-        await database.persistTransactions(pageResponse.data, this.currentAccountId);
-        await this.hydrateMemory(pageResponse.data);
+      // We run all the requests in pararell
+      const pagesResponses = await Promise.all(pagePromises);
 
-        currentPage++;
-      } while (currentPage <= Math.ceil(apiResponse.total / this.pageSize) && !this.allDataLoaded);
+      // We process the responses
+      const persistPromises = pagesResponses.map(async (pageResponse) => {
+        if (pageResponse.data.length > 0) {
+          const existsLocally = await database.getTransactionById(pageResponse.data[0].id) != null;
+          console.info(`***** Current page ${pageResponse.page}, existsLocally ${existsLocally}`);
+          if (!existsLocally) {
+            await database.persistTransactions(pageResponse.data, this.currentAccountId);
+            await this.hydrateMemory(pageResponse.data);
+          }
+        }
+      });
+
+      await Promise.allSettled(persistPromises);
 
       runInAction(() => {
         this.allDataLoaded = true;
+        this.isLoading = false;
         if (this.searchQuery) {this.applyFilters(this.searchQuery);}
       });
 
     } catch (error) {
-      console.error('Sync failed', error);
-    }
-
-    finally {
       runInAction(() => {
         this.isLoading = false;
       });
+      console.error('Sync failed', error);
     }
   }
 
-    private applyFilters(query: string) {
-        if (!query) {
-            this.filteredTransactions = [...this.inMemoryTransactions];
-        } else {
-          const queryLower = query.toLowerCase();
-          this.filteredTransactions = this.inMemoryTransactions.filter(
-              transaction =>
-              transaction.description.toLowerCase().includes(queryLower) ||
-              transaction.amount.toString().includes(query) ||
-              transaction.type.toLowerCase().includes(queryLower)
-          );
-        }
-    }
-
-    async hydrateMemory(transactions?: Transaction[]) {
-        if (this.isHydrating) {return;}
-        this.isHydrating = true;
-
-        try {
-          const aux = transactions || await database.getTransactionsByAccountId(this.currentAccountId);
-          runInAction(() => {
-            for (const transaction of aux) {
-              if (!this.inMemoryTransactions.includes(transaction)){
-                this.inMemoryTransactions.push(transaction);
-              }
-            }
-            // this.inMemoryTransactions = aux;
-            this.applyFilters(this.searchQuery);
-          });
-
-        } finally {
-          runInAction(() => {
-            this.isHydrating = false;
-          });
-        }
+  private applyFilters(query: string) {
+      if (!query) {
+          this.filteredTransactions = [...this.inMemoryTransactions];
+      } else {
+        const queryLower = query.toLowerCase();
+        this.filteredTransactions = this.inMemoryTransactions.filter(
+            transaction =>
+            transaction.description.toLowerCase().includes(queryLower) ||
+            transaction.amount.toString().includes(query) ||
+            transaction.type.toLowerCase().includes(queryLower)
+        );
       }
+  }
+
+  async hydrateMemory(transactions?: Transaction[]) {
+      if (this.isHydrating) {return;}
+      this.isHydrating = true;
+
+      try {
+        const aux = transactions || await database.getTransactionsByAccountId(this.currentAccountId);
+        runInAction(() => {
+          for (const transaction of aux) {
+            if (!this.inMemoryTransactions.includes(transaction)){
+              this.inMemoryTransactions.push(transaction);
+            }
+          }
+          // this.inMemoryTransactions = aux;
+          this.applyFilters(this.searchQuery);
+        });
+
+      } finally {
+        runInAction(() => {
+          this.isHydrating = false;
+        });
+      }
+    }
 
     async setAccount(accountId: string) {
         if (this.currentAccountId === accountId) {return;}
 
         runInAction(() => {
             this.currentAccountId = accountId;
-            this.inMemoryTransactions = [];
+            this.inMemoryTransactions =[];
             this.filteredTransactions = [];
             this.page = 1;
             this.allDataLoaded = false;
             this.searchQuery = '';
         });
 
+        await this.hydrateMemory();
         await this.syncNewTransactions();
     }
 

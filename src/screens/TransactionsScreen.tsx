@@ -16,7 +16,6 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
   useEffect(() => {
     const init = async () => {
       await transactionStore.setAccount(accountId);
-      await transactionStore.syncNewTransactions();
     };
     init();
   }, [accountId]);

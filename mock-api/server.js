@@ -25,7 +25,7 @@ function generateFakeData() {
 
     for (let i = 0; i < accountCount; i++) {
         const accountId = faker.string.uuid();
-        const transactionCount = faker.number.int({ min: 10000, max: 15000 });
+        const transactionCount = faker.number.int({ min: 300, max: 500 });
         const transactions = [];
 
         for (let j = 0; j < transactionCount; j++) {

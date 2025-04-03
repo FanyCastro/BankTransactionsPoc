@@ -180,15 +180,12 @@ const getTransactionsByAccountId = async (accountId: string): Promise<Transactio
 };
 
 const getTransactionById = async (transactionId: string): Promise<Transaction | null> => {
-  console.log('***** Get transaction by id from local storage');
   return new Promise<Transaction>((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         'SELECT id FROM transactions WHERE id = ?;',
         [transactionId],
         (_, {rows}) => {
-          console.log('***** Get transaction by id from local storage response');
-          console.log(rows.item(0)?.id ?? null);
           resolve(rows.item(0)?.id ?? null);
         },
         (_, error) => {
