@@ -1,7 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
 import { Transaction } from '../types/types';
 
-SQLite.DEBUG(true);
+SQLite.DEBUG(false);
 SQLite.enablePromise(true);
 
 const DB_NAME = 'bank_transactions.db';
@@ -9,10 +9,10 @@ let db: SQLite.SQLiteDatabase;
 
 interface Database {
   initDatabase: () => Promise<SQLite.SQLiteDatabase>;
-  saveTransactions: (transactions: Transaction[]) => Promise<void>;
+  persistTransactions: (transactions: Transaction[], accountId: string) => Promise<void>;
   getTransactionsByAccountId: (accountId: string, searchTerm?: string) => Promise<Transaction[]>;
   getLastTransactionId: (accountId: string) => Promise<string | null>;
-  getAllTransactions: () => Promise<Transaction[] | null>;
+  cleanOldTransactions: () => Promise<void>;
 }
 
 
@@ -27,13 +27,13 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
       db.transaction(tx => {
         tx.executeSql(`
           CREATE TABLE IF NOT EXISTS accounts (
-            accountId TEXT PRIMARY KEY,
+            id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             balance REAL DEFAULT 0,
             currency TEXT NOT NULL
           );`,
           [],
-          () => console.log('Tabla ACCOUNTS creada'),
+          () => console.log('***** Tabla ACCOUNTS creada'),
           (_, error) => {
             console.error('Error creando accounts:', error);
             return false; // Hace rollback
@@ -42,17 +42,17 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
 
         tx.executeSql(`
           CREATE TABLE IF NOT EXISTS transactions (
-            transactionId TEXT PRIMARY KEY,
+            id TEXT PRIMARY KEY,
             accountId TEXT NOT NULL,
             description TEXT NOT NULL,
             amount REAL NOT NULL,
             currency TEXT NOT NULL,
-            category TEXT,
+            type TEXT,
             date TEXT NOT NULL,
             FOREIGN KEY (accountId) REFERENCES accounts(accountId)
           );`,
           [],
-          () => console.log('Tabla TRANSACTIONS creada'),
+          () => console.log('***** Tabla TRANSACTIONS creada'),
           (_, error) => {
             console.error('Error creando transactions:', error);
             return false; // Hace rollback
@@ -63,7 +63,7 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
           CREATE INDEX IF NOT EXISTS idx_transactions_account 
           ON transactions(accountId);`,
           [],
-          () => console.log('Índice creado'),
+          () => console.log('***** Índice creado'),
           (_, error) => {
             console.error('Error creando índice:', error);
             return false;
@@ -86,7 +86,7 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
           'SELECT 1 FROM transactions LIMIT 1',
           [],
           (_, result) => {
-            console.log('DB ready - Rows:', result.rows.length);
+            console.log('***** DB ready - Rows:', result.rows.length);
             resolve();
           },
           (_, error) => {
@@ -106,36 +106,37 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
   }
 };
 
-const saveTransactions = async (transactions: Transaction[]): Promise<void> => {
+const persistTransactions = async (transactions: Transaction[], accountId: string): Promise<void> => {
   try {
     if (!db) {
       throw new Error('Database not initialized');
     }
 
+    console.log('***** Save transactions into the local database');
     await new Promise<void>((resolve, reject) => {
       db.transaction(tx => {
         transactions.forEach(transaction => {
           tx.executeSql(
             `INSERT OR IGNORE INTO transactions (
-              transactionId, 
-              accountId, 
+              id, 
+              accountId,
               description, 
               amount, 
               currency, 
-              category, 
+              type, 
               date
             ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [
-              transaction.transactionId,
-              transaction.accountId,
+              transaction.id,
+              accountId,
               transaction.description,
               transaction.amount,
               transaction.currency,
-              transaction.category || null,
+              transaction.type ,
               transaction.date,
             ],
             (_, result) => {
-              console.log(`Transacción guardada con éxito. Row ${result.rowsAffected}`);
+              console.log(`Transacción guardada con éxito. Affected rows ${result.rowsAffected}`);
               resolve();
             },
             (_, error) => {
@@ -154,34 +155,70 @@ const saveTransactions = async (transactions: Transaction[]): Promise<void> => {
   }
 };
 
-
-
 const getTransactionsByAccountId = async (accountId: string): Promise<Transaction[]> => {
-
+  console.log('***** Get all transcations by account from API');
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT * FROM transactions WHERE accountId = ? ORDER BY date DESC;',
+        [accountId],
+        (_, { rows }) => {
+          const transactions: Transaction[] = [];
+          for (let i = 0; i < rows.length; i++) {
+            transactions.push(rows.item(i));
+          }
+          resolve(transactions);
+        },
+        (_, error) => {
+          reject(error);
+          return false;
+        }
+      );
+    });
+  });
 };
 
 const getLastTransactionId = async (accountId: string): Promise<string | null> => {
+  console.log('***** Get last transaction id from API');
   return new Promise<string>((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT transactionId FROM transactions WHERE accountId = ? LIMIT 1;',
+        'SELECT id FROM transactions WHERE accountId = ? ORDER BY date DESC LIMIT 1;',
         [accountId],
-        (_, results) => {
-          const transactions = results.rows.raw();
-          resolve(transactions[0]?.transactionId ?? null);
+        (_, {rows}) => {
+          console.log(`***** Last transaction id ${rows.item(0)?.id}`);
+          resolve(rows.item(0)?.id ?? null);
         },
         (_, error) => {
+          console.error(`***** Error getting last transaction ID: ${error.message}`);
           reject(new Error(`Error en consulta SQL: ${error.message}`));
           return false;
         }
       );
     });
   });
-
 };
 
-const getAllTransactions = async(): Promise<Transaction[] | null> => {
+const cleanOldTransactions = async (): Promise<void> => {
+  const sixMonthsAgo = Date.now() - (180 * 24 * 60 * 60 * 1000);
 
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'DELETE FROM transactions WHERE loadedAt < ?',
+              [sixMonthsAgo],
+        () => {
+          console.log('Old transactions cleaned');
+          resolve();
+        },
+        (_, error) => {
+          console.error('Error cleaning transactions', error);
+          reject(error);
+          return false;
+        }
+      );
+    });
+  });
 };
 
 const getDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
@@ -193,10 +230,10 @@ const getDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
 
 const database: Database = {
   initDatabase,
-  saveTransactions,
+  persistTransactions,
   getTransactionsByAccountId,
   getLastTransactionId,
-  getAllTransactions,
+  cleanOldTransactions,
 };
 
 export default database;

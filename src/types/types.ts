@@ -1,26 +1,26 @@
 export interface Account {
-    accountId: string;
-    name: string;
+    id: string;
+    accountName: string;
+    accountNumber: string; 
     balance: number;
     currency: string;
 }
-  
+
 export interface Transaction {
-    transactionId: string;
-    accountId: string;
+    id: string;
     description: string;
     amount: number | string;
-    currency: string; 
-    category: string;
+    currency: string;
+    type: string;
     date: string;
 }
 
 export interface ApiResponse<T> {
     data: T[];
+    totalPages: number;
     total: number;
     page: number;
-    perPage: number;
-    lastId?: string;
+    size: number;
 }
 
 export type RootStackParamList = {
@@ -43,4 +43,16 @@ export interface TransactionListProps {
     refreshing?: boolean;
 }
 
-  
+export type TransactionState = {
+    // Datos en memoria
+    inMemoryTransactions: Transaction[];
+    filteredTransactions: Transaction[];
+
+    // Estado de carga
+    loading: boolean;
+    lastUpdated: Date | null;
+    error: string | null;
+
+    // Flags de control
+    isCacheValid: boolean;
+  };

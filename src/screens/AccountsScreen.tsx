@@ -17,10 +17,11 @@ const AccountsScreen: React.FC<Props> = ({ navigation }) => {
     const loadAccounts = async () => {
       try {
         setLoading(true);
-        const data = await api.fetchAccounts();
-        setAccounts(data);
+        const response = await api.fetchAccounts();
+        setAccounts(response.data);
 
       } catch (err) {
+        console.error(err);
         setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
         setLoading(false);
@@ -55,11 +56,11 @@ const AccountsScreen: React.FC<Props> = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
       <FlatList
         data={accounts}
-        keyExtractor={item => item.accountId}
+        keyExtractor={item => item.id}
         renderItem={({item}) => (
           <AccountCard
                 account={item}
-                onPress={() => handleAccountPress(item.accountId)}
+                onPress={() => handleAccountPress(item.id)}
               />
         )}
         contentContainerStyle={styles.listContent}

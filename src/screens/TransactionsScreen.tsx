@@ -1,139 +1,75 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import React, { useEffect} from 'react';
+import { observer } from 'mobx-react-lite';
+import { View, StyleSheet, ActivityIndicator, TextInput, FlatList } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import api from '../services/api';
-import database from '../services/database';
-import TransactionList from '../components/TransactionList';
-import SearchBar from '../components/SearchBar';
-import debounce from '../utils/debounce';
-import { RootStackParamList, Transaction } from '../types/types';
+
+import { RootStackParamList } from '../types/types';
+import { transactionStore } from '../stores/TransactionStore';
+import TransactionItem from '../components/TransactionItem';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Transactions'>;
 
-const TransactionsScreen: React.FC<Props> = ({ route }) => {
+const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
   const { accountId } = route.params;
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [lastTxId, setLastTxId] = useState<string | null>(null);
-
-  const loadTransactions = useCallback(async (forceRefresh: boolean = false): Promise<void> => {
-    try {
-      setLoading(true);
-
-      // 1. Verificar actualizaciones
-      const localLastId = await database.getLastTransactionId(accountId);
-      console.log('last id ' + localLastId);
-      const shouldUpdate = forceRefresh ||
-        (localLastId && await api.checkForUpdates(accountId, localLastId));
-      console.log('Calling get all transactions');
-  
-      // 2. Obtener datos
-      let txData: Transaction[];
-      console.log('Should we update transactions? ' + shouldUpdate);
-      if (shouldUpdate || !localLastId) {
-        console.log('Getting all transactions from API');
-        const apiResponse = await api.fetchTransactions(accountId);
-        txData = apiResponse.data;
-        console.log('Save transaction in local storage');
-        await database.saveTransactions(txData);
-        setLastTxId(apiResponse.data[0]?.transactionId || null);
-      } else {
-        // Desde memoria (ya cargados)
-        return;
-      }
-
-      // 3. Actualizar estado
-      setTransactions(txData);
-      setFilteredTransactions(txData);
-
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, [accountId]);
 
   useEffect(() => {
-    loadTransactions();
-  }, [loadTransactions]);
+    const init = async () => {
+      await transactionStore.setAccount(accountId);
+      await transactionStore.syncNewTransactions();
+    };
+    init();
+  }, [accountId]);
 
-  const handleRefresh = useCallback(() => {
-    setRefreshing(true);
-    loadTransactions(true);
-  }, [loadTransactions]);
-
-  // Búsqueda en memoria
-  const handleSearch = useMemo(() => debounce((text: string) => {
-    if (!text) {
-      setFilteredTransactions(transactions);
-      return;
+  const handleEndReached = () => {
+    if (!transactionStore.isLoading) {
+      transactionStore.loadMoreTransactions();
     }
-
-    const searchLower = text.toLowerCase();
-    const filtered = transactions.filter(tx =>
-      tx.description.toLowerCase().includes(searchLower) ||
-      tx.amount.toString().includes(text) ||
-      tx.currency.toLowerCase().includes(searchLower)
-    );
-
-    setFilteredTransactions(filtered);
-  }, 300), [transactions]);
-
-    // Sincronización en segundo plano
-    // useEffect(() => {
-    //   const interval = setInterval(async () => {
-    //     if (lastTxId && await api.checkForUpdates(accountId, lastTxId)) {
-    //       loadTransactions(true);
-    //     }
-    //   }, 5 * 60 * 1000); // 5 minutos
-
-    //   return () => clearInterval(interval);
-    // }, [accountId, lastTxId]);
-
-
-  if (loading) { //  && !transactions.length) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.center}>
-        <Text>Error: {error}</Text>
-      </View>
-    );
-  }
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Account id: {accountId}</Text>
-      <SearchBar onChangeText={handleSearch} />
-      <TransactionList
-        transactions={filteredTransactions}
-        onRefresh={handleRefresh}
-        refreshing={refreshing}
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Buscar transacciones..."
+        value={transactionStore.searchQuery}
+        onChangeText={transactionStore.setSearchQuery}
       />
+
+      {transactionStore.isHydrating && transactionStore.inMemoryTransactions.length === 0 ? (
+        <ActivityIndicator size="large" style={styles.loader} />
+      ) : (
+        <FlatList
+          data={transactionStore.filteredTransactions}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <TransactionItem transaction={item} />}
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            transactionStore.isLoading && !transactionStore.isHydrating ? (
+              <ActivityIndicator size="small" />
+            ) : null
+          }
+        />
+      )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
     padding: 16,
   },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  searchInput: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    marginBottom: 16,
+  },
+  loader: {
+    marginTop: 20,
   },
 });
 

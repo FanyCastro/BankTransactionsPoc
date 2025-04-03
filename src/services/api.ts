@@ -1,17 +1,17 @@
 import axios from 'axios';
 import { Account, ApiResponse, Transaction } from '../types/types';
 
-const API_BASE_URL = 'http://192.168.1.52:3004';
+const API_BASE_URL = 'http://localhost:3000';
 
 interface ApiService {
-  fetchAccounts: () => Promise<Account[]>;
-  fetchTransactions: (accountId: string) => Promise<ApiResponse<Transaction>>;
+  fetchAccounts: () => Promise<ApiResponse<Account>>;
+  fetchTransactionsByAccount: (accountId: string, page: number, size: number) => Promise<ApiResponse<Transaction>>;
   checkForUpdates: (accountId: string, lastLocalUpdate: string | null) => Promise<boolean>;
 }
 
-const fetchAccounts = async (): Promise<Account[]> => {
+const fetchAccounts = async (): Promise<ApiResponse<Account>> => {
   try {
-    const response = await axios.get<Account[]>(`${API_BASE_URL}/accounts`);
+    const response = await axios.get<ApiResponse<Account>>(`${API_BASE_URL}/accounts`);
     return response.data;
 
   } catch (error) {
@@ -20,13 +20,20 @@ const fetchAccounts = async (): Promise<Account[]> => {
   }
 };
 
-const fetchTransactions = async (
+const fetchTransactionsByAccount = async (
     accountId: string,
     page: number = 1,
-    lastId?: string): Promise<ApiResponse<Transaction>> => {
+    size: number = 100): Promise<ApiResponse<Transaction>> => {
   try {
-    const params = { accountId, page, lastId };
-    const response = await axios.get<ApiResponse<Transaction>>(`${API_BASE_URL}/transactions`, { params });
+    console.log('***** Fetch all transactions from A API');
+    const params = { accountId, ...(page && { page }), ...(size && { size }) };
+    const url = `${API_BASE_URL}/accounts/${accountId}/transactions`; 
+    const response = await axios.get<ApiResponse<Transaction>>(url, { params });
+
+    if (!response.data || !Array.isArray(response.data.data)) {
+      throw new Error('La respuesta no tiene el formato esperado');
+    }
+
     return response.data;
 
   } catch (error) {
@@ -37,8 +44,10 @@ const fetchTransactions = async (
 
 const checkForUpdates = async (accountId: string, lastTransactionId: string | null): Promise<boolean> => {
   try {
-    const response = await fetchTransactions(accountId, 1);
-    return response.data.length > 0 && response.data[0].transactionId !== lastTransactionId;
+    console.log('***** Fetch transactions from API');
+    const response: ApiResponse<Transaction> = await fetchTransactions(accountId, 1);
+    console.log(`***** CheckForUpdates ${response.data[0].id} == ${lastTransactionId}`);
+    return response.data.length > 0 && response.data[0].id !== lastTransactionId;
 
   } catch {
     return false;
@@ -47,7 +56,7 @@ const checkForUpdates = async (accountId: string, lastTransactionId: string | nu
 
 const apiService: ApiService = {
   fetchAccounts,
-  fetchTransactions,
+  fetchTransactionsByAccount,
   checkForUpdates,
 };
 

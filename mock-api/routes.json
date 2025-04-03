@@ -1,0 +1,4 @@
+{
+    "/accounts/:accountId/transactions": "/transactions?accountId=:accountId",
+    "/accounts/:accountId/transactions/:id": "/transactions?id=:id&accountId=:accountId"
+}

@@ -12,7 +12,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
     <FlatList
       data={transactions}
       renderItem={({ item }) => <TransactionItem transaction={item} />}
-      keyExtractor={(item) => item.transactionId}
+      keyExtractor={(item) => item.id}
       contentContainerStyle={styles.listContent}
       ListEmptyComponent={
         <View style={styles.emptyContainer}>

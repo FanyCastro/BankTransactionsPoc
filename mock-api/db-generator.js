@@ -2,7 +2,7 @@ const { faker } = require('@faker-js/faker');
 
 const generateAccounts = (count) => {
   return Array.from({ length: count }, (_, i) => ({
-    accountId: `acct_${i+1}`,
+    id: `acct_${i+1}`,
     name: `${faker.finance.accountName()} Account`,
     balance: faker.finance.amount(100, 10000, 2),
     currency: 'GBP'
@@ -12,22 +12,22 @@ const generateAccounts = (count) => {
 const generateTransactions = (accounts, perAccount) => {
   const allTransactions =  accounts.flatMap(account => 
     Array.from({ length: perAccount }, () => ({
-      transactionId: faker.string.uuid(),
-      accountId: account.accountId,
+      id: faker.string.uuid(),
+      accountId: account.id,
       description: faker.finance.transactionDescription(),
       amount: faker.finance.amount(-1000, 3000, 2),
       date: faker.date.recent(30).toISOString(),
       category: faker.helpers.arrayElement(['food', 'transport', 'shopping', 'income', 'transfer']),
-      currency: 'GBP'
+      currency: 'GBP',
     }))
   );
-
-  return {
-    data: allTransactions,
-    total: allTransactions.length,
-    page: 1,
-    size: 4,
-  };
+  return allTransactions;
+  // return {
+  //   data: allTransactions,
+  //   total: allTransactions.length,
+  //   page: 1,
+  //   size: 4,
+  // };
 };
 
 const data = {

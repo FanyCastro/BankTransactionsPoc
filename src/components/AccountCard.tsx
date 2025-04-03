@@ -6,12 +6,12 @@ const AccountCard: React.FC<AccountCardProps> = ({ account, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.accountName}>{account.name.toUpperCase()}</Text>
+        <Text style={styles.accountName}>{account.accountName.toUpperCase()}</Text>
         <Text style={styles.balance}>
           {account.balance} {account.currency}
         </Text>
         <Text style={styles.lastUpdated}>
-          Account id: {account.accountId}
+          Account id: {account.id}
         </Text>
       </View>
     </TouchableOpacity>

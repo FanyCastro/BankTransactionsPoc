@@ -1,16 +1,17 @@
-// utils/debounce.ts
-type DebounceFunction = (...args: any[]) => void;
+// src/utils/debounce.ts
+export function debounce<T extends any[]>(
+  func: (...args: T) => void,
+  wait: number
+): (...args: T) => void {
+  let timeout: NodeJS.Timeout | null = null;
 
-function debounce<T extends DebounceFunction>(
-  func: T,
-  delay: number
-): (...args: Parameters<T>) => void {
-  let timeoutId: ReturnType<typeof setTimeout>;
+  return (...args: T) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
 
-  return function (this: unknown, ...args: Parameters<T>) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(this, args), delay);
+    timeout = setTimeout(() => {
+      func(...args);
+    }, wait);
   };
 }
-
-export default debounce;
