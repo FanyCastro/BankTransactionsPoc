@@ -56,6 +56,7 @@ class TransactionStore {
         return;
       }
 
+      // TODO - this logic is not good, as it can be the use move away from transactions before beeing completed
       const firstApiTransaction = apiResponse.data[0];
       const existsLocally = await database.getTransactionById(firstApiTransaction.id);
       console.log(`***** firstApiTransaction ${firstApiTransaction.id}, existsLocally ${existsLocally}`);
