@@ -2,13 +2,13 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { Transaction } from '../types/types';
 import api from '../services/api';
 import database from '../services/database';
+import { debounce } from '../utils/debounce';
 
 class TransactionStore {
     private lastSyncTimestamp = 0;
 
     inMemoryTransactions: Transaction[] = [];
     filteredTransactions: Transaction[] = [];
-    searchQuery = '';
     currentAccountId = '';
     isLoading = false;
     isHydrating = false;
@@ -16,8 +16,15 @@ class TransactionStore {
     page = 1;
     pageSize = 50;
 
+    searchQuery = '';
+    private debouncedApplyFilters: (query: string) => void;
+
     constructor() {
         makeAutoObservable(this);
+        this.debouncedApplyFilters = debounce(
+            (query: string) => this.applyFilters(query),
+            300
+          );
 
         // Sincronización periódica cada 1 minuto
         setInterval(() => {
@@ -117,7 +124,7 @@ class TransactionStore {
           const transactions = await database.getTransactionsByAccountId(this.currentAccountId);
           runInAction(() => {
             this.inMemoryTransactions = transactions;
-            // this.applyFilters();
+            this.applyFilters(this.searchQuery);
           });
 
         } finally {
@@ -144,8 +151,7 @@ class TransactionStore {
 
     setSearchQuery(query: string) {
         this.searchQuery = query;
-        // debounce(this.applyFilters(query), 300);
-        this.applyFilters(query);
+        this.debouncedApplyFilters(query);
     }
 
     private async cleanOldTransactions() {

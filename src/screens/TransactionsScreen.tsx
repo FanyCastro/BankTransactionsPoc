@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import { observer } from 'mobx-react-lite';
 import { View, StyleSheet, ActivityIndicator, TextInput, FlatList } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -11,6 +11,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Transactions'>;
 
 const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
   const { accountId } = route.params;
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     const init = async () => {
@@ -19,6 +20,10 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
     };
     init();
   }, [accountId]);
+
+  useEffect(() => {
+    transactionStore.setSearchQuery(searchInput);
+  }, [searchInput]);
 
   const handleEndReached = () => {
     if (!transactionStore.isLoading) {
@@ -31,8 +36,9 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
       <TextInput
         style={styles.searchInput}
         placeholder="Buscar transacciones..."
-        value={transactionStore.searchQuery}
-        onChangeText={transactionStore.setSearchQuery}
+        value={searchInput}
+        onChangeText={setSearchInput}
+        autoCorrect={false}
       />
 
       {transactionStore.isHydrating && transactionStore.inMemoryTransactions.length === 0 ? (
