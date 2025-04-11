@@ -1,0 +1,263 @@
+<mxfile host="app.diagrams.net" modified="2023-04-03T12:00:00.000Z" agent="5.0 (Macintosh)" etag="abc123" version="15.0.0" type="device">
+  <diagram id="prtHgNgQTEPvFCAcTncT" name="Flujo de Aplicación">
+    <mxGraphModel dx="1422" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Título -->
+        <mxCell id="title" value="Flujo de Datos en la Aplicación de Transacciones Bancarias" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="284.5" y="40" width="600" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Capas de la Aplicación -->
+        <mxCell id="layers" value="Capas de la Aplicación" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ui_layer" value="+ UI (Pantallas y Componentes)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="layers">
+          <mxGeometry y="30" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="store_layer" value="+ Store (MobX - TransactionStore)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="layers">
+          <mxGeometry y="60" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="db_layer" value="+ Base de Datos Local (SQLite)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="layers">
+          <mxGeometry y="90" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="api_layer" value="+ API (Servidor Remoto)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="layers">
+          <mxGeometry y="120" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Flujo Principal -->
+        <mxCell id="main_flow" value="Flujo Principal de Datos" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="300" y="100" width="840" height="180" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso 1: Inicialización -->
+        <mxCell id="step1" value="1. Inicialización" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="main_flow">
+          <mxGeometry x="40" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="step1_desc" value="Usuario selecciona una cuenta&#xa;TransactionStore.setAccount(accountId)&#xa;- Limpia memoria&#xa;- Resetea estado&#xa;- Inicia hidratación" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="main_flow">
+          <mxGeometry x="40" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso 2: Hidratación de Memoria -->
+        <mxCell id="step2" value="2. Hidratación de Memoria" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="main_flow">
+          <mxGeometry x="200" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="step2_desc" value="TransactionStore.hydrateMemory()&#xa;- Carga datos en lotes&#xa;- Ordena por fecha&#xa;- Aplica filtros&#xa;- Actualiza UI" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="main_flow">
+          <mxGeometry x="200" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso 3: Sincronización -->
+        <mxCell id="step3" value="3. Sincronización" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="main_flow">
+          <mxGeometry x="360" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="step3_desc" value="TransactionStore.syncNewTransactions()&#xa;- Verifica última transacción&#xa;- Obtiene datos de API&#xa;- Procesa actualizaciones&#xa;- Actualiza memoria y DB" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="main_flow">
+          <mxGeometry x="360" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso 4: Sincronización Periódica -->
+        <mxCell id="step4" value="4. Sincronización Periódica" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="main_flow">
+          <mxGeometry x="520" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="step4_desc" value="TransactionStore.startPeriodicSync()&#xa;- Intervalo de 60 segundos&#xa;- Verifica estado de sincronización&#xa;- Reintenta en caso de error&#xa;- Maneja sincronizaciones pendientes" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="main_flow">
+          <mxGeometry x="520" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso 5: Búsqueda y Filtrado -->
+        <mxCell id="step5" value="5. Búsqueda y Filtrado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="main_flow">
+          <mxGeometry x="680" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="step5_desc" value="TransactionStore.setSearchQuery()&#xa;- Filtra en memoria&#xa;- Debounce de 300ms&#xa;- Actualiza UI&#xa;- No requiere llamadas a API" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="main_flow">
+          <mxGeometry x="680" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Flechas de flujo -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="main_flow" source="step1" target="step2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="main_flow" source="step2" target="step3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="main_flow" source="step3" target="step4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="main_flow" source="step4" target="step5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Detalle de Sincronización -->
+        <mxCell id="sync_detail" value="Detalle del Proceso de Sincronización" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="40" y="320" width="1100" height="240" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso S1: Verificación de Estado -->
+        <mxCell id="sync_step1" value="S1. Verificación de Estado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="sync_detail">
+          <mxGeometry x="40" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sync_step1_desc" value="Verifica estado actual:&#xa;- IDLE: Inicia sincronización&#xa;- SYNCING: Marca como pendiente&#xa;- ERROR: Limpia error y reintenta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="sync_detail">
+          <mxGeometry x="40" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso S2: Obtención de Última Transacción -->
+        <mxCell id="sync_step2" value="S2. Obtención de Última Transacción" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="sync_detail">
+          <mxGeometry x="200" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sync_step2_desc" value="database.getLastTransactionId()&#xa;- Obtiene ID de última transacción&#xa;- Almacena en lastKnownTransactionId&#xa;- Usa para comparación con API" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="sync_detail">
+          <mxGeometry x="200" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso S3: Consulta a API -->
+        <mxCell id="sync_step3" value="S3. Consulta a API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="sync_detail">
+          <mxGeometry x="360" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sync_step3_desc" value="api.fetchTransactionsByAccount()&#xa;- Obtiene primera página&#xa;- Verifica si hay actualizaciones&#xa;- Si no hay cambios, finaliza&#xa;- Si hay cambios, continúa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="sync_detail">
+          <mxGeometry x="360" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso S4: Procesamiento de Páginas -->
+        <mxCell id="sync_step4" value="S4. Procesamiento de Páginas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="sync_detail">
+          <mxGeometry x="520" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sync_step4_desc" value="processTransactionPage()&#xa;- Identifica transacciones nuevas&#xa;- Identifica transacciones actualizadas&#xa;- Persiste en base de datos&#xa;- Actualiza memoria" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="sync_detail">
+          <mxGeometry x="520" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso S5: Actualización de Estado -->
+        <mxCell id="sync_step5" value="S5. Actualización de Estado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="sync_detail">
+          <mxGeometry x="680" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sync_step5_desc" value="Actualiza estado final:&#xa;- Marca como IDLE&#xa;- Actualiza timestamp&#xa;- Actualiza lastKnownTransactionId&#xa;- Verifica sincronizaciones pendientes" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="sync_detail">
+          <mxGeometry x="680" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Paso S6: Manejo de Errores -->
+        <mxCell id="sync_step6" value="S6. Manejo de Errores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="sync_detail">
+          <mxGeometry x="840" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sync_step6_desc" value="En caso de error:&#xa;- Marca como ERROR&#xa;- Almacena mensaje de error&#xa;- Permite reintentos automáticos&#xa;- Mantiene datos existentes" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="sync_detail">
+          <mxGeometry x="840" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Flechas de flujo de sincronización -->
+        <mxCell id="sync_arrow1" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sync_detail" source="sync_step1" target="sync_step2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sync_arrow2" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sync_detail" source="sync_step2" target="sync_step3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sync_arrow3" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sync_detail" source="sync_step3" target="sync_step4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sync_arrow4" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sync_detail" source="sync_step4" target="sync_step5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sync_arrow5" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sync_detail" source="sync_step5" target="sync_step6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Detalle de Variables de Estado -->
+        <mxCell id="state_vars" value="Variables de Estado en TransactionStore" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="600" width="1100" height="180" as="geometry" />
+        </mxCell>
+        
+        <!-- Variables de Datos -->
+        <mxCell id="data_vars" value="Variables de Datos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="state_vars">
+          <mxGeometry x="40" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="data_vars_desc" value="inMemoryTransactions: Transaction[]&#xa;filteredTransactions: Transaction[]&#xa;currentAccountId: string&#xa;searchQuery: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="state_vars">
+          <mxGeometry x="40" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Variables de Estado -->
+        <mxCell id="state_vars_list" value="Variables de Estado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="state_vars">
+          <mxGeometry x="280" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="state_vars_desc" value="isLoading: boolean&#xa;isHydrating: boolean&#xa;allDataLoaded: boolean&#xa;syncState: SyncState (IDLE/SYNCING/ERROR)&#xa;syncError: string | null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="state_vars">
+          <mxGeometry x="280" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Variables de Control -->
+        <mxCell id="control_vars" value="Variables de Control" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="state_vars">
+          <mxGeometry x="520" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="control_vars_desc" value="page: number&#xa;pageSize: number&#xa;lastSyncTimestamp: number&#xa;lastKnownTransactionId: string | null&#xa;pendingSync: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="state_vars">
+          <mxGeometry x="520" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Variables Privadas -->
+        <mxCell id="private_vars" value="Variables Privadas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="state_vars">
+          <mxGeometry x="760" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="private_vars_desc" value="debouncedApplyFilters: Function&#xa;syncInterval: NodeJS.Timeout | null&#xa;syncTimeout: NodeJS.Timeout | null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="state_vars">
+          <mxGeometry x="760" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Estructura de Base de Datos -->
+        <mxCell id="db_structure" value="Estructura de Base de Datos" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="40" y="820" width="1100" height="180" as="geometry" />
+        </mxCell>
+        
+        <!-- Tabla de Transacciones -->
+        <mxCell id="transactions_table" value="Tabla de Transacciones" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="db_structure">
+          <mxGeometry x="40" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="transactions_table_desc" value="id: TEXT PRIMARY KEY&#xa;accountId: TEXT NOT NULL&#xa;description: TEXT NOT NULL&#xa;amount: REAL NOT NULL&#xa;currency: TEXT NOT NULL&#xa;type: TEXT&#xa;date: TEXT NOT NULL&#xa;syncStatus: TEXT DEFAULT 'synced'&#xa;lastModified: INTEGER&#xa;version: INTEGER DEFAULT 1&#xa;isDeleted: INTEGER DEFAULT 0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="db_structure">
+          <mxGeometry x="40" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Índices -->
+        <mxCell id="indices" value="Índices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="db_structure">
+          <mxGeometry x="280" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="indices_desc" value="idx_transactions_account_date:&#xa;(accountId, date DESC, id)&#xa;&#xa;idx_transactions_sync:&#xa;(syncStatus, lastModified, id)&#xa;&#xa;idx_transactions_version:&#xa;(version, id)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="db_structure">
+          <mxGeometry x="280" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Métodos de Base de Datos -->
+        <mxCell id="db_methods" value="Métodos de Base de Datos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="db_structure">
+          <mxGeometry x="520" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_methods_desc" value="initDatabase(): Promise&lt;SQLiteDatabase&gt;&#xa;persistTransactions(transactions, accountId): Promise&lt;void&gt;&#xa;getTransactionsByAccountId(accountId, limit?, offset?): Promise&lt;Transaction[]&gt;&#xa;getLastTransactionId(accountId): Promise&lt;string | null&gt;&#xa;getTransactionById(transactionId): Promise&lt;Transaction | null&gt;&#xa;cleanOldTransactions(): Promise&lt;void&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="db_structure">
+          <mxGeometry x="520" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Estrategia de Caché -->
+        <mxCell id="cache_strategy" value="Estrategia de Caché" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="db_structure">
+          <mxGeometry x="760" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cache_strategy_desc" value="1. Memoria (más rápido)&#xa;2. Base de datos local&#xa;3. API (servidor remoto)&#xa;&#xa;Sincronización:&#xa;- Verificación por ID&#xa;- Actualización incremental&#xa;- Borrado lógico&#xa;- Control de versiones" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="db_structure">
+          <mxGeometry x="760" y="110" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile> 
