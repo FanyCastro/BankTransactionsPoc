@@ -49,11 +49,14 @@ Manages the UI state and provides:
 sequenceDiagram
     User->>Store: Select Account
     Store->>Repository: Request Transactions
-    Repository->>Cache: Check Cache
-    Repository-->>Store: Return Cached Data (if any)
     Repository->>Network: Fetch First Page
     Network-->>Repository: Return First Page Data
-    Repository->>Database: Persist First Page
+    Repository->>Cache: Check Cache
+    Repository-->>Store: Return Cached Data 
+    Repository->>Database: Check local storage
+    Repository-->>Cache: Update memory Cache 
+    Repository-->>Store: Return Cached Data
+    Repository->>Database: Persist First Page (if needed)
     Repository->>Cache: Update Cache with First Page
     Repository-->>Store: Update UI with First Page
     Store-->>User: Show Initial Transactions

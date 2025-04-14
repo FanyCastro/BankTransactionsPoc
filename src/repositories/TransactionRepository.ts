@@ -24,6 +24,14 @@ class TransactionRepository {
         this.onUpdateCallbacks.forEach(callback => callback(transactions, this.isLoading));
     }
 
+    private completeUpdate(): void {
+        runInAction(() => {
+            this.lastUpdateTimestamp = Date.now();
+            this.isLoading = false;
+        });
+        this.notifyUpdates();
+    }
+
     private async fetchFromNetwork(accountId: string): Promise<void> {
         console.log('[TransactionRepository] Starting data refresh');
         runInAction(() => {
@@ -36,38 +44,49 @@ class TransactionRepository {
             const response = await api.fetchTransactionsByAccount(accountId, 1, this.PAGE_SIZE);
             console.log(`[TransactionRepository] First page fetched: ${response.data.length} transactions, ${response.totalPages} total pages`);
 
-            if (response.data.length > 0) {
-                console.log('[TransactionRepository] Persisting first page to database');
-                await database.persistTransactions(response.data, accountId);
+            if (response.data.length === 0) {
+                console.log('[TransactionRepository] No transactions found');
+                return this.completeUpdate();
+            }
 
-                console.log('[TransactionRepository] Updating memory cache with first page');
+            console.log(`[TransactionRepository] Memory cache has ${response.data[0].id} ${this.memoryCache.has(response.data[0].id)}`);
+            if (response.data.length > 0 && this.memoryCache.has(response.data[0].id)) {
+                console.log('[TransactionRepository] Already have latest transactions, skipping update');
+                return this.completeUpdate();
+            }
+
+            const lastId = await database.getLastTransactionId(accountId);
+            if (lastId === response.data[0]?.id) {
+                console.log('[TransactionRepository] Database already up to date');
+                const trx = await database.getTransactionsByAccountId(accountId);
                 runInAction(() => {
-                    response.data.forEach(transaction => {
+                    trx.forEach(transaction => {
                         this.memoryCache.set(transaction.id, transaction);
                     });
                 });
-
-                this.notifyUpdates();
-
-                // Start fetching additional pages asynchronously if needed
-                if (response.totalPages > 1) {
-                    console.log(`[TransactionRepository] Starting background fetch of ${response.totalPages - 1} additional pages`);
-                    this.fetchAdditionalPages(response.totalPages, accountId);
-                } else {
-                    runInAction(() => {
-                        this.lastUpdateTimestamp = Date.now();
-                        this.isLoading = false;
-                    });
-                    this.notifyUpdates();
-                }
-            } else {
-                console.log('[TransactionRepository] No transactions found in first page');
-                runInAction(() => {
-                    this.lastUpdateTimestamp = Date.now();
-                    this.isLoading = false;
-                });
-                this.notifyUpdates();
+                return this.completeUpdate();
             }
+
+
+            console.log('[TransactionRepository] Persisting first page to database');
+            await database.persistTransactions(response.data, accountId);
+            console.log('[TransactionRepository] Updating memory cache with first page');
+            runInAction(() => {
+                response.data.forEach(transaction => {
+                    this.memoryCache.set(transaction.id, transaction);
+                });
+            });
+            this.notifyUpdates();
+
+            // Start fetching additional pages asynchronously if needed
+            if (response.totalPages > 1) {
+                console.log(`[TransactionRepository] Starting background fetch of ${response.totalPages - 1} additional pages`);
+                // TODO - how to stop this method when leaving the transaction screen ?? 
+                this.fetchAdditionalPages(response.totalPages, accountId);
+            } else {
+                this.completeUpdate();
+            }
+
         } catch (error: unknown) {
             console.error('[TransactionRepository] Error fetching first page:', error);
             runInAction(() => {
@@ -82,6 +101,7 @@ class TransactionRepository {
         try {
             for (let page = 2; page <= totalPages; page++) {
                 try {
+                    // TODO - improve this logic as we can skip some of the pages
                     console.log(`[TransactionRepository] Fetching page ${page} of ${totalPages}`);
                     const response = await api.fetchTransactionsByAccount(accountId, page, this.PAGE_SIZE);
 
