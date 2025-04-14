@@ -1,102 +1,163 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Bank Transactions Search Application
 
-# Getting Started
+This application implements an efficient and responsive transaction search system with background synchronization and caching mechanisms.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Architecture Overview
 
-## Step 1: Start Metro
+The application follows a repository pattern with two main components:
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### TransactionRepository
+Handles all data-related operations including:
+- In-memory caching
+- Network requests
+- Background updates
+- Data synchronization
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### TransactionStore
+Manages the UI state and provides:
+- Transaction filtering
+- Search functionality
+- Account state management
 
-```sh
-# Using npm
-npm start
+## Data Flow
 
-# OR using Yarn
-yarn start
+1. **Initial Account Selection**
+   - User selects an account
+   - Store triggers data synchronization
+   - Repository checks local cache
+
+2. **Data Retrieval Process**
+   ```mermaid
+   sequenceDiagram
+      User->>Store: Select Account
+      Store->>Repository: Request Transactions
+      Repository->>Cache: Check Cache
+      Repository-->>Store: Return Cached Data
+      Repository->>Network: Background Check
+      Network-->>Repository: New Data
+      Repository->>Cache: Update Cache
+      Repository-->>Store: Update UI
+   ```
+
+3. **Background Updates**
+   - Repository periodically checks for new transactions
+   - Updates are fetched without interrupting the UI
+   - Cache is updated with new data
+   - UI is refreshed with latest transactions
+
+## Search Implementation
+
+### Local Search Features
+- Real-time filtering of transactions
+- Case-insensitive search
+- Searches across multiple transaction fields
+- Results update instantly as user types
+
+### State Management
+The search functionality maintains several states:
+- Initial state: Empty array of transactions
+- Filtered state: Subset of transactions matching search criteria
+- Loading state: Indicates ongoing data fetch
+- Error state: Handles and displays error scenarios
+
+## Caching Strategy
+
+### Memory Cache
+- Stores recently fetched transactions
+- Reduces network requests
+- Improves application responsiveness
+- Automatically cleans old data
+
+### Cache Invalidation
+- Time-based invalidation
+- Account change triggers
+- Manual refresh option
+- Background sync validation
+
+## Performance Considerations
+
+1. **Optimization Techniques**
+   - In-memory caching for fast retrieval
+   - Background updates for fresh data
+   - Efficient search algorithms
+   - Pagination support for large datasets
+
+2. **User Experience**
+   - Immediate response with cached data
+   - Progressive loading of transactions
+   - Smooth search experience
+   - Real-time updates without UI freezes
+
+## Error Handling
+
+The application implements robust error handling:
+- Network failure recovery
+- Cache miss handling
+- Invalid data management
+- User feedback for all error states
+
+## Usage Example
+
+```typescript
+// Initialize store
+const transactionStore = new TransactionStore();
+
+// Select account
+await transactionStore.setAccount("account123");
+
+// Search transactions
+transactionStore.searchQuery = "payment";
+// Filtered transactions are automatically updated
 ```
 
-## Step 2: Build and run your app
+## Technical Details
 
-```sh 
-    node mock-api/db-generator.js > mock-api/db.json
-    npx json-server --watch mock-api/db.json --port 3004
+### Data Types
+
+```typescript
+interface Transaction {
+  id: string;
+  amount: number;
+  description: string;
+  date: Date;
+  // ... other fields
+}
+
+interface DataState<T> {
+  content: T | null;
+  loading: boolean;
+  error: Error | null;
+}
 ```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Key Methods
 
-### Android
+- `getTransactions`: Fetches transactions with optional force reload
+- `checkForUpdates`: Performs background synchronization
+- `syncTransactions`: Coordinates data updates
+- `cleanOldTransactions`: Manages cache cleanup
 
-```sh
-# Using npm
-npm run android
+## Best Practices
 
-# OR using Yarn
-yarn android
-```
+1. **Data Management**
+   - Always validate cached data
+   - Implement proper error boundaries
+   - Handle edge cases gracefully
+   - Maintain data consistency
 
-### iOS
+2. **UI Responsiveness**
+   - Never block the main thread
+   - Provide loading indicators
+   - Implement smooth transitions
+   - Handle background updates seamlessly
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## Contributing
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+Feel free to contribute to this project by:
+1. Forking the repository
+2. Creating a feature branch
+3. Submitting a pull request
 
-```sh
-bundle install
-```
+## License
 
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This project is licensed under the MIT License - see the LICENSE file for details.
