@@ -1,170 +1,157 @@
-# Bank Transactions POC
+# Bank Transactions Search Application
 
-A proof of concept for handling bank transactions with background updates and efficient state management.
+This application implements an efficient and responsive transaction search system with background synchronization and caching mechanisms.
 
-## Architecture
+## Architecture Overview
 
-The application follows a repository pattern with MobX for state management:
+The application follows a repository pattern with two main components:
 
-### Repository Layer (`TransactionRepository`)
+### TransactionRepository
 
-Responsible for data management and background operations:
+Handles all data-related operations including:
 
-```typescript
-class TransactionRepository {
-    private memoryCache: Map<string, Transaction>;
-    private onUpdateCallbacks: ((transactions: Transaction[], isLoading: boolean) => void)[];
-    private isLoading: boolean;
+* In-memory caching
+* Network requests
+* Background updates
+* Data synchronization
 
-    // Notifies subscribers of updates with current transactions and loading state
-    onUpdate(callback: (transactions: Transaction[], isLoading: boolean) => void): void;
-}
-```
+### TransactionStore
 
-Key features:
-- Manages loading state internally
-- Handles background page fetching
-- Notifies subscribers of both data and loading state changes
-- Maintains a memory cache for quick access
+Manages the UI state and provides:
 
-### Store Layer (`TransactionStore`)
-
-Handles UI state and repository interactions:
-
-```typescript
-export class TransactionStore {
-    transactions: Transaction[] = [];
-    isLoading: boolean = false;
-    
-    constructor() {
-        // Subscribe to repository updates
-        transactionRepository.onUpdate((transactions, isLoading) => {
-            runInAction(() => {
-                this.transactions = transactions;
-                this.isLoading = isLoading;
-                this.applyFilters(this.searchQuery);
-            });
-        });
-    }
-}
-```
-
-Key features:
-- Reflects repository loading state
-- Handles filtering and search
-- Manages UI-specific state
+* Transaction filtering
+* Search functionality
+* Account state management
 
 ## Data Flow
 
-1. Initial Load:
-   ```typescript
-   // User navigates to transactions
-   store.setAccount(accountId);
-   // Repository starts loading and notifies
-   repository.getTransactions(accountId);
-   ```
+1. **Initial Account Selection**  
+   * User selects an account  
+   * Store triggers data synchronization  
+   * Repository checks local cache
 
-2. Background Updates:
-   ```typescript
-   // Repository loads first page
-   this.fetchFromNetwork(accountId);
-   // Then starts background loading of additional pages
-   this.fetchAdditionalPages(totalPages, accountId);
-   ```
+2. **Data Retrieval Process**  
+   * Repository fetches first page immediately
+   * Data is stored in SQLite database
+   * Memory cache is updated
+   * Background fetch of additional pages begins
+   * UI is updated with available data
 
-3. State Updates:
-   ```typescript
-   // Repository notifies of changes
-   this.onUpdateCallbacks.forEach(callback => 
-       callback(transactions, this.isLoading)
-   );
-   ```
+3. **Background Updates**  
+   * Repository periodically checks for new transactions  
+   * Updates are fetched without interrupting the UI  
+   * Cache is updated with new data  
+   * UI is refreshed with latest transactions
 
-## Loading State Management
+## Sequence Diagram
 
-The loading state follows these rules:
+```mermaid
+sequenceDiagram
+    User->>Store: Select Account
+    Store->>Repository: Request Transactions
+    Repository->>Cache: Check Cache
+    Repository-->>Store: Return Cached Data
+    Repository->>Network: Background Check
+    Network-->>Repository: New Data
+    Repository->>Cache: Update Cache
+    Repository-->>Store: Update UI
+    Store-->>User: Show Transactions
+    Repository->>Network: Fetch Additional Pages
+    Network-->>Repository: Return Data
+    Repository->>Cache: Update Cache
+    Repository-->>Store: Update Transactions
+    Store-->>User: Refresh UI
+    User->>Store: Search Query
+    Store->>Store: Filter Transactions
+    Store-->>User: Show Filtered Results
+```
 
-1. Repository controls loading state:
-   - Sets `isLoading = true` when starting data fetch
-   - Sets `isLoading = false` when:
-     - First page is loaded (if no more pages)
-     - All additional pages are loaded
-     - An error occurs
+## Search Implementation
 
-2. Store reflects loading state:
-   - Updates its `isLoading` based on repository notifications
-   - Uses loading state for UI feedback
+### Local Search Features
+
+* Real-time filtering of transactions
+* Case-insensitive search
+* Searches across multiple transaction fields
+* Results update instantly as user types
+
+### State Management
+
+The search functionality maintains several states:
+
+* Initial state: Empty array of transactions
+* Filtered state: Subset of transactions matching search criteria
+* Loading state: Indicates ongoing data fetch
+* Error state: Handles and displays error scenarios
+
+## Caching Strategy
+
+### Memory Cache
+
+* Stores recently fetched transactions
+* Reduces network requests
+* Improves application responsiveness
+* Automatically cleans old data
+
+### Cache Invalidation
+
+* Time-based invalidation (5-minute interval)
+* Account change triggers
+* Manual refresh option
+* Background sync validation
+
+## Usage Example
+
+```typescript
+// Initialize store
+const transactionStore = new TransactionStore();
+
+// Select account
+await transactionStore.setAccount("account123");
+
+// Search transactions
+transactionStore.searchQuery = "payment";
+// Filtered transactions are automatically updated
+```
+
+## Technical Details
+
+### Data Types
+
+```typescript
+interface Transaction {
+  id: string;
+  amount: number;
+  description: string;
+  date: Date;
+  // ... other fields
+}
+
+interface DataState<T> {
+  content: T | null;
+  loading: boolean;
+  error: Error | null;
+}
+```
+
+### Key Methods
+
+* `getTransactions`: Fetches transactions with optional force reload
+* `checkForUpdates`: Performs background synchronization
+* `syncTransactions`: Coordinates data updates
+* `cleanOldTransactions`: Manages cache cleanup
 
 ## Best Practices
 
-1. State Management:
-   - Single source of truth in repository
-   - MobX strict mode compliance
-   - Proper error handling
+1. **Data Management**  
+   * Always validate cached data  
+   * Implement proper error boundaries  
+   * Handle edge cases gracefully  
+   * Maintain data consistency
 
-2. Background Processing:
-   - Non-blocking page loading
-   - Progressive data updates
-   - Efficient memory cache
+2. **UI Responsiveness**  
+   * Never block the main thread  
+   * Provide loading indicators  
+   * Implement smooth transitions  
+   * Handle background updates seamlessly
 
-3. Error Handling:
-   - Graceful error recovery
-   - User feedback
-   - Logging for debugging
-
-## Implementation Details
-
-### Repository Updates
-
-```typescript
-private async fetchAdditionalPages(totalPages: number, accountId: string): Promise<void> {
-    try {
-        for (let page = 2; page <= totalPages; page++) {
-            // Fetch and process each page
-            const response = await api.fetchTransactionsByAccount(accountId, page, 200);
-            // Update cache and notify
-            runInAction(() => {
-                response.data.forEach(transaction => {
-                    this.memoryCache.set(transaction.id, transaction);
-                });
-            });
-            this.notifyUpdates();
-        }
-        // Mark loading as complete
-        runInAction(() => {
-            this.lastUpdateTimestamp = Date.now();
-            this.isLoading = false;
-        });
-        this.notifyUpdates();
-    } catch (error) {
-        console.error('[TransactionRepository] Error in background pages fetch:', error);
-        runInAction(() => {
-            this.isLoading = false;
-        });
-        this.notifyUpdates();
-    }
-}
-```
-
-### Store Updates
-
-```typescript
-setAccount(accountId: string) {
-    this.currentAccountId = accountId;
-    this.error = null;
-    
-    transactionRepository.getTransactions(accountId)
-        .then((result: DataState<Transaction[]>) => {
-            runInAction(() => {
-                this.transactions = result.content;
-                this.isLoading = result.loading;
-                this.error = result.error;
-            });
-        });
-}
-```
-
-## Getting Started
-
-1. **Installation**
-   ```
