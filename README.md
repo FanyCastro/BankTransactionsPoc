@@ -51,17 +51,28 @@ sequenceDiagram
     Store->>Repository: Request Transactions
     Repository->>Network: Fetch First Page
     Network-->>Repository: Return First Page Data
-    Repository->>Cache: Check Cache
-    Repository-->>Store: Return Cached Data 
-    Repository->>Database: Check local storage
-    Repository-->>Cache: Update memory Cache 
-    Repository-->>Store: Return Cached Data
-    Repository->>Database: Persist First Page (if needed)
-    Repository->>Cache: Update Cache with First Page
-    Repository-->>Store: Update UI with First Page
+
+    Repository->>Cache: Check Memory Cache Status
+    alt Memory cache updated
+        Cache-->>Repository: Return Transactions
+        Repository-->>Store: Return Cached Data
+    else 
+        Repository->>Database: Check Local Storage Status
+        alt Local Storage updated
+            Database-->>Repository: Return Transactions
+            Repository-->>Cache: Update Memory Cache 
+            Repository-->>Store: Return Cached Data
+        else 
+            Repository->>Database: Persist First Page 
+            Repository->>Database: Update Local Storage with First Page
+            Repository->>Cache: Update Memory Cache with First Page
+        end
+    end
+
+    Store-->>Store: Update UI with First Page
     Store-->>User: Show Initial Transactions
     
-    par Background Processing
+    par Background Processing (if totalPages > 2)
         Repository->>Network: Fetch Page 2
         Network-->>Repository: Return Page 2 Data
         Repository->>Database: Persist Page 2
@@ -80,6 +91,7 @@ sequenceDiagram
     User->>Store: Search Query
     Store->>Store: Filter Transactions
     Store-->>User: Show Filtered Results
+
 ```
 
 ## Search Implementation
