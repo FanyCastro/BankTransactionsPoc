@@ -50,17 +50,30 @@ sequenceDiagram
     User->>Store: Select Account
     Store->>Repository: Request Transactions
     Repository->>Cache: Check Cache
-    Repository-->>Store: Return Cached Data
-    Repository->>Network: Background Check
-    Network-->>Repository: New Data
-    Repository->>Cache: Update Cache
-    Repository-->>Store: Update UI
-    Store-->>User: Show Transactions
-    Repository->>Network: Fetch Additional Pages
-    Network-->>Repository: Return Data
-    Repository->>Cache: Update Cache
-    Repository-->>Store: Update Transactions
-    Store-->>User: Refresh UI
+    Repository-->>Store: Return Cached Data (if any)
+    Repository->>Network: Fetch First Page
+    Network-->>Repository: Return First Page Data
+    Repository->>Database: Persist First Page
+    Repository->>Cache: Update Cache with First Page
+    Repository-->>Store: Update UI with First Page
+    Store-->>User: Show Initial Transactions
+    
+    par Background Processing
+        Repository->>Network: Fetch Page 2
+        Network-->>Repository: Return Page 2 Data
+        Repository->>Database: Persist Page 2
+        Repository->>Cache: Update Cache with Page 2
+        Repository-->>Store: Update UI
+        
+        Repository->>Network: Fetch Page 3
+        Network-->>Repository: Return Page 3 Data
+        Repository->>Database: Persist Page 3
+        Repository->>Cache: Update Cache with Page 3
+        Repository-->>Store: Update UI
+        
+        Note over Repository,Network: Continue fetching remaining pages
+    end
+    
     User->>Store: Search Query
     Store->>Store: Filter Transactions
     Store-->>User: Show Filtered Results
