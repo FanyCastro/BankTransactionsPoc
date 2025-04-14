@@ -10,7 +10,7 @@ let db: SQLite.SQLiteDatabase;
 interface Database {
   initDatabase: () => Promise<SQLite.SQLiteDatabase>;
   persistTransactions: (transactions: Transaction[], accountId: string) => Promise<void>;
-  getTransactionsByAccountId: (accountId: string, limit?: number, offset?: number) => Promise<Transaction[]>;
+  getTransactionsByAccountId: (accountId: string, searchTerm?: string) => Promise<Transaction[]>;
   getLastTransactionId: (accountId: string) => Promise<string | null>;
   getTransactionById: (transactionId: string) => Promise<Transaction | null>
   cleanOldTransactions: () => Promise<void>;
@@ -50,10 +50,6 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
             currency TEXT NOT NULL,
             type TEXT,
             date TEXT NOT NULL,
-            syncStatus TEXT DEFAULT 'synced',
-            lastModified INTEGER,
-            version INTEGER DEFAULT 1,
-            isDeleted INTEGER DEFAULT 0,
             FOREIGN KEY (accountId) REFERENCES accounts(accountId)
           );`,
           [],
@@ -65,30 +61,8 @@ const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
         );
 
         tx.executeSql(`
-          CREATE INDEX IF NOT EXISTS idx_transactions_account_date 
-          ON transactions(accountId, date DESC, id);`,
-          [],
-          () => console.log('***** Índice creado'),
-          (_, error) => {
-            console.error('Error creando índice:', error);
-            return false;
-          }
-        );
-
-        tx.executeSql(`
-          CREATE INDEX IF NOT EXISTS idx_transactions_sync 
-          ON transactions(syncStatus, lastModified, id);`,
-          [],
-          () => console.log('***** Índice creado'),
-          (_, error) => {
-            console.error('Error creando índice:', error);
-            return false;
-          }
-        );
-
-        tx.executeSql(`
-          CREATE INDEX IF NOT EXISTS idx_transactions_version 
-          ON transactions(version, id);`,
+          CREATE INDEX IF NOT EXISTS idx_transactions_account 
+          ON transactions(accountId);`,
           [],
           () => console.log('***** Índice creado'),
           (_, error) => {
@@ -151,22 +125,16 @@ const persistTransactions = async (transactions: Transaction[], accountId: strin
               amount, 
               currency, 
               type, 
-              date,
-              syncStatus,
-              lastModified,
-              version
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              date
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [
               transaction.id,
               accountId,
               transaction.description,
               transaction.amount,
               transaction.currency,
-              transaction.type,
+              transaction.type ,
               transaction.date,
-              'synced',
-              Date.now(),
-              1
             ],
             (_, result) => {
               console.log(`Transacción guardada con éxito. Affected rows ${result.rowsAffected}`);
@@ -188,22 +156,13 @@ const persistTransactions = async (transactions: Transaction[], accountId: strin
   }
 };
 
-const getTransactionsByAccountId = async (accountId: string, limit?: number, offset?: number): Promise<Transaction[]> => {
-  console.log('***** Get transactions by account from local database');
-  
-  const query = limit !== undefined && offset !== undefined
-    ? 'SELECT * FROM transactions WHERE accountId = ? AND isDeleted = 0 ORDER BY date DESC, id DESC LIMIT ? OFFSET ?;'
-    : 'SELECT * FROM transactions WHERE accountId = ? AND isDeleted = 0 ORDER BY date DESC, id DESC;';
-  
-  const params = limit !== undefined && offset !== undefined
-    ? [accountId, limit, offset]
-    : [accountId];
-  
+const getTransactionsByAccountId = async (accountId: string): Promise<Transaction[]> => {
+  console.log('***** Get all transcations by account from API');
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        query,
-        params,
+        'SELECT * FROM transactions WHERE accountId = ? ORDER BY date DESC;',
+        [accountId],
         (_, { rows }) => {
           const transactions: Transaction[] = [];
           for (let i = 0; i < rows.length; i++) {
@@ -266,14 +225,14 @@ const cleanOldTransactions = async (): Promise<void> => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        'UPDATE transactions SET isDeleted = 1 WHERE date < ? AND isDeleted = 0',
-        [new Date(sixMonthsAgo).toISOString()],
+        'DELETE FROM transactions WHERE loadedAt < ?',
+              [sixMonthsAgo],
         () => {
-          console.log('Old transactions marked as deleted');
+          console.log('Old transactions cleaned');
           resolve();
         },
         (_, error) => {
-          console.error('Error marking old transactions as deleted', error);
+          console.error('Error cleaning transactions', error);
           reject(error);
           return false;
         }
