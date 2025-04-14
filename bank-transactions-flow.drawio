@@ -1,0 +1,72 @@
+<mxfile host="app.diagrams.net" modified="2024-03-19T10:00:00.000Z" agent="Mozilla/5.0" version="21.7.5" etag="your-etag">
+  <diagram id="transaction-flow" name="Transaction Flow">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Store -->
+        <mxCell id="store" value="TransactionStore&#xa;&#xa;transactions: Transaction[]&#xa;isLoading: boolean&#xa;error: string | null&#xa;searchQuery: string&#xa;currentOperationId: string | null" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacingLeft=10;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="80" width="200" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Repository -->
+        <mxCell id="repo" value="TransactionRepository&#xa;&#xa;memoryCache: Map&lt;string, Transaction&gt;&#xa;isLoading: boolean&#xa;lastUpdateTimestamp: number&#xa;currentAccountId: string&#xa;currentOperationId: string | null&#xa;isCancelled: boolean" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacingLeft=10;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="440" y="80" width="240" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- API -->
+        <mxCell id="api" value="API&#xa;&#xa;/accounts/{id}/transactions&#xa;?page={page}&amp;size={size}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=10;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="800" y="80" width="200" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Initial Flow -->
+        <mxCell id="flow1" value="Initial Load Flow" style="swimlane;horizontal=0;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="120" y="240" width="880" height="200" as="geometry" />
+          <mxCell id="flow1-steps" value="1. User navigates to transactions&#xa;   store.setAccount(accountId)&#xa;&#xa;2. Store calls repository&#xa;   getTransactions(accountId)&#xa;&#xa;3. Repository checks cache and updates&#xa;   - Returns current cache&#xa;   - Sets isLoading = true if update needed&#xa;   - Starts background fetch if needed&#xa;&#xa;4. Store updates state&#xa;   - Updates transactions&#xa;   - Updates isLoading from repository" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="flow1">
+            <mxGeometry x="30" y="10" width="850" height="180" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Background Update Flow -->
+        <mxCell id="flow2" value="Background Update Flow" style="swimlane;horizontal=0;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="120" y="460" width="880" height="240" as="geometry" />
+          <mxCell id="flow2-steps" value="1. Repository fetches first page&#xa;   fetchFromNetwork(accountId)&#xa;   - Sets isLoading = true&#xa;   - Fetches page 1&#xa;   - Updates cache&#xa;   - Notifies store (transactions, isLoading)&#xa;&#xa;2. Repository starts background fetch&#xa;   fetchAdditionalPages(totalPages, accountId)&#xa;   - For each page:&#xa;     * Check isCancelled flag&#xa;     * Fetch data if not cancelled&#xa;     * Update cache&#xa;     * Notify store&#xa;   - When complete:&#xa;     * Set isLoading = false&#xa;     * Update lastUpdateTimestamp&#xa;     * Notify store" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="flow2">
+            <mxGeometry x="30" y="10" width="850" height="220" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Cancellation Flow -->
+        <mxCell id="flow3" value="Cancellation Flow" style="swimlane;horizontal=0;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="120" y="720" width="880" height="200" as="geometry" />
+          <mxCell id="flow3-steps" value="1. User navigates away&#xa;   store.cancelBackgroundOperations()&#xa;&#xa;2. Store cancels repository&#xa;   repository.cancelBackgroundOperations()&#xa;   - Sets isCancelled = true&#xa;   - Sets currentOperationId = null&#xa;&#xa;3. Repository stops background fetch&#xa;   - Checks isCancelled flag&#xa;   - Stops fetching if cancelled&#xa;   - Cleans up resources&#xa;&#xa;4. Store updates state&#xa;   - Sets isLoading = false&#xa;   - Clears currentOperationId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="flow3">
+            <mxGeometry x="30" y="10" width="850" height="180" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="arrow1" value="setAccount(accountId)" style="endArrow=classic;html=1;exitX=1;exitY=0.25;entryX=0;entryY=0.25;" edge="1" parent="1" source="store" target="repo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow2" value="onUpdate(transactions, isLoading)" style="endArrow=classic;html=1;exitX=0;exitY=0.75;entryX=1;entryY=0.75;dashed=1;" edge="1" parent="1" source="repo" target="store">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow3" value="GET /transactions" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="repo" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow4" value="cancelBackgroundOperations()" style="endArrow=classic;html=1;exitX=1;exitY=0.75;entryX=0;entryY=0.75;" edge="1" parent="1" source="store" target="repo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Variable States -->
+        <mxCell id="states" value="Variable States&#xa;&#xa;1. Initial State:&#xa;   Store:&#xa;   - transactions = []&#xa;   - isLoading = false&#xa;   - currentOperationId = null&#xa;   Repository:&#xa;   - memoryCache = empty&#xa;   - isLoading = false&#xa;   - currentOperationId = null&#xa;   - isCancelled = false&#xa;&#xa;2. During Background Fetch:&#xa;   Store:&#xa;   - currentOperationId = "op_123"&#xa;   Repository:&#xa;   - currentOperationId = "op_123"&#xa;   - isCancelled = false&#xa;&#xa;3. After Cancellation:&#xa;   Store:&#xa;   - currentOperationId = null&#xa;   - isLoading = false&#xa;   Repository:&#xa;   - currentOperationId = null&#xa;   - isCancelled = true" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="120" y="940" width="880" height="320" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile> 

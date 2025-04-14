@@ -1,210 +1,169 @@
 import { Transaction } from '../types/types';
+import { DataState } from '../types/DataState';
 import api from '../services/api';
 import database from '../services/database';
-
-interface DataState<T> {
-    content: T | null;
-    loading: boolean;
-    error: Error | null;
-}
+import { runInAction } from 'mobx';
 
 class TransactionRepository {
-    private memoryCache: Transaction[] = [];
+    private memoryCache: Map<string, Transaction> = new Map();
     private currentAccountId: string = '';
-    private isCheckingForUpdates: boolean = false;
+    private onUpdateCallbacks: ((transactions: Transaction[], isLoading: boolean) => void)[] = [];
+    private lastUpdateTimestamp: number = 0;
+    private readonly UPDATE_INTERVAL = 5 * 60 * 1000; // 5 minutes
+    private readonly PAGE_SIZE = 200;
+    private isLoading: boolean = false;
+
+    // Method to register update callbacks
+    onUpdate(callback: (transactions: Transaction[], isLoading: boolean) => void): void {
+        this.onUpdateCallbacks.push(callback);
+    }
+
+    // Method to notify updates
+    private notifyUpdates(): void {
+        const transactions = Array.from(this.memoryCache.values());
+        this.onUpdateCallbacks.forEach(callback => callback(transactions, this.isLoading));
+    }
+
+    private async fetchFromNetwork(accountId: string): Promise<void> {
+        console.log('[TransactionRepository] Starting data refresh');
+        runInAction(() => {
+            this.isLoading = true;
+        });
+        this.notifyUpdates();
+
+        try {
+            // Fetch first page synchronously
+            const response = await api.fetchTransactionsByAccount(accountId, 1, this.PAGE_SIZE);
+            console.log(`[TransactionRepository] First page fetched: ${response.data.length} transactions, ${response.totalPages} total pages`);
+
+            if (response.data.length > 0) {
+                console.log('[TransactionRepository] Persisting first page to database');
+                await database.persistTransactions(response.data, accountId);
+
+                console.log('[TransactionRepository] Updating memory cache with first page');
+                runInAction(() => {
+                    response.data.forEach(transaction => {
+                        this.memoryCache.set(transaction.id, transaction);
+                    });
+                });
+
+                this.notifyUpdates();
+
+                // Start fetching additional pages asynchronously if needed
+                if (response.totalPages > 1) {
+                    console.log(`[TransactionRepository] Starting background fetch of ${response.totalPages - 1} additional pages`);
+                    this.fetchAdditionalPages(response.totalPages, accountId);
+                } else {
+                    runInAction(() => {
+                        this.lastUpdateTimestamp = Date.now();
+                        this.isLoading = false;
+                    });
+                    this.notifyUpdates();
+                }
+            } else {
+                console.log('[TransactionRepository] No transactions found in first page');
+                runInAction(() => {
+                    this.lastUpdateTimestamp = Date.now();
+                    this.isLoading = false;
+                });
+                this.notifyUpdates();
+            }
+        } catch (error: unknown) {
+            console.error('[TransactionRepository] Error fetching first page:', error);
+            runInAction(() => {
+                this.isLoading = false;
+            });
+            this.notifyUpdates();
+            throw error;
+        }
+    }
+
+    private async fetchAdditionalPages(totalPages: number, accountId: string): Promise<void> {
+        try {
+            for (let page = 2; page <= totalPages; page++) {
+                try {
+                    console.log(`[TransactionRepository] Fetching page ${page} of ${totalPages}`);
+                    const response = await api.fetchTransactionsByAccount(accountId, page, this.PAGE_SIZE);
+
+                    if (response.data.length > 0) {
+                        await database.persistTransactions(response.data, accountId);
+                        runInAction(() => {
+                            response.data.forEach(transaction => {
+                                this.memoryCache.set(transaction.id, transaction);
+                            });
+                        });
+                        this.notifyUpdates();
+                    }
+                } catch (error: unknown) {
+                    console.error(`[TransactionRepository] Error fetching page ${page}:`, error);
+                }
+            }
+            console.log('[TransactionRepository] All additional pages processed');
+            runInAction(() => {
+                this.lastUpdateTimestamp = Date.now();
+                this.isLoading = false;
+            });
+            this.notifyUpdates();
+        } catch (error: unknown) {
+            console.error('[TransactionRepository] Error in background pages fetch:', error);
+            runInAction(() => {
+                this.isLoading = false;
+            });
+            this.notifyUpdates();
+        }
+    }
 
     async getTransactions(accountId: string, forceReload = false): Promise<DataState<Transaction[]>> {
-        console.log(`[TransactionRepository] getTransactions called for account ${accountId}, forceReload: ${forceReload}`);
+        console.log(`[TransactionRepository] Getting transactions for account ${accountId} (force reload: ${forceReload})`);
 
         // If account changed, clear cache
         if (this.currentAccountId !== accountId) {
-            console.log(`[TransactionRepository] Account changed from ${this.currentAccountId} to ${accountId}, clearing cache`);
-            this.memoryCache = [];
-            this.currentAccountId = accountId;
+            console.log(`[TransactionRepository] Account changed from ${this.currentAccountId} to ${accountId} - clearing cache`);
+            runInAction(() => {
+                this.memoryCache.clear();
+                this.currentAccountId = accountId;
+                this.lastUpdateTimestamp = 0; // Reset timestamp when account changes
+            });
         }
 
-        // 1. Return memory cache immediately if available
-        if (this.memoryCache.length > 0) {
-            console.log(`[TransactionRepository] Returning ${this.memoryCache.length} transactions from memory cache`);
+        // Always return current cache
+        const transactions = Array.from(this.memoryCache.values());
+        console.log(`[TransactionRepository] Returning ${transactions.length} cached transactions`);
 
-            // Check for updates in the background if not forcing reload
-            if (!forceReload && !this.isCheckingForUpdates) {
-                console.log('[TransactionRepository] Triggering background update check');
-                this.checkForUpdates(accountId);
-            }
+        // Check if we need to update
+        const now = Date.now();
+        const shouldUpdate = forceReload || (now - this.lastUpdateTimestamp > this.UPDATE_INTERVAL);
+        console.log(`[TransactionRepository] Update needed: ${shouldUpdate} (force reload: ${forceReload}, time since last update: ${Math.round((now - this.lastUpdateTimestamp) / 1000)}s)`);
 
-            return {
-                content: this.memoryCache,
-                loading: false,
-                error: null,
-            };
+        // If we need to update, schedule it in the background
+        if (shouldUpdate) {
+            console.log('[TransactionRepository] Scheduling background update');
+            runInAction(() => {
+                this.isLoading = true;
+            });
+            this.notifyUpdates();
+            this.fetchFromNetwork(accountId).catch((error: unknown) => {
+                console.error('[TransactionRepository] Error in background update:', error);
+            });
         }
 
-        // 2. Try DB if memory cache is empty
-        if (this.memoryCache.length === 0) {
-            console.log('[TransactionRepository] Memory cache empty, trying DB');
-            try {
-                const dbData = await database.getTransactionsByAccountId(accountId);
-                if (dbData.length > 0) {
-                    console.log(`[TransactionRepository] Found ${dbData.length} transactions in DB`);
-                    this.memoryCache = dbData;
-
-                    // Check for updates in the background
-                    if (!this.isCheckingForUpdates) {
-                        console.log('[TransactionRepository] Triggering background update check after DB load');
-                        this.checkForUpdates(accountId);
-                    }
-
-                    return {
-                        content: dbData,
-                        loading: false,
-                        error: null,
-                    };
-                } else {
-                    console.log('[TransactionRepository] No transactions found in DB');
-                }
-            } catch (error) {
-                console.error('[TransactionRepository] Error loading from DB:', error);
-            }
-        }
-
-        // 3. Fetch from network (only if cache is empty or force reload)
-        console.log('[TransactionRepository] Fetching from network');
-        return this.fetchFromNetwork(accountId);
-    }
-
-    private async checkForUpdates(accountId: string) {
-        if (this.isCheckingForUpdates) {
-            console.log('[TransactionRepository] Already checking for updates, skipping');
-            return;
-        }
-
-        console.log(`[TransactionRepository] Starting background update check for account ${accountId}`);
-        this.isCheckingForUpdates = true;
-
-        try {
-            // Check if there are new transactions
-            console.log('[TransactionRepository] Fetching latest transaction to check for updates');
-            const response = await api.fetchTransactionsByAccount(accountId, 1, 1);
-
-            if (response.data.length > 0) {
-                const newestTransaction = response.data[0];
-                console.log(`[TransactionRepository] Latest transaction ID: ${newestTransaction.id}`);
-
-                const existsLocally = await database.getTransactionById(newestTransaction.id) != null;
-                console.log(`[TransactionRepository] Latest transaction exists locally: ${existsLocally}`);
-
-                if (!existsLocally) {
-                    console.log('[TransactionRepository] New transactions found, fetching all');
-                    // There are new transactions, fetch them all
-                    await this.fetchFromNetwork(accountId);
-                } else {
-                    console.log('[TransactionRepository] No new transactions found');
-                }
-            } else {
-                console.log('[TransactionRepository] No transactions returned from API');
-            }
-        } catch (error) {
-            console.error('[TransactionRepository] Error checking for updates:', error);
-        } finally {
-            this.isCheckingForUpdates = false;
-            console.log('[TransactionRepository] Background update check completed');
-        }
-    }
-
-    private async fetchFromNetwork(accountId: string): Promise<DataState<Transaction[]>> {
-        console.log(`[TransactionRepository] Fetching transactions from network for account ${accountId}`);
-        try {
-            const response = await api.fetchTransactionsByAccount(accountId, 1, 200);
-            console.log(`[TransactionRepository] Network response: ${response.data.length} transactions, ${response.totalPages} pages`);
-
-            if (response.data.length > 0) {
-                // Save to DB
-                console.log(`[TransactionRepository] Saving ${response.data.length} transactions to DB`);
-                await database.persistTransactions(response.data, accountId);
-
-                // Update memory cache
-                console.log(`[TransactionRepository] Updating memory cache with ${response.data.length} transactions`);
-                this.memoryCache = response.data;
-
-                // Handle other pages if needed
-                if (response.totalPages > 1) {
-                    console.log(`[TransactionRepository] Fetching ${response.totalPages - 1} additional pages`);
-                    await this.handleOtherPages(response, accountId);
-                }
-
-                return {
-                    content: this.memoryCache,
-                    loading: false,
-                    error: null,
-                };
-            }
-        } catch (error) {
-            console.error('[TransactionRepository] Error fetching from network:', error);
-            // If we have cached data, return it with error
-            if (this.memoryCache.length > 0) {
-                console.log(`[TransactionRepository] Returning ${this.memoryCache.length} cached transactions with error`);
-                return {
-                    content: this.memoryCache,
-                    loading: false,
-                    error: error as Error,
-                };
-            }
-            console.log('[TransactionRepository] No cached data available, returning error');
-            return {
-                content: null,
-                loading: false,
-                error: error as Error,
-            };
-        }
-
-        console.log('[TransactionRepository] No transactions found, returning empty array');
+        // Return current state
         return {
-            content: [],
-            loading: false,
+            content: transactions,
+            loading: this.isLoading,
             error: null,
         };
     }
 
-    private async handleOtherPages(firstPageResponse: any, accountId: string) {
-        const totalPages = firstPageResponse.totalPages;
-        console.log(`[TransactionRepository] Handling ${totalPages - 1} additional pages`);
-
-        const pagePromises = [];
-        for (let currentPage = 2; currentPage <= totalPages; currentPage++) {
-            console.log(`[TransactionRepository] Fetching page ${currentPage}`);
-            pagePromises.push(
-                api.fetchTransactionsByAccount(accountId, currentPage, 200)
-            );
-        }
-
-        console.log('[TransactionRepository] Waiting for all page responses');
-        const pagesResponses = await Promise.all(pagePromises);
-
-        const newTransactions: Transaction[] = [];
-        for (const pageResponse of pagesResponses) {
-            if (pageResponse.data.length > 0) {
-                console.log(`[TransactionRepository] Page response: ${pageResponse.data.length} transactions`);
-                newTransactions.push(...pageResponse.data);
-            }
-        }
-
-        if (newTransactions.length > 0) {
-            console.log(`[TransactionRepository] Saving ${newTransactions.length} additional transactions to DB`);
-            await database.persistTransactions(newTransactions, accountId);
-
-            console.log(`[TransactionRepository] Adding ${newTransactions.length} transactions to memory cache`);
-            this.memoryCache.push(...newTransactions);
-        } else {
-            console.log('[TransactionRepository] No additional transactions found in other pages');
-        }
-    }
-
     async cleanOldTransactions(): Promise<void> {
-        console.log('[TransactionRepository] Cleaning old transactions');
+        console.log('[TransactionRepository] Starting cleanup of old transactions');
         await database.cleanOldTransactions();
-        this.memoryCache = [];
-        console.log('[TransactionRepository] Memory cache cleared after cleaning old transactions');
+        runInAction(() => {
+            this.memoryCache.clear();
+            this.lastUpdateTimestamp = 0;
+        });
+        this.notifyUpdates();
+        console.log('[TransactionRepository] Cleanup completed - cache cleared');
     }
 }
 

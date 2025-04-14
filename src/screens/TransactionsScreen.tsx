@@ -24,11 +24,6 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
     transactionStore.setSearchQuery(localQuery);
   }, [localQuery]);
 
-  // const handleEndReached = () => {
-  //   if (!transactionStore.isLoading) {
-  //     transactionStore.loadMoreTransactions();
-  //   }
-  // };
 
   return (
     <View style={styles.container}>
@@ -40,7 +35,7 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
         autoCorrect={false}
       />
 
-      {transactionStore.isHydrating && transactionStore.inMemoryTransactions.length === 0 ? (
+      {transactionStore.transactions.length === 0 ? (
         <ActivityIndicator size="large" style={styles.loader} />
       ) : (
         <FlatList
@@ -50,7 +45,7 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
           // onEndReached={handleEndReached}
           // onEndReachedThreshold={0.5}
           ListFooterComponent={
-            transactionStore.isLoading && !transactionStore.isHydrating ? (
+            transactionStore.isLoading ? (
               <ActivityIndicator size="small" />
             ) : null
           }

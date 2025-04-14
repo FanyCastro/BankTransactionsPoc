@@ -1,13 +1,16 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { Transaction } from '../types/types';
 import { debounce } from '../utils/debounce';
 import { transactionRepository } from '../repositories/TransactionRepository';
+import { Transaction } from '../types/types';
+import { DataState } from '../types/DataState';
 
-class TransactionStore {
+export class TransactionStore {
     transactions: Transaction[] = [];
     filteredTransactions: Transaction[] = [];
-    currentAccountId = '';
-    searchQuery = '';
+    currentAccountId: string = '';
+    searchQuery: string = '';
+    isLoading: boolean = false;
+    error: string | null = null;
     private debouncedApplyFilters: (query: string) => void;
 
     constructor() {
@@ -17,8 +20,19 @@ class TransactionStore {
             300
         );
 
+        // Subscribe to repository updates
+        transactionRepository.onUpdate((transactions: Transaction[], isLoading: boolean) => {
+            runInAction(() => {
+                this.transactions = transactions;
+                this.isLoading = isLoading;
+                this.applyFilters(this.searchQuery);
+            });
+        });
+
         // Clean old transactions every week
-        setInterval(() => this.cleanOldTransactions(), 604800000);
+        setInterval(() => {
+            this.cleanOldTransactions();
+        }, 7 * 24 * 60 * 60 * 1000);
     }
 
     private applyFilters(query: string) {
@@ -35,28 +49,25 @@ class TransactionStore {
         }
     }
 
-    async syncTransactions() {
-        const result = await transactionRepository.getTransactions(this.currentAccountId, true);
-
-        runInAction(() => {
-            if (result.content) {
-                this.transactions = result.content;
-                this.applyFilters(this.searchQuery);
-            }
-        });
-    }
-
-    async setAccount(accountId: string) {
-        if (this.currentAccountId === accountId) { return; }
-
-        runInAction(() => {
-            this.currentAccountId = accountId;
-            this.transactions = [];
-            this.filteredTransactions = [];
-            this.searchQuery = '';
-        });
-
-        await this.syncTransactions();
+    setAccount(accountId: string) {
+        this.currentAccountId = accountId;
+        this.error = null;
+        
+        transactionRepository.getTransactions(accountId)
+            .then((result: DataState<Transaction[]>) => {
+                runInAction(() => {
+                    this.transactions = result.content;
+                    this.isLoading = result.loading;
+                    this.error = result.error;
+                });
+            })
+            .catch((error: unknown) => {
+                console.error('[TransactionStore] Error setting account:', error);
+                runInAction(() => {
+                    this.error = error instanceof Error ? error.message : 'An error occurred while loading transactions';
+                    this.isLoading = false;
+                });
+            });
     }
 
     setSearchQuery(query: string) {
@@ -65,8 +76,19 @@ class TransactionStore {
     }
 
     private async cleanOldTransactions() {
-        await transactionRepository.cleanOldTransactions();
-        await this.syncTransactions();
+        try {
+            await transactionRepository.cleanOldTransactions();
+        } catch (error) {
+            console.error('Error cleaning old transactions:', error);
+        }
+    }
+
+    cleanup() {
+        console.log('[TransactionStore] Cleaning up store');
+        this.transactions = [];
+        this.isLoading = false;
+        this.error = null;
+        this.currentAccountId = '';
     }
 }
 

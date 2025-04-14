@@ -1,7 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
 import { Transaction } from '../types/types';
 
-SQLite.DEBUG(true);
+SQLite.DEBUG(false);
 SQLite.enablePromise(true);
 
 const DB_NAME = 'bank_transactions.db';

@@ -1,123 +1,156 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.2 Chrome/134.0.6998.178 Electron/35.1.2 Safari/537.36" version="26.2.2">
-  <diagram id="architecture" name="Architecture">
-    <mxGraphModel dx="1108" dy="732" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-01-09T10:00:00.000Z" agent="Mozilla/5.0" version="21.7.4" etag="your-etag">
+  <diagram id="architecture-diagram" name="Architecture">
+    <mxGraphModel dx="1169" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="transaction-repo" value="TransactionRepository" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="40" width="320" height="280" as="geometry" />
+        
+        <!-- Application Layers -->
+        <mxCell id="app_layers" value="Application Layers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="200" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="memory-cache" value="+ memoryCache: Transaction[]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="26" width="320" height="26" as="geometry" />
+        
+        <mxCell id="ui_layer" value="UI (Screens and Components)&#xa;- Handles user interactions&#xa;- Displays transaction list&#xa;- Shows search interface" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="current-account" value="+ currentAccountId: string&#xa;3. Repository checks cache" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="52" width="320" height="26" as="geometry" />
+        
+        <mxCell id="store_layer" value="Store (MobX - TransactionStore)&#xa;- Manages UI state&#xa;- Handles data synchronization&#xa;- Performs local filtering" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="is-checking" value="+ isCheckingForUpdates: boolean&#xa;8. Update cache with new data" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="78" width="320" height="26" as="geometry" />
+        
+        <mxCell id="db_layer" value="Local Database (SQLite)&#xa;- Stores transactions&#xa;- Manages indices&#xa;- Handles data persistence" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="270" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="get-transactions" value="+ getTransactions(accountId: string, forceReload?: boolean): Promise&lt;DataState&lt;Transaction[]&gt;&gt;&#xa;4. Repository returns data" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="104" width="320" height="26" as="geometry" />
+        
+        <mxCell id="api_layer" value="API (Remote Server)&#xa;- Provides transaction data&#xa;- Supports pagination&#xa;- Returns updates" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="360" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="check-updates" value="- checkForUpdates(accountId: string): Promise&lt;void&gt;&#xa;6. Background update check" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="130" width="320" height="26" as="geometry" />
+
+        <!-- Main Data Flow -->
+        <mxCell id="data_flow" value="Main Data Flow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;" vertex="1" parent="1">
+          <mxGeometry x="280" y="40" width="200" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fetch-network" value="- fetchFromNetwork(accountId: string): Promise&lt;DataState&lt;Transaction[]&gt;&gt;&#xa;7. Fetch from network if needed" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="156" width="320" height="26" as="geometry" />
+        
+        <mxCell id="flow_init" value="1. Initialization&#xa;- User selects account&#xa;- Store clears memory&#xa;- State is reset" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="90" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="handle-pages" value="- handleOtherPages(response: any, accountId: string): Promise&lt;void&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="182" width="320" height="26" as="geometry" />
+        
+        <mxCell id="flow_hydration" value="2. Memory Hydration&#xa;- Load data in batches&#xa;- Sort by date&#xa;- Apply initial filters" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="180" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="clean-old" value="+ cleanOldTransactions(): Promise&lt;void&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-repo" vertex="1">
-          <mxGeometry y="208" width="320" height="26" as="geometry" />
+        
+        <mxCell id="flow_sync" value="3. Synchronization&#xa;- Check last transaction&#xa;- Get updates from API&#xa;- Process new data" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="270" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="transaction-store" value="TransactionStore" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="40" width="320" height="200" as="geometry" />
+
+        <mxCell id="flow_periodic" value="4. Periodic Sync&#xa;- 60-second interval&#xa;- Verify sync state&#xa;- Retry on errors" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="360" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="store-transactions" value="+ transactions: Transaction[]&#xa;5. Store updates UI" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-store" vertex="1">
-          <mxGeometry y="26" width="320" height="26" as="geometry" />
+
+        <!-- Synchronization Process Detail -->
+        <mxCell id="sync_process" value="Synchronization Process Detail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="920" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="store-filtered" value="+ filteredTransactions: Transaction[]&#xa;9. User searches" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-store" vertex="1">
-          <mxGeometry y="52" width="320" height="26" as="geometry" />
+
+        <mxCell id="sync_step1" value="S1. State Verification&#xa;- Verifies current state:&#xa;  IDLE: Starts sync&#xa;  SYNCING: Marks as busy&#xa;  ERROR: Clears error" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="530" width="140" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="store-account" value="+ currentAccountId: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-store" vertex="1">
-          <mxGeometry y="78" width="320" height="26" as="geometry" />
+
+        <mxCell id="sync_step2" value="S2. Last Transaction&#xa;- Gets last transaction&#xa;- Stores in lastKnownId&#xa;- Used for API comparison&#xa;- Optimizes sync" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="190" y="530" width="140" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="store-search" value="+ searchQuery: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-store" vertex="1">
-          <mxGeometry y="104" width="320" height="26" as="geometry" />
+
+        <mxCell id="sync_step3" value="S3. API Query&#xa;- Gets first page&#xa;- Checks for updates&#xa;- If no changes, ends&#xa;- Handles pagination" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="340" y="530" width="140" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="store-sync" value="+ syncTransactions(): Promise&lt;void&gt;&#xa;2. Store calls repository" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-store" vertex="1">
-          <mxGeometry y="130" width="320" height="26" as="geometry" />
+
+        <mxCell id="sync_step4" value="S4. Page Processing&#xa;- Identifies new data&#xa;- Updates existing&#xa;- Persists to database&#xa;- Updates memory" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="490" y="530" width="140" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="store-set-account" value="+ setAccount(accountId: string): Promise&lt;void&gt;&#xa;1. User selects account" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="transaction-store" vertex="1">
-          <mxGeometry y="156" width="320" height="26" as="geometry" />
+
+        <mxCell id="sync_step5" value="S5. State Update&#xa;- Marks as IDLE&#xa;- Updates timestamp&#xa;- Updates lastKnownId&#xa;- Triggers UI refresh" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="530" width="140" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="data-state" value="DataState&lt;T&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="760" y="40" width="200" height="130" as="geometry" />
+
+        <mxCell id="sync_step6" value="S6. Error Handling&#xa;- Marks as ERROR&#xa;- Stores error message&#xa;- Allows auto retry&#xa;- Updates UI state" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="790" y="530" width="140" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="data-content" value="+ content: T | null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="data-state" vertex="1">
-          <mxGeometry y="26" width="200" height="26" as="geometry" />
+
+        <!-- State Variables -->
+        <mxCell id="state_vars" value="State Variables" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="200" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="data-loading" value="+ loading: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="data-state" vertex="1">
-          <mxGeometry y="52" width="200" height="26" as="geometry" />
+        
+        <mxCell id="data_vars" value="Data Variables&#xa;inMemoryTransactions: Transaction[]&#xa;filteredTransactions: Transaction[]&#xa;currentAccountId: string&#xa;searchQuery: string" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="200" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="data-error" value="+ error: Error | null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="data-state" vertex="1">
-          <mxGeometry y="78" width="200" height="26" as="geometry" />
+        
+        <mxCell id="state_control" value="State Control&#xa;isLoading: boolean&#xa;isHydrating: boolean&#xa;allDataLoaded: boolean&#xa;syncState: SyncState" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="200" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="store-uses-repo" value="" style="endArrow=diamond;endFill=1;endSize=24;html=1;rounded=0;" parent="1" edge="1">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="400" y="140" as="sourcePoint" />
-            <mxPoint x="360" y="140" as="targetPoint" />
+
+        <mxCell id="control_vars" value="Control Variables&#xa;page: number&#xa;pageSize: number&#xa;lastSyncTimestamp: number&#xa;lastKnownTransactionId: string" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="310" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Database Structure -->
+        <mxCell id="db_structure" value="Database Structure" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;" vertex="1" parent="1">
+          <mxGeometry x="760" y="40" width="200" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="transactions_table" value="Transactions Table&#xa;id: TEXT PRIMARY KEY&#xa;accountId: TEXT NOT NULL&#xa;description: TEXT NOT NULL&#xa;amount: REAL NOT NULL" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="90" width="200" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="indices" value="Indices&#xa;idx_transactions_account_date:&#xa;(accountId, date DESC, id)&#xa;Used for efficient querying" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="200" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="db_methods" value="Database Methods&#xa;initDatabase()&#xa;persistTransactions()&#xa;getTransactionsByAccountId()&#xa;getLastTransactionId()" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="290" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Flow Arrows -->
+        <mxCell id="arrow1" value="1. Select Account" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ui_layer" target="store_layer">
+          <mxGeometry x="-0.5" y="20" relative="1" as="geometry">
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="repo-desc" value="Handles data fetching, caching,&#xa;and background updates" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="340" width="320" height="40" as="geometry" />
+        
+        <mxCell id="arrow2" value="2. Get/Store Data" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="store_layer" target="db_layer">
+          <mxGeometry x="-0.5" y="20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="repo-state-1" value="Initial state: []" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="390" width="320" height="30" as="geometry" />
+        
+        <mxCell id="arrow3" value="3. Sync Updates" style="endArrow=classic;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="db_layer" target="api_layer">
+          <mxGeometry x="-0.5" y="20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="repo-state-2" value="After fetch: [Transaction1, Transaction2, ...]" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="430" width="320" height="30" as="geometry" />
+
+        <!-- Sync Process Arrows -->
+        <mxCell id="sync_arrow1" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="sync_step1" target="sync_step2">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="repo-state-3" value="Initial state: &quot;&quot;" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="470" width="320" height="30" as="geometry" />
+        
+        <mxCell id="sync_arrow2" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="sync_step2" target="sync_step3">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="repo-state-4" value="After account selection: &quot;account123&quot;" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="510" width="320" height="30" as="geometry" />
+        
+        <mxCell id="sync_arrow3" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="sync_step3" target="sync_step4">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="repo-state-5" value="Initial state: false" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="550" width="320" height="30" as="geometry" />
+        
+        <mxCell id="sync_arrow4" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="sync_step4" target="sync_step5">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="repo-state-6" value="During update check: true" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="40" y="590" width="320" height="30" as="geometry" />
+        
+        <mxCell id="sync_arrow5" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="sync_step5" target="sync_step6">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="store-desc" value="Manages UI state and&#xa;transaction filtering" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="340" width="320" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-1" value="Initial state: []" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="390" width="320" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-2" value="After sync: [Transaction1, Transaction2, ...]" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="430" width="320" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-3" value="Initial state: []" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="470" width="320" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-4" value="After filtering: [FilteredTransaction1, ...]" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="510" width="320" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-5" value="Initial state: &quot;&quot;" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="550" width="320" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-6" value="After account selection: &quot;account123&quot;" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="590" width="320" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-7" value="Initial state: &quot;&quot;" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="630" width="320" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="store-state-8" value="After search: &quot;payment&quot;" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="400" y="670" width="320" height="30" as="geometry" />
-        </mxCell>
+
       </root>
     </mxGraphModel>
   </diagram>
