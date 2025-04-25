@@ -11,7 +11,7 @@ interface Database {
   initDatabase: () => Promise<SQLite.SQLiteDatabase>;
   persistTransactions: (transactions: Transaction[], accountId: string) => Promise<void>;
   getTransactionsByAccountId: (accountId: string, searchTerm?: string) => Promise<Transaction[]>;
-  getLastTransactionId: (accountId: string) => Promise<string | null>;
+  getTransactionById: (accountId: string, transactionId: string) => Promise<Transaction | null>;
   cleanOldTransactions: () => Promise<void>;
 }
 
@@ -179,19 +179,19 @@ const getTransactionsByAccountId = async (accountId: string): Promise<Transactio
 };
 
 
-const getLastTransactionId = async (accountId: string): Promise<string | null> => {
+const getTransactionById = async (accountId: string, transactionId: string): Promise<Transaction | null> => {
   console.log('[Database] Get last transaction id order by date desc');
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<Transaction>((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT id FROM transactions WHERE accountId = ? ORDER BY date DESC LIMIT 1;',
-        [accountId],
+        'SELECT id FROM transactions WHERE accountId = ? and id = ? ORDER BY date DESC LIMIT 1;',
+        [accountId, transactionId],
         (_, {rows}) => {
-          console.log(`***** Last transaction id ${rows.item(0)?.id}`);
-          resolve(rows.item(0)?.id ?? null);
+          console.log(`[Database] Get transaction by ID ${rows.item(0)?.id}`);
+          resolve(rows.item(0) ?? null);
         },
         (_, error) => {
-          console.error(`***** Error getting last transaction ID: ${error.message}`);
+          console.error(`[Database] Error getting transaction by ID: ${error.message}`);
           reject(new Error(`Error en consulta SQL: ${error.message}`));
           return false;
         }
@@ -233,7 +233,7 @@ const database: Database = {
   initDatabase,
   persistTransactions,
   getTransactionsByAccountId,
-  getLastTransactionId,
+  getTransactionById,
   cleanOldTransactions,
 };
 

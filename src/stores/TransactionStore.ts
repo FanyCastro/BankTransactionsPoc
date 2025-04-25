@@ -11,7 +11,7 @@ export class TransactionStore {
     searchQuery: string = '';
     isLoading: boolean = false;
     error: string | null = null;
-    private debouncedApplyFilters: (query: string) => void;
+    private debouncedApplyFilters: ((query: string) => void) & { cancel: () => void };
 
     constructor() {
         makeAutoObservable(this);
@@ -35,16 +35,22 @@ export class TransactionStore {
         }, 7 * 24 * 60 * 60 * 1000);
     }
 
+    private filterTransaction(transaction: Transaction, queryLower: string): boolean {
+        return (
+            transaction.description.toLowerCase().includes(queryLower) ||
+            transaction.amount.toString().includes(queryLower) ||
+            transaction.type.toLowerCase().includes(queryLower)
+        );
+    }
+
+
     private applyFilters(query: string) {
         if (!query) {
             this.filteredTransactions = [...this.transactions];
         } else {
             const queryLower = query.toLowerCase();
-            this.filteredTransactions = this.transactions.filter(
-                transaction =>
-                transaction.description.toLowerCase().includes(queryLower) ||
-                transaction.amount.toString().includes(query) ||
-                transaction.type.toLowerCase().includes(queryLower)
+            this.filteredTransactions = this.transactions.filter(transaction =>
+                this.filterTransaction(transaction, queryLower)
             );
         }
     }
@@ -52,7 +58,7 @@ export class TransactionStore {
     setAccount(accountId: string) {
         this.currentAccountId = accountId;
         this.error = null;
-        
+
         transactionRepository.getTransactions(accountId)
             .then((result: DataState<Transaction[]>) => {
                 runInAction(() => {
@@ -62,12 +68,16 @@ export class TransactionStore {
                 });
             })
             .catch((error: unknown) => {
-                console.error('[TransactionStore] Error setting account:', error);
-                runInAction(() => {
-                    this.error = error instanceof Error ? error.message : 'An error occurred while loading transactions';
-                    this.isLoading = false;
-                });
+                this.handleError(error, 'An error occurred while loading transactions');
             });
+    }
+
+    private handleError(error: unknown, defaultMessage: string): void {
+        console.error('[TransactionStore] Error:', error);
+        runInAction(() => {
+            this.error = error instanceof Error ? error.message : defaultMessage;
+            this.isLoading = false;
+        });
     }
 
     setSearchQuery(query: string) {
@@ -86,10 +96,17 @@ export class TransactionStore {
     cleanup() {
         console.log('[TransactionStore] Cleaning up store');
         this.transactions = [];
+        this.filteredTransactions = [];
         this.isLoading = false;
         this.error = null;
         this.currentAccountId = '';
+        this.searchQuery = '';
+        this.debouncedApplyFilters.cancel();
     }
+
+    cancelFetch() {
+        transactionRepository.cancelFetch();
+      }
 }
 
 export const transactionStore = new TransactionStore();

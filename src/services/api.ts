@@ -5,7 +5,7 @@ const API_BASE_URL = 'http://localhost:3000';
 
 interface ApiService {
   fetchAccounts: () => Promise<ApiResponse<Account>>;
-  fetchTransactionsByAccount: (accountId: string, page: number, size: number) => Promise<ApiResponse<Transaction>>;
+  fetchTransactionsByAccount: (accountId: string, page: number, size: number, options: { signal?: AbortSignal }) => Promise<ApiResponse<Transaction>>;
   checkForUpdates: (accountId: string, lastLocalUpdate: string | null) => Promise<boolean>;
 }
 
@@ -23,20 +23,28 @@ const fetchAccounts = async (): Promise<ApiResponse<Account>> => {
 const fetchTransactionsByAccount = async (
     accountId: string,
     page: number = 1,
-    size: number = 100): Promise<ApiResponse<Transaction>> => {
+    size: number = 100,
+    options: { signal?: AbortSignal } = {}): Promise<ApiResponse<Transaction>> => {
   try {
     const params = { accountId, ...(page && { page }), ...(size && { size }) };
-    const url = `${API_BASE_URL}/accounts/${accountId}/transactions`; 
-    const response = await axios.get<ApiResponse<Transaction>>(url, { params });
+    const url = `${API_BASE_URL}/accounts/${accountId}/transactions`;
+    const response = await axios.get<ApiResponse<Transaction>>(url, {
+      params,
+      signal: options.signal,
+     });
 
     if (!response.data || !Array.isArray(response.data.data)) {
-      throw new Error('La respuesta no tiene el formato esperado');
+      throw new Error('[Api] The response data is not in the expected format');
     }
 
     return response.data;
 
   } catch (error) {
-    console.error('Error fetching transactions:', error);
+    if (axios.isCancel(error)) {
+      console.warn('[Api] Request canceled:', error.message);
+    } else {
+      console.error('[Api] Error fetching transactions:', error);
+    }
     throw error;
   }
 };

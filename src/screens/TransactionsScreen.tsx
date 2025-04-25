@@ -14,8 +14,15 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
   const [localQuery, setLocalQuery] = useState('');
 
   useEffect(() => {
-    const init = async () => {
-      await transactionStore.setAccount(accountId);
+    const init = () => {
+      transactionStore.setAccount(accountId);
+
+      return () => {
+        console.log('[TransactionScreen] Cleaning up and canceling fetch');
+        transactionStore.cleanup(); 
+        transactionStore.cancelFetch();
+      };
+
     };
     init();
   }, [accountId]);
@@ -29,7 +36,7 @@ const TransactionsScreen: React.FC<Props> = observer(({ route }) => {
     <View style={styles.container}>
       <TextInput
         style={styles.searchInput}
-        placeholder="Buscar transacciones..."
+        placeholder="Search transactions ..."
         value={localQuery}
         onChangeText={setLocalQuery}
         autoCorrect={false}

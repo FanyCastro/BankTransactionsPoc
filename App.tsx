@@ -5,10 +5,11 @@ import database from './src/services/database';
 import AccountsScreen from './src/screens/AccountsScreen';
 import { RootStackParamList } from './src/types/types';
 import TransactionsScreen from './src/screens/TransactionsScreen';
+import MyWebComponent from './src/screens/MyWebComponent';
+import HomeScreen from './src/screens/HomeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-// Inicializar la base de datos al arrancar la app
 database.initDatabase().catch(err => {
   console.error('Failed to initialize database:', err);
 });
@@ -16,17 +17,11 @@ database.initDatabase().catch(err => {
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Accounts">
-        <Stack.Screen
-          name="Accounts"
-          component={AccountsScreen}
-          options={{ title: 'Mis Cuentas' }}
-        />
-        <Stack.Screen
-          name="Transactions"
-          component={TransactionsScreen}
-          options={{ title: 'Transacciones' }}
-        />
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
+        <Stack.Screen name="Accounts" component={AccountsScreen} options={{ title: 'My Accounts' }} />
+        <Stack.Screen name="Transactions" component={TransactionsScreen} options={{ title: 'Transactions' }} />
+        <Stack.Screen name="MyWebComponent" component={MyWebComponent} options={{ title: 'My Web Component' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
