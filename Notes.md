@@ -64,6 +64,12 @@ cd ..
 
 ```bash 
 adb shell am start -W -a android.intent.action.VIEW \
--d "https://test-android-deeplinks.s3.eu-west-2.amazonaws.com/accounts/123/transactions/123" \
+-d "https://test-android-deeplinks.s3.eu-west-2.amazonaws.com/accounts" \
+com.banktransactionspoc
+```
+
+```bash 
+adb shell am start -W -a android.intent.action.VIEW \
+-d "https://test-android-deeplinks.s3.eu-west-2.amazonaws.com/accounts/123/transactions" \
 com.banktransactionspoc
 ```

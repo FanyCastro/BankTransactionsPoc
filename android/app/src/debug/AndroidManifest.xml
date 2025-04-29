@@ -31,7 +31,7 @@
 
                 <!-- Individual path prefixes -->
                 <data android:pathPrefix="/accounts" />
-                <data android:pathPrefix="/transactions" />
+                <!-- <data android:pathPattern="/accounts/.*/transactions" /> -->
             </intent-filter>
 
         </activity>

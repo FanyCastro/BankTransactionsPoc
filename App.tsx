@@ -18,8 +18,17 @@ const linking = {
   prefixes: ['https://test-android-deeplinks.s3.eu-west-2.amazonaws.com'],
   config: {
     screens: {
-      Transactions: '/transactions',
-      Accounts: '/accounts',
+      Accounts: {
+        path: '/accounts',
+        exact: true,
+      },
+      Transactions: {
+        path: '/accounts/:accountId/transactions',
+        exact: true,
+        parse: {
+          accountId: String,
+        },
+      },
     },
   },
 };
