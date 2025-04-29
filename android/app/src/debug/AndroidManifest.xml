@@ -7,32 +7,34 @@
         tools:targetApi="28"
         tools:ignore="GoogleAppIndexingWarning">
 
-    <!-- Add this activity declaration -->
-    <activity
-        android:name=".MainActivity"
-        android:exported="true"
-        android:launchMode="singleTask">  <!-- Important for deep links -->
+        <!-- Add this activity declaration -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">  <!-- Important for deep links -->
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-        <!-- Add THIS intent-filter for deep links -->
-        <intent-filter android:autoVerify="true">
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
+            <!-- Add THIS intent-filter for deep links -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-            <!-- For HTTP/HTTPS URLs -->
-            <data
-                android:autoVerify="true"
-                android:scheme="https"
-                android:host="test-android-deeplinks.s3.eu-west-2.amazonaws.com"
-                android:pathPrefix="/accounts" />
-        </intent-filter>
+                <!-- For HTTP/HTTPS URLs -->
+                <!-- Base URL structure (scheme + host) -->
+                <data android:scheme="https" />
+                <data android:host="test-android-deeplinks.s3.eu-west-2.amazonaws.com" />
 
-    </activity>
+                <!-- Individual path prefixes -->
+                <data android:pathPrefix="/accounts" />
+                <data android:pathPrefix="/transactions" />
+            </intent-filter>
+
+        </activity>
 
     </application>
 
