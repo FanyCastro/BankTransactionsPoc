@@ -5,5 +5,35 @@
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="28"
-        tools:ignore="GoogleAppIndexingWarning"/>
+        tools:ignore="GoogleAppIndexingWarning">
+
+    <!-- Add this activity declaration -->
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:launchMode="singleTask">  <!-- Important for deep links -->
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        <!-- Add THIS intent-filter for deep links -->
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <!-- For HTTP/HTTPS URLs -->
+            <data
+                android:autoVerify="true"
+                android:scheme="https"
+                android:host="test-android-deeplinks.s3.eu-west-2.amazonaws.com"
+                android:pathPrefix="/accounts" />
+        </intent-filter>
+
+    </activity>
+
+    </application>
+
 </manifest>
