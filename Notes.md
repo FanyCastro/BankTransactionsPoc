@@ -50,3 +50,20 @@ When someone clicks on `https://bankpoc.com/transaction/123`:
     - Has the package com.banktransactionspoc
     - Is signed with the declared certificate
 4. If everything matches, it will directly open your app on the transaction screen for 123.
+
+---
+
+# ANDROID
+
+```bash 
+cd android
+./gradlew clean
+./gradlew assembleDebug
+cd ..
+````
+
+```bash 
+adb shell am start -W -a android.intent.action.VIEW \
+-d "https://test-android-deeplinks.s3.eu-west-2.amazonaws.com/accounts/123/transactions/123" \
+com.banktransactionspoc
+```
