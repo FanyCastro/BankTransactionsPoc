@@ -14,13 +14,32 @@ database.initDatabase().catch(err => {
   console.error('Failed to initialize database:', err);
 });
 
+const linking = {
+  prefixes: ['https://test-android-deeplinks.s3.eu-west-2.amazonaws.com'],
+  config: {
+    screens: {
+      Accounts: {
+        path: '/accounts',
+        exact: true,
+      },
+      Transactions: {
+        path: '/accounts/:accountId/transactions',
+        exact: true,
+        parse: {
+          accountId: String,
+        },
+      },
+    },
+  },
+};
+
 const App: React.FC = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
         <Stack.Screen name="Accounts" component={AccountsScreen} options={{ title: 'My Accounts' }} />
-        <Stack.Screen name="Transactions" component={TransactionsScreen} options={{ title: 'Transactions' }} />
+        <Stack.Screen name="Transactions" component={TransactionsScreen} options={{ title: 'List of Transactions' }} />
         <Stack.Screen name="MyWebComponent" component={MyWebComponent} options={{ title: 'My Web Component' }} />
       </Stack.Navigator>
     </NavigationContainer>
