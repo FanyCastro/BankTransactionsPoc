@@ -1,17 +1,22 @@
 // src/utils/debounce.ts
-export function debounce<T extends any[]>(
-  func: (...args: T) => void,
-  wait: number
-): (...args: T) => void {
+export function debounce<T extends (...args: any[]) => void>(func: T, wait: number) {
   let timeout: NodeJS.Timeout | null = null;
 
-  return (...args: T) => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-
-    timeout = setTimeout(() => {
-      func(...args);
-    }, wait);
+  const debounced = (...args: Parameters<T>) => {
+      if (timeout) {
+          clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+          func(...args);
+      }, wait);
   };
+
+  debounced.cancel = () => {
+      if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+      }
+  };
+
+  return debounced as T & { cancel: () => void };
 }

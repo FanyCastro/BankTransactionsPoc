@@ -1,7 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
 import { Transaction } from '../types/types';
 
-SQLite.DEBUG(true);
+SQLite.DEBUG(false);
 SQLite.enablePromise(true);
 
 const DB_NAME = 'bank_transactions.db';
@@ -11,8 +11,7 @@ interface Database {
   initDatabase: () => Promise<SQLite.SQLiteDatabase>;
   persistTransactions: (transactions: Transaction[], accountId: string) => Promise<void>;
   getTransactionsByAccountId: (accountId: string, searchTerm?: string) => Promise<Transaction[]>;
-  getLastTransactionId: (accountId: string) => Promise<string | null>;
-  getTransactionById: (transactionId: string) => Promise<Transaction | null>
+  getTransactionById: (accountId: string, transactionId: string) => Promise<Transaction | null>;
   cleanOldTransactions: () => Promise<void>;
 }
 
@@ -113,7 +112,7 @@ const persistTransactions = async (transactions: Transaction[], accountId: strin
       throw new Error('Database not initialized');
     }
 
-    console.log('***** Save transactions into the local database');
+    console.log('[Database] Save transactions into the local database');
     await new Promise<void>((resolve, reject) => {
       db.transaction(tx => {
         transactions.forEach(transaction => {
@@ -137,11 +136,11 @@ const persistTransactions = async (transactions: Transaction[], accountId: strin
               transaction.date,
             ],
             (_, result) => {
-              console.log(`Transacción guardada con éxito. Affected rows ${result.rowsAffected}`);
+              console.log(`[Database] Saving transacction... affected rows ${result.rowsAffected}`);
               resolve();
             },
             (_, error) => {
-              console.error('Error guardando transacción:', error);
+              console.error('Error saving transaction:', error);
               reject(error);
               return false;
             }
@@ -157,7 +156,7 @@ const persistTransactions = async (transactions: Transaction[], accountId: strin
 };
 
 const getTransactionsByAccountId = async (accountId: string): Promise<Transaction[]> => {
-  console.log('***** Get all transcations by account from API');
+  console.log('[Database] Get all transcations by account id');
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
@@ -179,38 +178,20 @@ const getTransactionsByAccountId = async (accountId: string): Promise<Transactio
   });
 };
 
-const getTransactionById = async (transactionId: string): Promise<Transaction | null> => {
+
+const getTransactionById = async (accountId: string, transactionId: string): Promise<Transaction | null> => {
+  console.log('[Database] Get last transaction id order by date desc');
   return new Promise<Transaction>((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT id FROM transactions WHERE id = ?;',
-        [transactionId],
+        'SELECT id FROM transactions WHERE accountId = ? and id = ? ORDER BY date DESC LIMIT 1;',
+        [accountId, transactionId],
         (_, {rows}) => {
-          resolve(rows.item(0)?.id ?? null);
+          console.log(`[Database] Get transaction by ID ${rows.item(0)?.id}`);
+          resolve(rows.item(0) ?? null);
         },
         (_, error) => {
-          console.error(`***** Error getting last transaction ID: ${error.message}`);
-          reject(new Error(`Error en consulta SQL: ${error.message}`));
-          return false;
-        }
-      );
-    });
-  });
-};
-
-const getLastTransactionId = async (accountId: string): Promise<string | null> => {
-  console.log('***** Get last transaction id from local Storage');
-  return new Promise<string>((resolve, reject) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT id FROM transactions WHERE accountId = ? ORDER BY date DESC LIMIT 1;',
-        [accountId],
-        (_, {rows}) => {
-          console.log(`***** Last transaction id ${rows.item(0)?.id}`);
-          resolve(rows.item(0)?.id ?? null);
-        },
-        (_, error) => {
-          console.error(`***** Error getting last transaction ID: ${error.message}`);
+          console.error(`[Database] Error getting transaction by ID: ${error.message}`);
           reject(new Error(`Error en consulta SQL: ${error.message}`));
           return false;
         }
@@ -252,7 +233,6 @@ const database: Database = {
   initDatabase,
   persistTransactions,
   getTransactionsByAccountId,
-  getLastTransactionId,
   getTransactionById,
   cleanOldTransactions,
 };

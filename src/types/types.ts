@@ -15,6 +15,10 @@ export interface Transaction {
     date: string;
 }
 
+export interface CachedTransaction extends Transaction {
+    mutable: boolean;
+}
+
 export interface ApiResponse<T> {
     data: T[];
     totalPages: number;
@@ -24,8 +28,10 @@ export interface ApiResponse<T> {
 }
 
 export type RootStackParamList = {
-Accounts: undefined;
-Transactions: { accountId: string };
+    Home: undefined;
+    Accounts: undefined;
+    Transactions: { accountId: string };
+    MyWebComponent: undefined;
 };
 
 export interface AccountCardProps {
